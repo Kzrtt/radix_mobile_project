@@ -24,6 +24,7 @@ import 'screens/teste.dart';
 /// Programador: Felipe Kurt Pohling
 /// Instagram: kurtt.kk
 /// Projeto Radix
+/// Testando se o Commit funciona
 
 void main() => runApp(MyApp());
 
