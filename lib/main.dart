@@ -36,7 +36,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Cliente cliente = const Cliente(
     idCliente: 1,
-    nomeCliente: 'Estudar Key',
+    nomeCliente: 'Cliente teste',
     cpfCliente: '',
     emailCliente: '',
     senhaCliente: '',
