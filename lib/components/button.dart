@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
           width: width,
           child: TextButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(color ? Color.fromRGBO(132, 202, 157, 1) : Colors.white),
+              backgroundColor: MaterialStateProperty.all<Color>(color ? Color.fromRGBO(132, 202, 157, 1) : Color.fromRGBO(235, 234, 232, 1)),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(

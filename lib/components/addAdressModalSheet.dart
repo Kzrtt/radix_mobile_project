@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:radix_mobile_project/components/button.dart';
 
 class AddAdressModalSheet extends StatefulWidget {
-  final void Function(String, String) onSubmit;
+  final void Function(String, String, String, String) onSubmit;
 
   AddAdressModalSheet(this.onSubmit);
 
@@ -13,12 +14,16 @@ class AddAdressModalSheet extends StatefulWidget {
 class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
   final apelidoEnderecoController = TextEditingController();
   final enderecoController = TextEditingController();
+  final numeroController = TextEditingController();
+  final complementoController = TextEditingController();
 
   _submitForm() {
-    final apelido = apelidoEnderecoController.text;
+    final apelidoEndereco = apelidoEnderecoController.text;
     final endereco = enderecoController.text;
+    final numero = numeroController.text;
+    final complemento = complementoController.text;
 
-    widget.onSubmit(apelido, endereco);
+    widget.onSubmit(apelidoEndereco, endereco, numero, complemento);
   }
 
   Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller) {
@@ -79,9 +84,9 @@ class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
                 Row(
                   children: [
                     SizedBox(width: constraints.maxWidth * .05),
-                    _textField(constraints.maxHeight * .1, constraints.maxWidth * .20, constraints, 'Número', apelidoEnderecoController),
+                    _textField(constraints.maxHeight * .1, constraints.maxWidth * .20, constraints, 'Número', numeroController),
                     SizedBox(width: constraints.maxWidth * .03),
-                    _textField(constraints.maxHeight * .1, constraints.maxWidth * .67, constraints, 'Complemento', apelidoEnderecoController),
+                    _textField(constraints.maxHeight * .1, constraints.maxWidth * .67, constraints, 'Complemento', complementoController),
                   ],
                 ),
                 SizedBox(height: constraints.maxHeight * .15),

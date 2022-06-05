@@ -29,7 +29,7 @@ class ProfileButton extends StatelessWidget {
         child: SizedBox(
           height: constraints.maxHeight * .13,
           child: ListTile(
-            contentPadding: EdgeInsets.only(top: constraints.maxHeight * .014),
+            contentPadding: EdgeInsets.only(top: constraints.maxHeight * .008),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),

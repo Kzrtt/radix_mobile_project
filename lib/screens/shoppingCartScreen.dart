@@ -83,6 +83,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
       body: LayoutBuilder(
         builder: ((context, constraints) {
@@ -91,16 +92,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               children: [
                 shoppingCartStatus
                     ? Container(
-                        margin:
-                            EdgeInsets.only(top: constraints.maxHeight * .07),
+                        margin: EdgeInsets.only(top: constraints.maxHeight * .07),
                         child: Column(
                           children: [
                             TextPlusImage(
                               firstText: 'Nenhum produto adicionado',
-                              imgUrl:
-                                  'assets/images/undraw_shopping_app_flsj.png',
-                              secondText:
-                                  'Adicione produtos a sua sacole depois retorne a essa sessão.',
+                              imgUrl: 'assets/images/undraw_shopping_app_flsj.png',
+                              secondText: 'Adicione produtos a sua sacole depois retorne a essa sessão.',
                               constraints: constraints,
                             ),
                             SizedBox(height: constraints.maxHeight * .05),

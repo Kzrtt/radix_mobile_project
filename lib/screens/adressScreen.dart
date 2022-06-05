@@ -33,11 +33,15 @@ class _AdressScreenState extends State<AdressScreen> {
     );
   }
 
-  void _addAdress(String apelido, String endereco) {
+  void _addAdress(String apelido, String endereco, String numero, String complemento) {
     final newAdress = Endereco(
-      id: Random().nextInt(100).toString(),
-      apelido: apelido,
+      idEndereco: Random().nextInt(100).toString(),
+      apelidoEndereco: apelido,
       endereco: endereco,
+      complemento: complemento,
+      isEnderecoPrincipal: false,
+      numero: numero,
+      statusEndereco: true,
     );
 
     setState(() {
@@ -49,7 +53,7 @@ class _AdressScreenState extends State<AdressScreen> {
 
   void _deleteAdress(String id) {
     setState(() {
-      _adress.removeWhere((a) => a.id == id);
+      _adress.removeWhere((a) => a.idEndereco == id);
     });
   }
 
@@ -112,6 +116,7 @@ class _AdressScreenState extends State<AdressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -157,8 +162,8 @@ class _AdressScreenState extends State<AdressScreen> {
                           final a = _adress[index];
                           return TrailingTile(
                             constraints: constraints,
-                            id: a.id,
-                            title: a.apelido,
+                            id: a.idEndereco,
+                            title: a.apelidoEndereco,
                             subTitle: a.endereco,
                             leadingIcon: Icons.home,
                             trailingIcon: Icons.delete,

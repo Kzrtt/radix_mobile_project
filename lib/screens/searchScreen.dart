@@ -180,6 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: appBar,
       body: LayoutBuilder(
@@ -255,7 +256,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       child: SizedBox(
                                         height: constraints.maxHeight * .14,
                                         child: ListTile(
-                                          contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001, constraints.maxHeight * .018, 0, 0),
+                                          contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001, constraints.maxHeight * .010, 0, 0),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(15),
                                           ),

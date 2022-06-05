@@ -135,8 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Color.fromRGBO(132, 202, 157, 1),
       elevation: 0,
       leading: Padding(
-        padding:
-            EdgeInsets.fromLTRB(appBarHeight * .2, appBarHeight * .3, 0, 0),
+        padding: EdgeInsets.fromLTRB(appBarHeight * .2, appBarHeight * .3, 0, 0),
         child: Text(
           'Editar',
           style: TextStyle(
@@ -147,12 +146,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       actions: [
         Padding(
-          padding:
-              EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
+          padding: EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
           child: InkWell(
             onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(AppRoutes.OPENINGSCREEN);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.OPENINGSCREEN);
             },
             child: Text(
               'Sair',
@@ -177,6 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBarProfile,
       body: LayoutBuilder(
         builder: ((context, constraints) {

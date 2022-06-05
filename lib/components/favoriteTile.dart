@@ -23,7 +23,7 @@ class FavoriteTile extends StatelessWidget {
         height: constraints.maxHeight * .14,
         child: ListTile(
           contentPadding: EdgeInsets.fromLTRB(
-            constraints.maxWidth * .01,
+            0,
             constraints.maxHeight * .03,
             0,
             0,

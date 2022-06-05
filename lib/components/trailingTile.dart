@@ -30,7 +30,7 @@ class TrailingTile extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.fromLTRB(
             constraints.maxWidth * .01,
-            constraints.maxHeight * .018,
+            constraints.maxHeight * .010,
             0,
             0,
           ),

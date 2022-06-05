@@ -71,6 +71,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -103,9 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(229, 229, 229, 0.90),
-                              width: constraints.maxWidth * .03),
+                          borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),

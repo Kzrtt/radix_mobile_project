@@ -95,8 +95,8 @@ List<Cliente> DUMMY_CLIENTS = [
   )
 ];
 
-const DUMMY_SALESMAN = [
-  Vendedor(
+List<Vendedor> DUMMY_SALESMAN = [
+  const Vendedor(
     idVendedor: 1,
     nomeVendedor: 'Carlos',
     cpfCnpjVendedor: '123.456.789-01',
@@ -137,7 +137,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 2,
     nomeVendedor: 'João',
     cpfCnpjVendedor: '123.456.789-02',
@@ -185,7 +185,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 3,
     nomeVendedor: 'Maria',
     cpfCnpjVendedor: '123.456.789-03',
@@ -226,7 +226,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 4,
     nomeVendedor: 'Larissa',
     cpfCnpjVendedor: '123.456.789-04',
@@ -267,7 +267,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 5,
     nomeVendedor: 'Lucas',
     cpfCnpjVendedor: '123.456.789-05',
@@ -308,7 +308,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 6,
     nomeVendedor: 'Alberto',
     cpfCnpjVendedor: '123.456.789-06',
@@ -356,7 +356,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 7,
     nomeVendedor: 'Bombom',
     cpfCnpjVendedor: '123.456.789-07',
@@ -397,7 +397,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 8,
     nomeVendedor: 'Ricardinho',
     cpfCnpjVendedor: '123.456.789-08',
@@ -438,7 +438,7 @@ const DUMMY_SALESMAN = [
       ),
     ],
   ),
-  Vendedor(
+  const Vendedor(
     idVendedor: 9,
     nomeVendedor: 'Sérgio',
     cpfCnpjVendedor: '123.456.789-09',

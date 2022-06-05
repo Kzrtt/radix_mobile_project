@@ -38,9 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(left: constraints.maxWidth * .07),
           child: Text(
             '\$ 19.99',
-            style: TextStyle(
-                fontSize: constraints.maxHeight * .02,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: constraints.maxHeight * .02, fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -56,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(left: constraints.maxWidth * .04),
           child: Text(
             title,
-            style: TextStyle(
-                fontSize: constraints.maxHeight * .035,
-                fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: constraints.maxHeight * .035, fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(height: constraints.maxHeight * .02),
@@ -146,8 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   );
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar,
       body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(

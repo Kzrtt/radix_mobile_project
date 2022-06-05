@@ -112,6 +112,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -138,8 +139,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     TextPlusImage(
                       firstText: 'Adicione uma forma de Pagamento',
                       imgUrl: 'assets/images/undraw_vault.png',
-                      secondText:
-                          'Adicione uma forma de pagamento para poder realizar compras em nosso app',
+                      secondText: 'Adicione uma forma de pagamento para poder realizar compras em nosso app',
                       constraints: constraints,
                     ),
                   ],
