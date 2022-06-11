@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
+import 'package:radix_mobile_project/model/item.dart';
+import 'package:radix_mobile_project/providers/cartProvider.dart';
 import '../components/imageContainer.dart';
 import '../utils/appRoutes.dart';
 
@@ -82,66 +85,65 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBar,
-      body: LayoutBuilder(
-        builder: ((context, constraints) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                shoppingCartStatus
-                    ? Container(
-                        margin: EdgeInsets.only(top: constraints.maxHeight * .07),
-                        child: Column(
-                          children: [
-                            TextPlusImage(
-                              firstText: 'Nenhum produto adicionado',
-                              imgUrl: 'assets/images/undraw_shopping_app_flsj.png',
-                              secondText: 'Adicione produtos a sua sacole depois retorne a essa sessão.',
-                              constraints: constraints,
-                            ),
-                            SizedBox(height: constraints.maxHeight * .05),
-                            Button(
-                              text: 'Começar a comprar',
-                              height: constraints.maxHeight * .1,
-                              width: constraints.maxWidth * .75,
-                              onTap: () {
-                                setState(() {
-                                  shoppingCartStatus = !shoppingCartStatus;
-                                });
-                              },
-                              color: true,
-                            ),
-                          ],
-                        ),
-                      )
-                    : Center(
-                        child: Column(
-                          children: [
-                            SizedBox(height: constraints.maxHeight * .3),
-                            const Text('Esvaziar Carrinho'),
-                            SizedBox(height: constraints.maxHeight * .1),
-                            Button(
-                              text: 'Esvaziar Carrinho',
-                              height: constraints.maxHeight * .1,
-                              width: constraints.maxWidth * .75,
-                              onTap: () {
-                                setState(() {
-                                  shoppingCartStatus = !shoppingCartStatus;
-                                });
-                              },
-                              color: true,
-                            ),
-                          ],
-                        ),
+    return LayoutBuilder(
+      builder: ((context, constraints) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              context.watch<CartProvider>().items.isEmpty
+                  ? Container(
+                      margin: EdgeInsets.only(top: constraints.maxHeight * .07),
+                      child: Column(
+                        children: [
+                          TextPlusImage(
+                            firstText: 'Nenhum produto adicionado',
+                            imgUrl: 'assets/images/undraw_shopping_app_flsj.png',
+                            secondText: 'Adicione produtos a sua sacole depois retorne a essa sessão.',
+                            constraints: constraints,
+                          ),
+                          SizedBox(height: constraints.maxHeight * .05),
+                          Button(
+                            text: 'Começar a comprar',
+                            height: constraints.maxHeight * .1,
+                            width: constraints.maxWidth * .75,
+                            onTap: () {
+                              setState(() {
+                                shoppingCartStatus = !shoppingCartStatus;
+                              });
+                            },
+                            color: true,
+                          ),
+                        ],
                       ),
-              ],
-            ),
-          );
-        }),
-      ),
-      bottomNavigationBar: bottomNavigationBar,
+                    )
+                  : Column(
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: context.watch<CartProvider>().items.length,
+                          itemBuilder: (context, index) {
+                            Item i = context.watch<CartProvider>().items[index];
+                            return ListTile(
+                              leading: Text(i.quantity.toString()),
+                              title: Text(i.produto.nomeProduto),
+                              trailing: Text(i.total.toString()),
+                            );
+                          },
+                        ),
+                        SizedBox(height: constraints.maxHeight * .3),
+                        Button(
+                          text: 'Limpar Carrinho',
+                          onTap: () => Provider.of<CartProvider>(context, listen: false).clearCart(),
+                          height: constraints.maxHeight * .1,
+                          width: constraints.maxWidth * .5,
+                          color: true,
+                        ),
+                      ],
+                    ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

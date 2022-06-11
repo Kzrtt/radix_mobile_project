@@ -1,12 +1,17 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unrelated_type_equality_checks
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/components/salesmanTile.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
+import 'package:radix_mobile_project/model/item.dart';
 import 'package:radix_mobile_project/model/produtos.dart';
 import 'package:radix_mobile_project/model/vendedor.dart';
+import 'package:radix_mobile_project/providers/cartProvider.dart';
 import '../data/dummyData.dart';
 
 class SalesmanScreen extends StatefulWidget {
@@ -19,13 +24,14 @@ class _SalesmanScreen extends State<SalesmanScreen> {
   int _productQuantity = 1;
 
   void _openProductModalSheet(BuildContext context, Produtos produto) {
+    final provider = Provider.of<CartProvider>(context, listen: false);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * .60,
+          height: MediaQuery.of(context).size.height * .70,
           child: LayoutBuilder(
             builder: (context, constraints) {
               return ClipRRect(
@@ -40,12 +46,51 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: constraints.maxHeight * .1),
+                      SizedBox(height: constraints.maxHeight * .06),
                       Text(
                         produto.nomeProduto,
                         style: TextStyle(fontSize: constraints.maxHeight * .05, color: Colors.white),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
+                      SizedBox(
+                        height: constraints.maxHeight * .35,
+                        width: constraints.maxWidth * .5,
+                        child: Image.asset('assets/images/amoras.png'),
+                      ),
+                      SizedBox(height: constraints.maxHeight * .08),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(onPressed: () => provider.inc(), icon: Icon(Icons.add, color: Colors.white)),
+                          Text(
+                            context.watch<CartProvider>().quantity.toString(),
+                            style: TextStyle(
+                              fontSize: constraints.maxHeight * .05,
+                              color: Colors.white,
+                            ),
+                          ),
+                          IconButton(onPressed: () => provider.dec(), icon: Icon(Icons.remove, color: Colors.white)),
+                        ],
+                      ),
+                      SizedBox(height: constraints.maxHeight * .08),
+                      Button(
+                        text: 'Adicionar ao Carrinho',
+                        onTap: () {
+                          Item item = Item(
+                            idItem: Random().nextDouble().toString(),
+                            produto: produto,
+                            quantity: provider.quantity,
+                            total: produto.preco * provider.quantity,
+                          );
+
+                          provider.addToCart(item);
+
+                          Navigator.of(context).pop();
+                        },
+                        height: constraints.maxHeight * .1,
+                        width: constraints.maxWidth * .5,
+                        color: false,
+                      ),
                     ],
                   ),
                 ),
@@ -143,7 +188,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                       ),
                                       SizedBox(height: constraints.maxHeight * .01),
                                       Text(
-                                        'R\$ 40,00',
+                                        'R\$ ${p.preco}',
                                         style: TextStyle(fontSize: constraints.maxHeight * .06, fontWeight: FontWeight.w400, color: Color.fromRGBO(132, 202, 157, 1)),
                                         textAlign: TextAlign.justify,
                                       ),

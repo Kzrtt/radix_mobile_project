@@ -1,16 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
+import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 import '../components/profileButton.dart';
 import '../model/cliente.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final Cliente user;
-
-  ProfileScreen(this.user);
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -173,95 +171,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBarProfile,
-      body: LayoutBuilder(
-        builder: ((context, constraints) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                // Container(
-                //   height: constraints.maxHeight * .15,
-                //   decoration: BoxDecoration(
-                //     color: Color.fromRGBO(132, 202, 157, 1),
-                //   ),
-                //   child: ,
-                // ),
-                SizedBox(height: constraints.maxHeight * .05),
-                Text(
-                  widget.user.nomeCliente,
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return LayoutBuilder(
+      builder: ((context, constraints) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              // Container(
+              //   height: constraints.maxHeight * .15,
+              //   decoration: BoxDecoration(
+              //     color: Color.fromRGBO(132, 202, 157, 1),
+              //   ),
+              //   child: ,
+              // ),
+              SizedBox(height: constraints.maxHeight * .05),
+              Text(
+                context.watch<ClientProvider>().user.nomeCliente,
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: constraints.maxHeight * .04),
-                ProfileButton(
-                  title: 'Pagamentos',
-                  subTitle: 'Formas de pagamento',
-                  constraints: constraints,
-                  leading: Icons.account_balance_wallet_outlined,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToPaymentScreen,
-                ),
-                ProfileButton(
-                  title: 'Chats',
-                  subTitle: 'Conversas com vendedores',
-                  constraints: constraints,
-                  leading: Icons.chat_bubble_outline_outlined,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToChatScreen,
-                ),
-                ProfileButton(
-                  title: 'Cupons',
-                  subTitle: 'Cupons de desconto',
-                  constraints: constraints,
-                  leading: Icons.local_attraction_outlined,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToCuponScreen,
-                ),
-                ProfileButton(
-                  title: 'Favoritos',
-                  subTitle: 'Vendedores favoritos',
-                  constraints: constraints,
-                  leading: Icons.favorite_border_outlined,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToFavoritesScreen,
-                ),
-                ProfileButton(
-                  title: 'Endereços',
-                  subTitle: 'Endereços para entrega',
-                  constraints: constraints,
-                  leading: Icons.location_on_outlined,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToAdressScreen,
-                ),
-                ProfileButton(
-                  title: 'Histórico',
-                  subTitle: 'Confira suas últimas compras',
-                  constraints: constraints,
-                  leading: Icons.history_sharp,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToHistoricScreen,
-                ),
-                ProfileButton(
-                  title: 'Feedbacks',
-                  subTitle: 'Envie um feedback para equipe Radix',
-                  constraints: constraints,
-                  leading: Icons.eco_sharp,
-                  traicing: Icons.arrow_forward_ios_outlined,
-                  route: _goToFeedbacksScreen,
-                ),
-                SizedBox(
-                  height: constraints.maxHeight * .1,
-                )
-              ],
-            ),
-          );
-        }),
-      ),
-      bottomNavigationBar: bottomNavigationBar,
+              ),
+              SizedBox(height: constraints.maxHeight * .04),
+              ProfileButton(
+                title: 'Pagamentos',
+                subTitle: 'Formas de pagamento',
+                constraints: constraints,
+                leading: Icons.account_balance_wallet_outlined,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToPaymentScreen,
+              ),
+              ProfileButton(
+                title: 'Chats',
+                subTitle: 'Conversas com vendedores',
+                constraints: constraints,
+                leading: Icons.chat_bubble_outline_outlined,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToChatScreen,
+              ),
+              ProfileButton(
+                title: 'Cupons',
+                subTitle: 'Cupons de desconto',
+                constraints: constraints,
+                leading: Icons.local_attraction_outlined,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToCuponScreen,
+              ),
+              ProfileButton(
+                title: 'Favoritos',
+                subTitle: 'Vendedores favoritos',
+                constraints: constraints,
+                leading: Icons.favorite_border_outlined,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToFavoritesScreen,
+              ),
+              ProfileButton(
+                title: 'Endereços',
+                subTitle: 'Endereços para entrega',
+                constraints: constraints,
+                leading: Icons.location_on_outlined,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToAdressScreen,
+              ),
+              ProfileButton(
+                title: 'Histórico',
+                subTitle: 'Confira suas últimas compras',
+                constraints: constraints,
+                leading: Icons.history_sharp,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToHistoricScreen,
+              ),
+              ProfileButton(
+                title: 'Feedbacks',
+                subTitle: 'Envie um feedback para equipe Radix',
+                constraints: constraints,
+                leading: Icons.eco_sharp,
+                traicing: Icons.arrow_forward_ios_outlined,
+                route: _goToFeedbacksScreen,
+              ),
+              SizedBox(
+                height: constraints.maxHeight * .1,
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 }

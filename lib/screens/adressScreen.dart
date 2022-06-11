@@ -1,13 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:radix_mobile_project/components/button.dart';
-import 'package:radix_mobile_project/components/defaultTile.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/components/trailingTile.dart';
 import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
-import 'package:radix_mobile_project/components/addPaymentMethodModalSheet.dart';
+import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 class AdressScreen extends StatefulWidget {
@@ -17,7 +15,6 @@ class AdressScreen extends StatefulWidget {
 
 class _AdressScreenState extends State<AdressScreen> {
   int _currentIndex = 3;
-  final _adress = <Endereco>[];
 
   void _openAddAdressModalSheet(BuildContext context) {
     showModalBottomSheet(
@@ -27,34 +24,10 @@ class _AdressScreenState extends State<AdressScreen> {
       builder: (_) {
         return SizedBox(
           height: MediaQuery.of(context).size.height * .80,
-          child: AddAdressModalSheet(_addAdress),
+          child: AddAdressModalSheet(),
         );
       },
     );
-  }
-
-  void _addAdress(String apelido, String endereco, String numero, String complemento) {
-    final newAdress = Endereco(
-      idEndereco: Random().nextInt(100).toString(),
-      apelidoEndereco: apelido,
-      endereco: endereco,
-      complemento: complemento,
-      isEnderecoPrincipal: false,
-      numero: numero,
-      statusEndereco: true,
-    );
-
-    setState(() {
-      _adress.add(newAdress);
-    });
-
-    Navigator.of(context).pop();
-  }
-
-  void _deleteAdress(String id) {
-    setState(() {
-      _adress.removeWhere((a) => a.idEndereco == id);
-    });
   }
 
   Widget get bottomNavigationBar {
@@ -115,6 +88,8 @@ class _AdressScreenState extends State<AdressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _adress = context.watch<AdressProvider>().getAdress;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -167,7 +142,6 @@ class _AdressScreenState extends State<AdressScreen> {
                             subTitle: a.endereco,
                             leadingIcon: Icons.home,
                             trailingIcon: Icons.delete,
-                            deleteFunction: _deleteAdress,
                             color: true,
                           );
                         },

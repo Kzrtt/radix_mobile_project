@@ -1,4 +1,9 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:radix_mobile_project/providers/adressProvider.dart';
+import 'package:radix_mobile_project/providers/paymentProvider.dart';
 
 class TrailingTile extends StatelessWidget {
   final constraints;
@@ -7,7 +12,6 @@ class TrailingTile extends StatelessWidget {
   final String subTitle;
   final leadingIcon;
   final trailingIcon;
-  final void Function(String) deleteFunction;
   final bool color;
 
   TrailingTile({
@@ -17,7 +21,6 @@ class TrailingTile extends StatelessWidget {
     this.subTitle = '',
     required this.leadingIcon,
     required this.trailingIcon,
-    required this.deleteFunction,
     required this.color,
   });
 
@@ -66,7 +69,7 @@ class TrailingTile extends StatelessWidget {
             child: IconButton(
               icon: Icon(trailingIcon),
               color: color ? Colors.red : Colors.black,
-              onPressed: () => deleteFunction(id),
+              onPressed: () => leadingIcon == Icons.account_balance_wallet_outlined ? Provider.of<PaymentProvider>(context, listen: false).deleteCartao(id) : Provider.of<AdressProvider>(context, listen: false).deleteAdress(id),
             ),
           ),
         ),

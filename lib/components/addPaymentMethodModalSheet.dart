@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:radix_mobile_project/providers/paymentProvider.dart';
+import '../model/cartao.dart';
 import 'button.dart';
 
 class AddPaymentMethodModalSheet extends StatefulWidget {
-  final void Function(String, String) onSubmit;
-
-  AddPaymentMethodModalSheet(this.onSubmit);
-
   @override
   State<AddPaymentMethodModalSheet> createState() => _AddPaymentMethodModalSheet();
 }
@@ -14,11 +15,16 @@ class _AddPaymentMethodModalSheet extends State<AddPaymentMethodModalSheet> {
   final numeroController = TextEditingController();
   final apelidoController = TextEditingController();
 
-  _submitForm() {
-    final numeroCartao = numeroController.text;
-    final apelidoCartao = apelidoController.text;
+  Cartao _x(String n, String a) {
+    Cartao cartao = Cartao(
+      idCartao: Random().nextDouble().toString(),
+      apelidoCartao: a,
+      numerosCartao: n,
+    );
 
-    widget.onSubmit(apelidoCartao, numeroCartao);
+    Navigator.of(context).pop();
+
+    return cartao;
   }
 
   Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller) {
@@ -89,7 +95,9 @@ class _AddPaymentMethodModalSheet extends State<AddPaymentMethodModalSheet> {
                 SizedBox(height: constraints.maxHeight * .10),
                 Button(
                   text: 'Adicionar Forma de Pagamento',
-                  onTap: _submitForm,
+                  onTap: () => Provider.of<PaymentProvider>(context, listen: false).addCartao(
+                    _x(numeroController.text, apelidoController.text),
+                  ),
                   height: constraints.maxHeight * .1,
                   width: constraints.maxWidth * .85,
                   color: true,

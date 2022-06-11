@@ -67,24 +67,22 @@ class _HomeState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)?.settings.arguments as Cliente;
-    final mediaQuery = MediaQuery.of(context);
     final List<String> _screensTitle = ['Home', 'Busca', 'Carrinho de Compras', 'Perfil'];
 
     final appBar = AppBar(
+      centerTitle: true,
       backgroundColor: Colors.white,
       elevation: 4,
-      title: Center(
-        child: Text(
-          _screensTitle[_currentIndex],
-          style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
-        ),
+      title: Text(
+        _screensTitle[_currentIndex],
+        style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
       ),
     );
 
     double appBarHeight = appBar.preferredSize.height;
 
     final appBarProfile = AppBar(
+      centerTitle: true,
       backgroundColor: Color.fromRGBO(132, 202, 157, 1),
       elevation: 0,
       leading: Padding(
@@ -130,7 +128,7 @@ class _HomeState extends State<HomeTab> {
       HomeScreen(),
       SearchScreen(),
       ShoppingCartScreen(),
-      ProfileScreen(user),
+      ProfileScreen(),
     ];
 
     if (_screensTitle[_currentIndex] != 'Perfil') {

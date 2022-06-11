@@ -133,7 +133,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   title: 'Amoras do Ricardinho',
                   leadingIcon: Icons.abc,
                   trailingIcon: Icons.more_vert,
-                  deleteFunction: (String a) {},
                   color: false,
                 ),
                 TrailingTile(
@@ -143,7 +142,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   title: 'Batatas da Maria',
                   leadingIcon: Icons.abc,
                   trailingIcon: Icons.more_vert,
-                  deleteFunction: (String a) {},
                   color: false,
                 ),
                 TrailingTile(
@@ -153,7 +151,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   title: 'Alfaces do Luiz Carlos',
                   leadingIcon: Icons.abc,
                   trailingIcon: Icons.more_vert,
-                  deleteFunction: (String a) {},
                   color: false,
                 ),
               ],

@@ -3,9 +3,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/addPaymentMethodModalSheet.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/model/cartao.dart';
+import 'package:radix_mobile_project/providers/paymentProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 import '../components/trailingTile.dart';
@@ -17,27 +19,6 @@ class PaymentMethodScreen extends StatefulWidget {
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   int _currentIndex = 3;
-  final _cartoes = <Cartao>[];
-
-  void _addCard(String apelido, String numero) {
-    final newCard = Cartao(
-      idCartao: Random().nextInt(100).toString(),
-      apelidoCartao: apelido,
-      numerosCartao: numero,
-    );
-
-    setState(() {
-      _cartoes.add(newCard);
-    });
-
-    Navigator.of(context).pop();
-  }
-
-  void _deleteCard(String id) {
-    setState(() {
-      _cartoes.removeWhere((c) => c.idCartao == id);
-    });
-  }
 
   void _openAddPaymentMethodModalSheet(BuildContext context) {
     showModalBottomSheet(
@@ -47,7 +28,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       builder: (_) {
         return SizedBox(
           height: MediaQuery.of(context).size.height * .80,
-          child: AddPaymentMethodModalSheet(_addCard),
+          child: AddPaymentMethodModalSheet(),
         );
       },
     );
@@ -111,6 +92,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _cartoes = context.watch<PaymentProvider>().getCartoes;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -163,7 +146,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                             subTitle: c.numerosCartao,
                             leadingIcon: Icons.account_balance_wallet_outlined,
                             trailingIcon: Icons.delete,
-                            deleteFunction: _deleteCard,
                             color: true,
                           );
                         },

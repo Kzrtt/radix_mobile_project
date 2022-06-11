@@ -179,139 +179,133 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      appBar: appBar,
-      body: LayoutBuilder(
-        builder: ((context, constraints) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: constraints.maxHeight * .04),
-                Center(
-                  child: SizedBox(
-                    height: constraints.maxHeight * .12,
-                    width: constraints.maxWidth * .95,
-                    child: TextField(
-                      onChanged: ((value) => _salesmanList = _onSearched(DUMMY_SALESMAN, value)),
-                      controller: searchController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+    return LayoutBuilder(
+      builder: ((context, constraints) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: constraints.maxHeight * .04),
+              Center(
+                child: SizedBox(
+                  height: constraints.maxHeight * .12,
+                  width: constraints.maxWidth * .95,
+                  child: TextField(
+                    onChanged: ((value) => _salesmanList = _onSearched(DUMMY_SALESMAN, value)),
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
                         ),
-                        suffixIcon: GestureDetector(
-                          onTap: () => _salesmanList = _onSearched(DUMMY_SALESMAN, searchController.text),
-                          child: const Icon(
-                            Icons.search,
-                            color: Color.fromRGBO(108, 168, 129, 1),
-                          ),
+                      ),
+                      suffixIcon: GestureDetector(
+                        onTap: () => _salesmanList = _onSearched(DUMMY_SALESMAN, searchController.text),
+                        child: const Icon(
+                          Icons.search,
+                          color: Color.fromRGBO(108, 168, 129, 1),
                         ),
-                        hintText: 'Pesquisar vendedores ou produtos',
-                        hintStyle: const TextStyle(
-                          fontSize: 12,
-                        ),
+                      ),
+                      hintText: 'Pesquisar vendedores ou produtos',
+                      hintStyle: const TextStyle(
+                        fontSize: 12,
                       ),
                     ),
                   ),
                 ),
-                _salesmanList.isEmpty
-                    ? Column(
-                        children: [
-                          TextPlusImage(
-                            firstText: 'Faça sua Pesquisa',
-                            imgUrl: 'assets/images/undraw_Searching_re_3ra9.png',
-                            secondText: 'Procure produtos para compra e vendedores para contato',
-                            constraints: constraints,
-                          ),
-                        ],
-                      )
-                    : SingleChildScrollView(
-                        physics: ScrollPhysics(),
-                        child: SizedBox(
-                          width: constraints.maxWidth * 1,
-                          child: Column(
-                            children: [
-                              ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _salesmanList.length,
-                                itemBuilder: (context, index) {
-                                  final v = _salesmanList[index];
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        AppRoutes.SALESMANPROFILE,
-                                        arguments: v,
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.all(constraints.maxHeight * .02),
-                                      child: SizedBox(
-                                        height: constraints.maxHeight * .14,
-                                        child: ListTile(
-                                          contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001, constraints.maxHeight * .010, 0, 0),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15),
+              ),
+              _salesmanList.isEmpty
+                  ? Column(
+                      children: [
+                        TextPlusImage(
+                          firstText: 'Faça sua Pesquisa',
+                          imgUrl: 'assets/images/undraw_Searching_re_3ra9.png',
+                          secondText: 'Procure produtos para compra e vendedores para contato',
+                          constraints: constraints,
+                        ),
+                      ],
+                    )
+                  : SingleChildScrollView(
+                      physics: ScrollPhysics(),
+                      child: SizedBox(
+                        width: constraints.maxWidth * 1,
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _salesmanList.length,
+                              itemBuilder: (context, index) {
+                                final v = _salesmanList[index];
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRoutes.SALESMANPROFILE,
+                                      arguments: v,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(constraints.maxHeight * .02),
+                                    child: SizedBox(
+                                      height: constraints.maxHeight * .14,
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001, constraints.maxHeight * .010, 0, 0),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        tileColor: const Color.fromRGBO(237, 233, 232, .7),
+                                        leading: CircleAvatar(
+                                          backgroundColor: Colors.black12,
+                                          radius: 50,
+                                          child: Icon(
+                                            Icons.abc,
+                                            size: constraints.maxHeight * .06,
+                                            color: const Color.fromRGBO(108, 168, 129, 1),
                                           ),
-                                          tileColor: const Color.fromRGBO(237, 233, 232, .7),
-                                          leading: CircleAvatar(
-                                            backgroundColor: Colors.black12,
-                                            radius: 50,
-                                            child: Icon(
-                                              Icons.abc,
-                                              size: constraints.maxHeight * .06,
-                                              color: const Color.fromRGBO(108, 168, 129, 1),
-                                            ),
+                                        ),
+                                        title: Text(
+                                          v.nomeVendedor,
+                                          style: TextStyle(
+                                            fontSize: constraints.maxHeight * .035,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          title: Text(
-                                            v.nomeVendedor,
-                                            style: TextStyle(
-                                              fontSize: constraints.maxHeight * .035,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        ),
+                                        subtitle: Text(
+                                          v.enderecoVendedor,
+                                          style: TextStyle(
+                                            fontSize: constraints.maxHeight * .025,
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                          subtitle: Text(
-                                            v.enderecoVendedor,
-                                            style: TextStyle(
-                                              fontSize: constraints.maxHeight * .025,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          trailing: Padding(
-                                            padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .020, 0, constraints.maxWidth * .01),
-                                            child: SizedBox(
-                                              width: constraints.maxWidth * .14,
-                                              child: Column(
-                                                children: [
-                                                  _seloProdutos(v.selo),
-                                                ],
-                                              ),
+                                        ),
+                                        trailing: Padding(
+                                          padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .020, 0, constraints.maxWidth * .01),
+                                          child: SizedBox(
+                                            width: constraints.maxWidth * .14,
+                                            child: Column(
+                                              children: [
+                                                _seloProdutos(v.selo),
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                SizedBox(height: constraints.maxHeight * .25),
-              ],
-            ),
-          );
-        }),
-      ),
-      bottomNavigationBar: bottomNavigationBar,
+                    ),
+              SizedBox(height: constraints.maxHeight * .25),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

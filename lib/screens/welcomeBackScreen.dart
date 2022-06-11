@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/data/dummyData.dart';
+import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 import '../model/cliente.dart';
@@ -22,28 +24,41 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
 
-  List<Cliente> _clientes = DUMMY_CLIENTS;
-
-  void _addCliente(String nome, String email, String senha,
-      String senhaValidation, String cpf) {
-    final newClient = Cliente(
-      idCliente: Random().nextInt(100),
-      nomeCliente: nome,
-      cpfCliente: cpf,
-      emailCliente: email,
-      senhaCliente: senha,
+  Cliente _x(String n, String c, String e, String s) {
+    Cliente cliente = Cliente(
+      idCliente: Random().nextDouble().toInt(),
+      nomeCliente: n,
+      cpfCliente: c,
+      emailCliente: e,
+      senhaCliente: s,
       statusContaCliente: true,
     );
 
-    if (senha == senhaValidation) {
-      setState(
-        () {
-          _clientes.add(newClient);
-        },
-      );
-    }
+    return cliente;
+  }
 
-    Navigator.of(context).pop();
+  Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller) {
+    return SizedBox(
+      height: height,
+      width: width,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          hintText: text,
+          hintStyle: TextStyle(
+            fontSize: constraints.maxHeight * .02,
+          ),
+        ),
+      ),
+    );
   }
 
   void _openAddAdressModalSheet(BuildContext context) {
@@ -79,51 +94,28 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                         ),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu nome',
-                          nomeFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu nome', nomeFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu email',
-                          emailFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu email', emailFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu cpf',
-                          cpfFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu cpf', cpfFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'senha',
-                          senhaFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'senha', senhaFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'confirme sua senha',
-                          senhaFormValidationController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'confirme sua senha', senhaFormValidationController),
                       SizedBox(height: constraints.maxHeight * .02),
                       SizedBox(height: constraints.maxHeight * .10),
                       Button(
                         text: 'Registrar-se',
-                        onTap: () => _addCliente(
-                          nomeFormController.text,
-                          emailFormController.text,
-                          senhaFormController.text,
-                          senhaFormValidationController.text,
-                          cpfFormController.text,
-                        ),
+                        onTap: () {
+                          if (senhaFormController.text == senhaFormValidationController.text) {
+                            Provider.of<ClientProvider>(context, listen: false).addCliente(
+                              _x(nomeFormController.text, cpfFormController.text, emailFormController.text, senhaFormController.text),
+                            );
+                          }
+
+                          Navigator.of(context).pop();
+                        },
                         height: constraints.maxHeight * .1,
                         width: constraints.maxWidth * .75,
                         color: true,
@@ -139,54 +131,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     );
   }
 
-  String _loginValidade(List<Cliente> clientes, String email, String senha) {
-    String retorno = '';
-
-    clientes.forEach(
-      (c) {
-        if (c.emailCliente == email && c.senhaCliente == senha) {
-          retorno = 'Sucesso';
-          Navigator.pushReplacementNamed(
-            context,
-            AppRoutes.HOME,
-            arguments: c,
-          );
-        } else {
-          retorno = 'Erro';
-        }
-      },
-    );
-
-    return retorno;
-  }
-
   @override
-  Widget _textField(double height, double width, BoxConstraints constraints,
-      String text, TextEditingController controller) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.white, width: constraints.maxWidth * .03),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          hintText: text,
-          hintStyle: TextStyle(
-            fontSize: constraints.maxHeight * .02,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -209,25 +154,20 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                 SizedBox(height: constraints.maxHeight * .03),
                 Image.asset('assets/images/welcomeback.png'),
                 SizedBox(height: constraints.maxHeight * .04),
-                _textField(
-                    constraints.maxHeight * .08,
-                    constraints.maxWidth * .90,
-                    constraints,
-                    'Email',
-                    emailController),
+                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Email', emailController),
                 SizedBox(height: constraints.maxHeight * .01),
-                _textField(
-                    constraints.maxHeight * .08,
-                    constraints.maxWidth * .90,
-                    constraints,
-                    'Senha',
-                    senhaController),
+                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController),
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Entrar',
                   onTap: () {
-                    print(_loginValidade(
-                        _clientes, emailController.text, senhaController.text));
+                    final provider = Provider.of<ClientProvider>(context, listen: false);
+                    List l = provider.loginValidate(emailController.text, senhaController.text);
+                    if (l[0]) {
+                      Cliente cliente = l[1];
+                      cliente.setIsUser = true;
+                      Navigator.of(context).pushNamed(AppRoutes.HOMETAB);
+                    }
                   },
                   height: constraints.maxHeight * .07,
                   width: constraints.maxWidth * .7,
@@ -239,10 +179,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   children: [
                     Text(
                       'Ainda não tem uma conta ?',
-                      style: TextStyle(
-                          fontSize: constraints.maxHeight * .02,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: constraints.maxHeight * .02, color: Colors.black, fontWeight: FontWeight.w700),
                     ),
                     InkWell(
                       onTap: () => _openAddAdressModalSheet(context),

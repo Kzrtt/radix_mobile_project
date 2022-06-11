@@ -1,12 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
+import 'package:radix_mobile_project/model/endereco.dart';
+import 'package:radix_mobile_project/providers/adressProvider.dart';
 
 class AddAdressModalSheet extends StatefulWidget {
-  final void Function(String, String, String, String) onSubmit;
-
-  AddAdressModalSheet(this.onSubmit);
-
   @override
   State<AddAdressModalSheet> createState() => _AddAdressModalSheetState();
 }
@@ -17,13 +18,20 @@ class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
   final numeroController = TextEditingController();
   final complementoController = TextEditingController();
 
-  _submitForm() {
-    final apelidoEndereco = apelidoEnderecoController.text;
-    final endereco = enderecoController.text;
-    final numero = numeroController.text;
-    final complemento = complementoController.text;
+  Endereco _x(String a, String e, String n, String c) {
+    Endereco end = Endereco(
+      idEndereco: Random().nextDouble().toString(),
+      apelidoEndereco: a,
+      endereco: e,
+      complemento: c,
+      numero: n,
+      isEnderecoPrincipal: false,
+      statusEndereco: true,
+    );
 
-    widget.onSubmit(apelidoEndereco, endereco, numero, complemento);
+    Navigator.of(context).pop();
+
+    return end;
   }
 
   Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller) {
@@ -92,7 +100,9 @@ class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
                 SizedBox(height: constraints.maxHeight * .15),
                 Button(
                   text: 'Adicionar Endereço',
-                  onTap: _submitForm,
+                  onTap: () => Provider.of<AdressProvider>(context, listen: false).addAdress(
+                    _x(apelidoEnderecoController.text, enderecoController.text, numeroController.text, complementoController.text),
+                  ),
                   height: constraints.maxHeight * .1,
                   width: constraints.maxWidth * .75,
                   color: true,

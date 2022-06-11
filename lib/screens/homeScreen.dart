@@ -144,52 +144,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBar,
-      body: LayoutBuilder(builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: constraints.maxHeight * .02),
-              Padding(
-                padding: EdgeInsets.all(constraints.maxHeight * .02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.filter_alt_sharp,
-                      size: constraints.maxHeight * .05,
-                      color: const Color.fromRGBO(108, 168, 129, 1),
-                    ),
-                    Icon(
-                      Icons.search,
-                      size: constraints.maxHeight * .05,
-                      color: const Color.fromRGBO(108, 168, 129, 1),
-                    ),
-                  ],
+    return LayoutBuilder(builder: (context, constraints) {
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: constraints.maxHeight * .02),
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(top: constraints.maxHeight * .02),
+                height: constraints.maxHeight * .25,
+                width: constraints.maxWidth * .94,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(108, 168, 129, .3),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
               ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: constraints.maxHeight * .02),
-                  height: constraints.maxHeight * .25,
-                  width: constraints.maxWidth * .94,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(108, 168, 129, .3),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                ),
-              ),
-              _itemsRow(constraints, 'Produtos Novos'),
-              _itemsRow(constraints, 'Famosos'),
-              SizedBox(height: constraints.maxHeight * .1),
-            ],
-          ),
-        );
-      }),
-      bottomNavigationBar: bottomNavigationBar,
-    );
+            ),
+            _itemsRow(constraints, 'Produtos Novos'),
+            _itemsRow(constraints, 'Famosos'),
+            SizedBox(height: constraints.maxHeight * .1),
+          ],
+        ),
+      );
+    });
   }
 }

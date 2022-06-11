@@ -5,7 +5,7 @@ import '../model/vendedor.dart';
 import '../model/produtos.dart';
 
 List<Cliente> DUMMY_CLIENTS = [
-  const Cliente(
+  Cliente(
     idCliente: 0001,
     nomeCliente: 'Perfil de Teste',
     cpfCliente: '123.456.789-01',
@@ -13,7 +13,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: '1',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 1,
     nomeCliente: 'Joaquim',
     cpfCliente: '123.456.789-01',
@@ -21,7 +21,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-1',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 2,
     nomeCliente: 'José',
     cpfCliente: '123.456.789-02',
@@ -29,7 +29,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-2',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 3,
     nomeCliente: 'Silva',
     cpfCliente: '123.456.789-03',
@@ -37,7 +37,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-3',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 4,
     nomeCliente: 'Xavier',
     cpfCliente: '123.456.789-04',
@@ -45,7 +45,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-4',
     statusContaCliente: false,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 5,
     nomeCliente: 'Kurt',
     cpfCliente: '123.456.789-05',
@@ -53,7 +53,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'kurt12345',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 6,
     nomeCliente: 'Bruna',
     cpfCliente: '123.456.789-06',
@@ -61,7 +61,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-6',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 7,
     nomeCliente: 'Leonardo',
     cpfCliente: '123.456.789-07',
@@ -69,7 +69,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-7',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 8,
     nomeCliente: 'Mateus',
     cpfCliente: '123.456.789-08',
@@ -77,7 +77,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-8',
     statusContaCliente: false,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 9,
     nomeCliente: 'Diego',
     cpfCliente: '123.456.789-09',
@@ -85,7 +85,7 @@ List<Cliente> DUMMY_CLIENTS = [
     senhaCliente: 'Senha123-9',
     statusContaCliente: true,
   ),
-  const Cliente(
+  Cliente(
     idCliente: 10,
     nomeCliente: 'Rubens',
     cpfCliente: '123.456.789-10',
@@ -112,6 +112,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Alface',
         urlFoto: '',
         detalheProduto: 'Alface americano colhido hoje',
+        preco: 49.99,
         statusProduto: true,
       ),
       Produtos(
@@ -119,6 +120,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Morangos',
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
+        preco: 49.99,
         statusProduto: true,
       ),
       Produtos(
@@ -126,11 +128,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Amoras',
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
+        preco: 49.99,
         statusProduto: true,
       ),
       Produtos(
         idProduto: 4,
         nomeProduto: 'Bananas',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Banana nanica madura',
         statusProduto: true,
@@ -153,11 +157,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Tomate',
         urlFoto: '',
         detalheProduto: 'Tomate cerejas',
+        preco: 49.99,
         statusProduto: true,
       ),
       Produtos(
         idProduto: 2,
         nomeProduto: 'Morangos',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: true,
@@ -165,6 +171,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 3,
         nomeProduto: 'Cenouras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Cenoura da terra',
         statusProduto: false,
@@ -172,6 +179,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 4,
         nomeProduto: 'Bananas',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Banana nanica madura',
         statusProduto: true,
@@ -179,6 +187,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 3,
         nomeProduto: 'Amoras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
         statusProduto: true,
@@ -199,6 +208,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 1,
         nomeProduto: 'Alface',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Alface americano colhido hoje',
         statusProduto: false,
@@ -206,6 +216,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 2,
         nomeProduto: 'Abacaxi',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Abacaxi maduro e doce',
         statusProduto: true,
@@ -213,12 +224,14 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 3,
         nomeProduto: 'Amoras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
         statusProduto: false,
       ),
       Produtos(
         idProduto: 4,
+        preco: 49.99,
         nomeProduto: 'Maçã',
         urlFoto: '',
         detalheProduto: 'Maçãs fujis',
@@ -242,11 +255,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Alface',
         urlFoto: '',
         detalheProduto: 'Alface americano colhido hoje',
+        preco: 49.99,
         statusProduto: false,
       ),
       Produtos(
         idProduto: 2,
         nomeProduto: 'Morangos',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: true,
@@ -254,6 +269,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 3,
         nomeProduto: 'Amoras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Amoras colhidas com muito carinho e dedicação por Luiz Ricardo, e entregues para você em sua casa em cerca de 35 minutos',
         statusProduto: false,
@@ -261,6 +277,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 4,
         nomeProduto: 'Bananas',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Banana nanica madura',
         statusProduto: false,
@@ -283,11 +300,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Berinjela',
         urlFoto: '',
         detalheProduto: 'Berinjela madura',
+        preco: 49.99,
         statusProduto: true,
       ),
       Produtos(
         idProduto: 2,
         nomeProduto: 'Morangos',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: true,
@@ -295,6 +314,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 3,
         nomeProduto: 'Amoras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
         statusProduto: true,
@@ -303,6 +323,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 4,
         nomeProduto: 'Laranjas',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Banana nanica madura',
         statusProduto: true,
       ),
@@ -322,6 +343,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 1,
         nomeProduto: 'Cebola',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Cebola grande',
         statusProduto: true,
@@ -330,6 +352,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 2,
         nomeProduto: 'Morangos',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: false,
       ),
@@ -337,6 +360,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 3,
         nomeProduto: 'Jabuticaba',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Jabuticabas colhidas hoje',
         statusProduto: true,
       ),
@@ -344,6 +368,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 4,
         nomeProduto: 'Bananas',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Banana nanica madura',
         statusProduto: false,
       ),
@@ -351,6 +376,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 3,
         nomeProduto: 'Amoras',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Amoras colhidas hoje',
         statusProduto: true,
       ),
@@ -369,6 +395,7 @@ List<Vendedor> DUMMY_SALESMAN = [
     produtosVendedor: <Produtos>[
       Produtos(
         idProduto: 1,
+        preco: 49.99,
         nomeProduto: 'Cebolinha',
         urlFoto: '',
         detalheProduto: 'As melhores da plantação',
@@ -377,6 +404,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 2,
         nomeProduto: 'Morangos',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: false,
@@ -385,11 +413,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 3,
         nomeProduto: 'Amoras',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Se são do bombom, são as melhores',
         statusProduto: true,
       ),
       Produtos(
         idProduto: 4,
+        preco: 49.99,
         nomeProduto: 'Maracuja',
         urlFoto: '',
         detalheProduto: 'Maracujá do tipo doce',
@@ -411,6 +441,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 1,
         nomeProduto: 'Alface',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Alface americano colhido hoje',
         statusProduto: true,
@@ -419,11 +450,13 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 2,
         nomeProduto: 'Morangos',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: true,
       ),
       Produtos(
         idProduto: 3,
+        preco: 49.99,
         nomeProduto: 'Amoras',
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
@@ -431,6 +464,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
       Produtos(
         idProduto: 4,
+        preco: 49.99,
         nomeProduto: 'Bananas',
         urlFoto: '',
         detalheProduto: 'Banana nanica madura',
@@ -452,6 +486,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       Produtos(
         idProduto: 1,
         nomeProduto: 'Alface',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Alface americano colhido hoje',
         statusProduto: true,
@@ -462,10 +497,12 @@ List<Vendedor> DUMMY_SALESMAN = [
         urlFoto: '',
         detalheProduto: 'Morangos vermelhos e doces',
         statusProduto: false,
+        preco: 49.99,
       ),
       Produtos(
         idProduto: 3,
         nomeProduto: 'Amoras',
+        preco: 49.99,
         urlFoto: '',
         detalheProduto: 'Amoras colhidas hoje',
         statusProduto: true,
@@ -474,6 +511,7 @@ List<Vendedor> DUMMY_SALESMAN = [
         idProduto: 4,
         nomeProduto: 'Bananas',
         urlFoto: '',
+        preco: 49.99,
         detalheProduto: 'Banana nanica madura',
         statusProduto: true,
       ),
