@@ -12,7 +12,7 @@ class AdressProvider with ChangeNotifier {
   }
 
   void deleteAdress(String id) {
-    _adress.singleWhere((adress) => adress.idEndereco == id);
+    _adress.removeWhere((adress) => adress.idEndereco == id);
     notifyListeners();
   }
 }

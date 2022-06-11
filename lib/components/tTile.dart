@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
 
-class TrailingTile extends StatelessWidget {
+class TTile extends StatelessWidget {
   final constraints;
   final String id;
   final String title;
@@ -14,7 +14,7 @@ class TrailingTile extends StatelessWidget {
   final trailingIcon;
   final bool color;
 
-  TrailingTile({
+  TTile({
     this.constraints = 100,
     required this.id,
     required this.title,
@@ -69,7 +69,7 @@ class TrailingTile extends StatelessWidget {
             child: IconButton(
               icon: Icon(trailingIcon),
               color: color ? Colors.red : Colors.black,
-              onPressed: () => Provider.of<PaymentProvider>(context, listen: false).deleteCartao(id),
+              onPressed: () => Provider.of<AdressProvider>(context, listen: false).deleteAdress(id),
             ),
           ),
         ),

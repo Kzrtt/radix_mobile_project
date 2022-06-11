@@ -50,7 +50,7 @@ List<Cliente> DUMMY_CLIENTS = [
     nomeCliente: 'Kurt',
     cpfCliente: '123.456.789-05',
     emailCliente: 'kurt@gmail.com',
-    senhaCliente: 'kurt12345',
+    senhaCliente: 'baixeRadix',
     statusContaCliente: true,
   ),
   Cliente(

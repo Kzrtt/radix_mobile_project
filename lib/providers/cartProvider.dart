@@ -15,14 +15,18 @@ class CartProvider with ChangeNotifier {
   }
 
   void dec() {
-    _quantity--;
-    notifyListeners();
+    if (_quantity > 0) {
+      _quantity--;
+      notifyListeners();
+    }
   }
 
   void addToCart(Item item) {
-    _items.add(item);
-    _quantity = 1;
-    notifyListeners();
+    if (_quantity >= 1) {
+      _items.add(item);
+      _quantity = 1;
+      notifyListeners();
+    }
   }
 
   void clearCart() {

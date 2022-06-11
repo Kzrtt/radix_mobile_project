@@ -13,7 +13,6 @@ class ShoppingCartScreen extends StatefulWidget {
 }
 
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
-  bool shoppingCartStatus = true;
   int _currentIndex = 2;
 
   Widget get bottomNavigationBar {
@@ -102,17 +101,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                             constraints: constraints,
                           ),
                           SizedBox(height: constraints.maxHeight * .05),
-                          Button(
-                            text: 'Começar a comprar',
-                            height: constraints.maxHeight * .1,
-                            width: constraints.maxWidth * .75,
-                            onTap: () {
-                              setState(() {
-                                shoppingCartStatus = !shoppingCartStatus;
-                              });
-                            },
-                            color: true,
-                          ),
                         ],
                       ),
                     )

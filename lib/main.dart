@@ -20,7 +20,6 @@ import 'package:radix_mobile_project/screens/salesmanScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
 import 'package:radix_mobile_project/screens/welcomeBackScreen.dart';
-import 'model/endereco.dart';
 import 'utils/appRoutes.dart';
 import 'screens/homeTab.dart';
 import 'screens/homeScreen.dart';
@@ -29,7 +28,6 @@ import 'screens/teste.dart';
 /// Programador: Felipe Kurt Pohling
 /// Instagram: kurtt.kk
 /// Projeto Radix
-/// Testando se o Commit funciona
 
 void main() => runApp(MyApp());
 

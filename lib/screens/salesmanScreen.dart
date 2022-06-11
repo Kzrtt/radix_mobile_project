@@ -1,18 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unrelated_type_equality_checks
-
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
-import 'package:radix_mobile_project/components/salesmanTile.dart';
-import 'package:radix_mobile_project/components/textPlusImage.dart';
+import 'package:radix_mobile_project/model/cliente.dart';
 import 'package:radix_mobile_project/model/item.dart';
 import 'package:radix_mobile_project/model/produtos.dart';
 import 'package:radix_mobile_project/model/vendedor.dart';
 import 'package:radix_mobile_project/providers/cartProvider.dart';
-import '../data/dummyData.dart';
+import 'package:radix_mobile_project/providers/clientProvider.dart';
 
 class SalesmanScreen extends StatefulWidget {
   @override
@@ -61,7 +58,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          IconButton(onPressed: () => provider.inc(), icon: Icon(Icons.add, color: Colors.white)),
+                          IconButton(onPressed: () => provider.dec(), icon: Icon(Icons.remove, color: Colors.white)),
                           Text(
                             context.watch<CartProvider>().quantity.toString(),
                             style: TextStyle(
@@ -69,7 +66,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                               color: Colors.white,
                             ),
                           ),
-                          IconButton(onPressed: () => provider.dec(), icon: Icon(Icons.remove, color: Colors.white)),
+                          IconButton(onPressed: () => provider.inc(), icon: Icon(Icons.add, color: Colors.white)),
                         ],
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
@@ -150,76 +147,201 @@ class _SalesmanScreen extends State<SalesmanScreen> {
     final vendedor = ModalRoute.of(context)?.settings.arguments as Vendedor;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(vendedor.nomeVendedor),
-        backgroundColor: const Color.fromRGBO(132, 202, 157, 1),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.of(context).pop(),
+          color: Color.fromRGBO(132, 202, 157, 1),
+        ),
+        backgroundColor: Colors.transparent,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Column(
             children: [
-              Expanded(
+              SizedBox(
+                height: constraints.maxHeight * .3,
+                width: constraints.maxWidth,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: constraints.maxHeight * .15,
+                      width: constraints.maxWidth,
+                      child: Image.asset(
+                        'assets/images/fazendeiro.png',
+                        height: constraints.maxHeight * .1,
+                        width: constraints.maxWidth,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight * .15,
+                      width: constraints.maxWidth,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: constraints.maxHeight,
+                            width: constraints.maxWidth * .5,
+                            child: Padding(
+                              padding: EdgeInsets.all(constraints.maxHeight * .015),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    vendedor.nomeVendedor,
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * .03,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    vendedor.enderecoVendedor,
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * .02,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(height: constraints.maxHeight * .02),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        vendedor.selo.toString(),
+                                        style: TextStyle(
+                                          fontSize: constraints.maxHeight * .025,
+                                          color: Color.fromRGBO(132, 202, 157, 1),
+                                        ),
+                                      ),
+                                      SizedBox(width: constraints.maxWidth * .01),
+                                      Icon(
+                                        Icons.eco_sharp,
+                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        size: constraints.maxHeight * .03,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: constraints.maxHeight,
+                            width: constraints.maxWidth * .5,
+                            child: Padding(
+                              padding: EdgeInsets.all(constraints.maxHeight * .015),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Provider.of<ClientProvider>(context).isFavorite(vendedor) ? Icons.favorite : Icons.favorite_outline),
+                                    iconSize: constraints.maxHeight * .05,
+                                    onPressed: () {
+                                      if (Provider.of<ClientProvider>(context, listen: false).isFavorite(vendedor) == true) {
+                                        Provider.of<ClientProvider>(context, listen: false).removeFromFavorites(vendedor.idVendedor.toString());
+                                      } else {
+                                        Provider.of<ClientProvider>(context, listen: false).addToFavorites(vendedor);
+                                      }
+                                    },
+                                    color: Color.fromRGBO(132, 202, 157, 1),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(color: Color.fromRGBO(132, 202, 157, 1), thickness: constraints.maxWidth * .001),
+              Flexible(
                 child: ListView.builder(
+                  padding: EdgeInsets.zero,
                   itemCount: vendedor.produtosVendedor.length,
                   itemBuilder: (context, index) {
                     final p = vendedor.produtosVendedor[index];
                     return InkWell(
                       onTap: () => _openProductModalSheet(context, p),
-                      child: Center(
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(0, constraints.maxHeight * .03, 0, constraints.maxHeight * .02),
-                          height: constraints.maxHeight * .3,
-                          width: constraints.maxWidth * .9,
-                          decoration: BoxDecoration(color: Color.fromRGBO(242, 242, 242, 0.90), borderRadius: BorderRadius.circular(15)),
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              return Row(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 4,
+                        margin: const EdgeInsets.all(15),
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/amoras.png',
+                                    height: constraints.maxHeight * .3,
+                                    width: constraints.maxWidth * 1,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  Row(
                                     children: [
-                                      Container(
-                                        margin: EdgeInsets.only(left: constraints.maxWidth * .03),
-                                        height: constraints.maxHeight * .7,
-                                        width: constraints.maxWidth * .35,
-                                        // decoration: BoxDecoration(color: Colors.cyan),
-                                        child: Image.asset('assets/images/amoras.png'),
+                                      Icon(
+                                        Icons.eco_sharp,
+                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        size: constraints.maxHeight * .04,
                                       ),
-                                      SizedBox(height: constraints.maxHeight * .01),
+                                      SizedBox(
+                                        width: constraints.maxHeight * .01,
+                                      ),
                                       Text(
-                                        'R\$ ${p.preco}',
-                                        style: TextStyle(fontSize: constraints.maxHeight * .06, fontWeight: FontWeight.w400, color: Color.fromRGBO(132, 202, 157, 1)),
-                                        textAlign: TextAlign.justify,
+                                        p.nomeProduto,
+                                        style: TextStyle(
+                                          fontSize: constraints.maxHeight * .03,
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: constraints.maxWidth * .07),
-                                    height: constraints.maxHeight * .9,
-                                    width: constraints.maxWidth * .46,
-                                    // decoration: BoxDecoration(color: Colors.deepPurple),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: constraints.maxHeight * .12),
-                                        Text(
-                                          p.nomeProduto,
-                                          style: TextStyle(fontSize: constraints.maxHeight * .1, fontWeight: FontWeight.w600),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.attach_money,
+                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        size: constraints.maxHeight * .04,
+                                      ),
+                                      SizedBox(
+                                        width: constraints.maxHeight * .01,
+                                      ),
+                                      Text(
+                                        p.preco.toString(),
+                                        style: TextStyle(
+                                          fontSize: constraints.maxHeight * .03,
                                         ),
-                                        SizedBox(height: constraints.maxHeight * .03),
-                                        Text(
-                                          p.detalheProduto,
-                                          style: TextStyle(fontSize: constraints.maxHeight * .07, fontWeight: FontWeight.w400),
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ],
-                              );
-                            },
-                          ),
+                              ),
+                            ),
+                            Divider(color: Color.fromRGBO(132, 202, 157, 1), thickness: constraints.maxWidth * .001),
+                            Container(
+                              margin: EdgeInsets.only(top: constraints.maxHeight * .01),
+                              height: constraints.maxHeight * .12,
+                              width: constraints.maxWidth * .8,
+                              child: Text(p.detalheProduto),
+                            )
+                          ],
                         ),
                       ),
                     );

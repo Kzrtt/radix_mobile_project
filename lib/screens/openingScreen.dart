@@ -37,10 +37,9 @@ class OpeningScreen extends StatelessWidget {
                 Button(
                   text: 'Iniciar',
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, AppRoutes.WELCOMEBACK);
+                    Navigator.pushReplacementNamed(context, AppRoutes.WELCOMEBACK);
                   },
-                  height: constraints.maxHeight * .07,
+                  height: constraints.maxHeight * .08,
                   width: constraints.maxWidth * .7,
                   color: true,
                 ),

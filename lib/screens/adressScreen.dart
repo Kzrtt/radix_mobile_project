@@ -8,14 +8,14 @@ import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
+import '../components/tTile.dart';
+
 class AdressScreen extends StatefulWidget {
   @override
   State<AdressScreen> createState() => _AdressScreenState();
 }
 
 class _AdressScreenState extends State<AdressScreen> {
-  int _currentIndex = 3;
-
   void _openAddAdressModalSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -27,62 +27,6 @@ class _AdressScreenState extends State<AdressScreen> {
           child: AddAdressModalSheet(),
         );
       },
-    );
-  }
-
-  Widget get bottomNavigationBar {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(40),
-        topLeft: Radius.circular(40),
-      ),
-      child: BottomNavigationBar(
-        elevation: 6,
-        backgroundColor: const Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: const Color.fromRGBO(108, 168, 129, 1),
-        iconSize: 28,
-        unselectedItemColor: Colors.white,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState((() => _currentIndex = index));
-          switch (_currentIndex) {
-            case 0:
-              Navigator.pushReplacementNamed(context, AppRoutes.HOME);
-              break;
-            case 1:
-              Navigator.pushReplacementNamed(context, AppRoutes.SEARCH);
-              break;
-            case 2:
-              Navigator.pushReplacementNamed(context, AppRoutes.SHOPPINGCART);
-              break;
-            case 3:
-              Navigator.pushReplacementNamed(context, AppRoutes.PROFILE);
-              break;
-            default:
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Busca',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Carrinho',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-      ),
     );
   }
 
@@ -135,7 +79,7 @@ class _AdressScreenState extends State<AdressScreen> {
                         itemCount: _adress.length,
                         itemBuilder: (context, index) {
                           final a = _adress[index];
-                          return TrailingTile(
+                          return TTile(
                             constraints: constraints,
                             id: a.idEndereco,
                             title: a.apelidoEndereco,
@@ -151,7 +95,6 @@ class _AdressScreenState extends State<AdressScreen> {
                 );
               },
             ),
-      bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openAddAdressModalSheet(context),
         backgroundColor: const Color.fromRGBO(108, 168, 129, 1),
