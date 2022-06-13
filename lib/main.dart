@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
-import 'package:radix_mobile_project/components/addPaymentMethodModalSheet.dart';
-import 'package:radix_mobile_project/model/cliente.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/cartProvider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
+import 'package:radix_mobile_project/providers/salesmanProvider.dart';
 import 'package:radix_mobile_project/screens/adressScreen.dart';
 import 'package:radix_mobile_project/screens/chatsScreen.dart';
 import 'package:radix_mobile_project/screens/cuponsScreen.dart';
@@ -37,15 +35,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Cliente cliente = Cliente(
-    idCliente: 1,
-    nomeCliente: 'Cliente teste',
-    cpfCliente: '',
-    emailCliente: '',
-    senhaCliente: '',
-    statusContaCliente: true,
-  );
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -54,6 +43,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => ClientProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => SalesmanProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
