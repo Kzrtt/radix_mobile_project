@@ -96,7 +96,7 @@ List<Cliente> DUMMY_CLIENTS = [
 ];
 
 List<Vendedor> DUMMY_SALESMAN = [
-  const Vendedor(
+  Vendedor(
     idVendedor: 1,
     nomeVendedor: 'Carlos',
     cpfCnpjVendedor: '123.456.789-01',
@@ -141,7 +141,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 2,
     nomeVendedor: 'João',
     cpfCnpjVendedor: '123.456.789-02',
@@ -194,7 +194,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 3,
     nomeVendedor: 'Maria',
     cpfCnpjVendedor: '123.456.789-03',
@@ -239,7 +239,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 4,
     nomeVendedor: 'Larissa',
     cpfCnpjVendedor: '123.456.789-04',
@@ -271,7 +271,8 @@ List<Vendedor> DUMMY_SALESMAN = [
         nomeProduto: 'Amoras',
         preco: 49.99,
         urlFoto: '',
-        detalheProduto: 'Amoras colhidas com muito carinho e dedicação por Luiz Ricardo, e entregues para você em sua casa em cerca de 35 minutos',
+        detalheProduto:
+            'Amoras colhidas com muito carinho e dedicação por Luiz Ricardo, e entregues para você em sua casa em cerca de 35 minutos',
         statusProduto: false,
       ),
       Produtos(
@@ -284,7 +285,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 5,
     nomeVendedor: 'Lucas',
     cpfCnpjVendedor: '123.456.789-05',
@@ -329,7 +330,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 6,
     nomeVendedor: 'Alberto',
     cpfCnpjVendedor: '123.456.789-06',
@@ -382,7 +383,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 7,
     nomeVendedor: 'Bombom',
     cpfCnpjVendedor: '123.456.789-07',
@@ -427,7 +428,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 8,
     nomeVendedor: 'Ricardinho',
     cpfCnpjVendedor: '123.456.789-08',
@@ -472,7 +473,7 @@ List<Vendedor> DUMMY_SALESMAN = [
       ),
     ],
   ),
-  const Vendedor(
+  Vendedor(
     idVendedor: 9,
     nomeVendedor: 'Sérgio',
     cpfCnpjVendedor: '123.456.789-09',
