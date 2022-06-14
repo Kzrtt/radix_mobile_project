@@ -7,7 +7,6 @@ import 'package:radix_mobile_project/screens/profileScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
-import '../model/cliente.dart';
 import 'homeScreen.dart';
 import '../screens/searchScreen.dart';
 
@@ -67,7 +66,12 @@ class _HomeState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> _screensTitle = ['Home', 'Busca', 'Carrinho de Compras', 'Perfil'];
+    final List<String> _screensTitle = [
+      'Home',
+      'Busca',
+      'Carrinho de Compras',
+      'Perfil'
+    ];
 
     final appBar = AppBar(
       centerTitle: true,
@@ -86,7 +90,8 @@ class _HomeState extends State<HomeTab> {
       backgroundColor: Color.fromRGBO(132, 202, 157, 1),
       elevation: 0,
       leading: Padding(
-        padding: EdgeInsets.fromLTRB(appBarHeight * .2, appBarHeight * .3, 0, 0),
+        padding:
+            EdgeInsets.fromLTRB(appBarHeight * .2, appBarHeight * .3, 0, 0),
         child: Text(
           'Editar',
           style: TextStyle(
@@ -97,10 +102,12 @@ class _HomeState extends State<HomeTab> {
       ),
       actions: [
         Padding(
-          padding: EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
+          padding:
+              EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.OPENINGSCREEN);
+              Navigator.of(context)
+                  .pushReplacementNamed(AppRoutes.OPENINGSCREEN);
             },
             child: Text(
               'Sair',

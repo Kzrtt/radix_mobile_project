@@ -15,4 +15,5 @@ class AppRoutes {
   static const FEEDBACKS = '/profile-feedbacks';
   static const SHOPPINGCART = '/shoppingCart';
   static const SALESMANPROFILE = '/salesmanProfile';
+  static const FINALIZARCOMPRA = '/finalizar-compra';
 }

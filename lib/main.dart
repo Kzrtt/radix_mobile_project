@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
@@ -10,6 +12,7 @@ import 'package:radix_mobile_project/screens/chatsScreen.dart';
 import 'package:radix_mobile_project/screens/cuponsScreen.dart';
 import 'package:radix_mobile_project/screens/favoritesScreen.dart';
 import 'package:radix_mobile_project/screens/feedbacksScreen.dart';
+import 'package:radix_mobile_project/screens/finalizarCompra.dart';
 import 'package:radix_mobile_project/screens/historicScreen.dart';
 import 'package:radix_mobile_project/screens/openingScreen.dart';
 import 'package:radix_mobile_project/screens/paymentMethodScreen.dart';
@@ -68,6 +71,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutes.SHOPPINGCART: (ctx) => ShoppingCartScreen(),
           AppRoutes.SALESMANPROFILE: (ctx) => SalesmanScreen(),
           AppRoutes.PROFILE: (ctx) => ProfileScreen(),
+          AppRoutes.FINALIZARCOMPRA: (ctx) => FinalizarCompra(),
         },
       ),
     );

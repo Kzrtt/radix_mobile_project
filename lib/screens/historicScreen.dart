@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/historicTIle.dart';
+import 'package:radix_mobile_project/providers/cartProvider.dart';
 
 import '../utils/appRoutes.dart';
 
@@ -57,6 +59,14 @@ class _HistoricScreenState extends State<HistoricScreen> {
                   trailingIcon: Icons.add,
                   temporaryString: '20 Amoras fresquinhas - R\$ 20',
                 ),
+                SizedBox(height: constraints.maxHeight * .1),
+                Provider.of<CartProvider>(context).compras.isEmpty
+                    ? const Text('Vazio')
+                    : Container(
+                        width: constraints.maxWidth * .8,
+                        color: Colors.cyan,
+                        child: const Text('Deu Certo'),
+                      )
               ],
             ),
           );
