@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
+
 import 'produtos.dart';
 
-class Vendedor {
+class Vendedor with ChangeNotifier {
   final int idVendedor;
   final String nomeVendedor;
   final String cpfCnpjVendedor;
@@ -12,7 +14,7 @@ class Vendedor {
   final double selo;
   final List<Produtos> produtosVendedor;
 
-  const Vendedor({
+  Vendedor({
     required this.idVendedor,
     required this.nomeVendedor,
     required this.cpfCnpjVendedor,
