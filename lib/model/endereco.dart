@@ -1,4 +1,6 @@
-class Endereco {
+import 'package:flutter/cupertino.dart';
+
+class Endereco with ChangeNotifier {
   final String idEndereco;
   final String apelidoEndereco;
   final String endereco;
@@ -16,4 +18,9 @@ class Endereco {
     this.isEnderecoPrincipal = false,
     this.statusEndereco = true,
   });
+
+  void isPrincipalAdress() {
+    isEnderecoPrincipal = !isEnderecoPrincipal;
+    notifyListeners();
+  }
 }

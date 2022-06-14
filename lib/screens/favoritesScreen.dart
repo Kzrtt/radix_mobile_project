@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:radix_mobile_project/data/dummyData.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
+import 'package:radix_mobile_project/providers/salesmanProvider.dart';
 import '../components/textPlusImage.dart';
-import '../model/produtos.dart';
 import '../model/vendedor.dart';
 import '../utils/appRoutes.dart';
 
@@ -15,7 +14,8 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
-    final List<Vendedor> _vendedoresFavoritos = context.watch<ClientProvider>().getVendedoresFavoritos;
+    final List<Vendedor> _vendedoresFavoritos =
+        context.watch<ClientProvider>().getVendedoresFavoritos;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -63,32 +63,34 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         itemBuilder: (context, index) {
                           final v = _vendedoresFavoritos[index];
                           return Padding(
-                            padding: EdgeInsets.all(constraints.maxHeight * .02),
+                            padding:
+                                EdgeInsets.all(constraints.maxHeight * .02),
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed(AppRoutes.SALESMANPROFILE, arguments: v);
+                                Navigator.of(context).pushNamed(
+                                    AppRoutes.SALESMANPROFILE,
+                                    arguments: v);
                               },
                               child: SizedBox(
                                 height: constraints.maxHeight * .14,
                                 child: ListTile(
                                   contentPadding: EdgeInsets.fromLTRB(
                                     0,
-                                    constraints.maxHeight * .02,
+                                    constraints.maxHeight * .0,
                                     0,
                                     0,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  tileColor: const Color.fromRGBO(237, 233, 232, .7),
+                                  tileColor:
+                                      const Color.fromRGBO(237, 233, 232, .7),
                                   leading: CircleAvatar(
                                     backgroundColor: Colors.black12,
                                     radius: 50,
-                                    child: Icon(
-                                      Icons.eco_rounded,
-                                      size: constraints.maxHeight * .06,
-                                      color: Colors.green,
-                                    ),
+                                    child: context
+                                        .watch<SalesmanProvider>()
+                                        .iconSeloProdutor(v.selo, constraints),
                                   ),
                                   title: Text(
                                     v.nomeVendedor,
@@ -98,9 +100,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     ),
                                   ),
                                   trailing: Padding(
-                                    padding: EdgeInsets.only(right: constraints.maxWidth * .04),
+                                    padding: EdgeInsets.only(
+                                        right: constraints.maxWidth * .04),
                                     child: IconButton(
-                                      onPressed: () => Provider.of<ClientProvider>(context, listen: false).removeFromFavorites(v.idVendedor.toString()),
+                                      onPressed: () =>
+                                          Provider.of<ClientProvider>(context,
+                                                  listen: false)
+                                              .removeFromFavorites(
+                                                  v.idVendedor.toString()),
                                       icon: const Icon(Icons.delete),
                                       color: Colors.red,
                                     ),

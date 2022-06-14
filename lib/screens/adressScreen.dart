@@ -2,12 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
-import 'package:radix_mobile_project/components/trailingTile.dart';
-import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
+import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
-import 'package:radix_mobile_project/utils/appRoutes.dart';
-
+import 'package:radix_mobile_project/providers/cartProvider.dart';
 import '../components/tTile.dart';
 
 class AdressScreen extends StatefulWidget {
@@ -62,7 +60,8 @@ class _AdressScreenState extends State<AdressScreen> {
                     TextPlusImage(
                       firstText: 'Nenhum endereço cadastrado',
                       imgUrl: 'assets/images/undraw_location.png',
-                      secondText: 'Cadastre um endereço para poder fazer compras no app',
+                      secondText:
+                          'Cadastre um endereço para poder fazer compras no app',
                       constraints: constraints,
                     ),
                   ],
@@ -79,14 +78,18 @@ class _AdressScreenState extends State<AdressScreen> {
                         itemCount: _adress.length,
                         itemBuilder: (context, index) {
                           final a = _adress[index];
-                          return TTile(
-                            constraints: constraints,
-                            id: a.idEndereco,
-                            title: a.apelidoEndereco,
-                            subTitle: a.endereco,
-                            leadingIcon: Icons.home,
-                            trailingIcon: Icons.delete,
-                            color: true,
+                          return Column(
+                            children: [
+                              TTile(
+                                constraints: constraints,
+                                id: a.idEndereco,
+                                title: a.apelidoEndereco,
+                                subTitle: a.endereco,
+                                leadingIcon: Icons.home,
+                                trailingIcon: Icons.delete,
+                                color: true,
+                              ),
+                            ],
                           );
                         },
                       ),

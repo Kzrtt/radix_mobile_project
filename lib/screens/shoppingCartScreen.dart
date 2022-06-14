@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
+import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/model/item.dart';
+import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/cartProvider.dart';
 import '../components/imageContainer.dart';
 import '../utils/appRoutes.dart';
@@ -84,6 +86,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Endereco> a = context.watch<AdressProvider>().getAdress;
     return LayoutBuilder(
       builder: ((context, constraints) {
         return SingleChildScrollView(
@@ -96,8 +99,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         children: [
                           TextPlusImage(
                             firstText: 'Nenhum produto adicionado',
-                            imgUrl: 'assets/images/undraw_shopping_app_flsj.png',
-                            secondText: 'Adicione produtos a sua sacole depois retorne a essa sessão.',
+                            imgUrl:
+                                'assets/images/undraw_shopping_app_flsj.png',
+                            secondText:
+                                'Adicione produtos a sua sacole depois retorne a essa sessão.',
                             constraints: constraints,
                           ),
                           SizedBox(height: constraints.maxHeight * .05),
@@ -106,6 +111,51 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                     )
                   : Column(
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin:
+                                  EdgeInsets.all(constraints.maxHeight * .02),
+                              width: constraints.maxWidth * .5,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: constraints.maxHeight * .04),
+                                  Text(
+                                    'Endereço de Entrega',
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * .035,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Create provider to change isPrimary state to true',
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * .02,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: constraints.maxWidth * .05),
+                                child: Text(
+                                  'Alterar',
+                                  style: TextStyle(
+                                    fontSize: constraints.maxHeight * .035,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(108, 168, 129, 1),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: constraints.maxHeight * .1),
                         ListView.builder(
                           shrinkWrap: true,
                           itemCount: context.watch<CartProvider>().items.length,
@@ -118,10 +168,12 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                             );
                           },
                         ),
-                        SizedBox(height: constraints.maxHeight * .3),
+                        SizedBox(height: constraints.maxHeight * .2),
                         Button(
                           text: 'Limpar Carrinho',
-                          onTap: () => Provider.of<CartProvider>(context, listen: false).clearCart(),
+                          onTap: () =>
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .clearCart(),
                           height: constraints.maxHeight * .1,
                           width: constraints.maxWidth * .5,
                           color: true,
