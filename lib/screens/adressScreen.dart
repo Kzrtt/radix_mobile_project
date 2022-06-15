@@ -56,10 +56,11 @@ class _AdressScreenState extends State<AdressScreen> {
               builder: (context, constraints) {
                 return Column(
                   children: [
-                    SizedBox(height: constraints.maxHeight * .1),
+                    SizedBox(height: constraints.maxHeight * .15),
                     TextPlusImage(
                       firstText: 'Nenhum endereço cadastrado',
-                      imgUrl: 'assets/images/undraw_location.png',
+                      imgUrl: 'assets/svg/undraw_my_location.svg',
+                      height: constraints.maxHeight * .3,
                       secondText:
                           'Cadastre um endereço para poder fazer compras no app',
                       constraints: constraints,

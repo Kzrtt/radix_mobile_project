@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
@@ -14,7 +15,11 @@ class OpeningScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Center(child: Image.asset('assets/images/bolas_verdes.png')),
-                Image.asset('assets/images/farm_girl.png'),
+                SizedBox(height: constraints.maxHeight * .05),
+                SvgPicture.asset(
+                  'assets/svg/undraw_farm_girl_dnpe.svg',
+                  height: constraints.maxHeight * .3,
+                ),
                 SizedBox(height: constraints.maxHeight * .03),
                 Text(
                   'Faça as coisas com Radix',
@@ -37,7 +42,8 @@ class OpeningScreen extends StatelessWidget {
                 Button(
                   text: 'Iniciar',
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, AppRoutes.WELCOMEBACK);
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutes.WELCOMEBACK);
                   },
                   height: constraints.maxHeight * .08,
                   width: constraints.maxWidth * .7,

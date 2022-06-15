@@ -98,10 +98,11 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       margin: EdgeInsets.only(top: constraints.maxHeight * .07),
                       child: Column(
                         children: [
+                          SizedBox(height: constraints.maxHeight * .08),
                           TextPlusImage(
                             firstText: 'Nenhum produto adicionado',
-                            imgUrl:
-                                'assets/images/undraw_shopping_app_flsj.png',
+                            imgUrl: 'assets/svg/undraw_empty_cart.svg',
+                            height: constraints.maxHeight * .3,
                             secondText:
                                 'Adicione produtos a sua sacole depois retorne a essa sessão.',
                             constraints: constraints,

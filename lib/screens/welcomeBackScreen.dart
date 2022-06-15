@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/data/dummyData.dart';
@@ -37,7 +38,8 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     return cliente;
   }
 
-  Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller) {
+  Widget _textField(double height, double width, BoxConstraints constraints,
+      String text, TextEditingController controller) {
     return SizedBox(
       height: height,
       width: width,
@@ -47,7 +49,8 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
           filled: true,
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
+            borderSide: BorderSide(
+                color: Colors.white, width: constraints.maxWidth * .03),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
@@ -94,23 +97,54 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                         ),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
-                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu nome', nomeFormController),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu nome',
+                          nomeFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu email', emailFormController),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu email',
+                          emailFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu cpf', cpfFormController),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu cpf',
+                          cpfFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'senha', senhaFormController),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'senha',
+                          senhaFormController),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'confirme sua senha', senhaFormValidationController),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'confirme sua senha',
+                          senhaFormValidationController),
                       SizedBox(height: constraints.maxHeight * .02),
                       SizedBox(height: constraints.maxHeight * .10),
                       Button(
                         text: 'Registrar-se',
                         onTap: () {
-                          if (senhaFormController.text == senhaFormValidationController.text) {
-                            Provider.of<ClientProvider>(context, listen: false).addCliente(
-                              _x(nomeFormController.text, cpfFormController.text, emailFormController.text, senhaFormController.text),
+                          if (senhaFormController.text ==
+                              senhaFormValidationController.text) {
+                            Provider.of<ClientProvider>(context, listen: false)
+                                .addCliente(
+                              _x(
+                                  nomeFormController.text,
+                                  cpfFormController.text,
+                                  emailFormController.text,
+                                  senhaFormController.text),
                             );
                           }
 
@@ -152,17 +186,32 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   ),
                 ),
                 SizedBox(height: constraints.maxHeight * .03),
-                Image.asset('assets/images/welcomeback.png'),
+                SvgPicture.asset(
+                  'assets/svg/undraw_login.svg',
+                  height: constraints.maxHeight * .25,
+                ),
                 SizedBox(height: constraints.maxHeight * .04),
-                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Email', emailController),
+                _textField(
+                    constraints.maxHeight * .08,
+                    constraints.maxWidth * .90,
+                    constraints,
+                    'Email',
+                    emailController),
                 SizedBox(height: constraints.maxHeight * .01),
-                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController),
+                _textField(
+                    constraints.maxHeight * .08,
+                    constraints.maxWidth * .90,
+                    constraints,
+                    'Senha',
+                    senhaController),
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Entrar',
                   onTap: () {
-                    final provider = Provider.of<ClientProvider>(context, listen: false);
-                    List l = provider.loginValidate(emailController.text, senhaController.text);
+                    final provider =
+                        Provider.of<ClientProvider>(context, listen: false);
+                    List l = provider.loginValidate(
+                        emailController.text, senhaController.text);
                     if (l[0]) {
                       Cliente cliente = l[1];
                       cliente.setIsUser = true;
@@ -179,7 +228,10 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   children: [
                     Text(
                       'Ainda não tem uma conta ?',
-                      style: TextStyle(fontSize: constraints.maxHeight * .02, color: Colors.black, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                          fontSize: constraints.maxHeight * .02,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700),
                     ),
                     InkWell(
                       onTap: () => _openAddAdressModalSheet(context),

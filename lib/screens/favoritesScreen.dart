@@ -43,9 +43,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   children: [
                     SizedBox(height: constraints.maxHeight * .1),
                     TextPlusImage(
-                      firstText: 'Adicione os vendedores que voçê mais gosta',
-                      imgUrl: 'assets/images/undraw_favorite.png',
-                      secondText: 'Nenhum vendedor favorito adicionado...',
+                      firstText: 'Marque um vendedor como favorito',
+                      imgUrl: 'assets/svg/undraw_appreciation.svg',
+                      height: constraints.maxHeight * .3,
+                      secondText:
+                          'Adicione os vendedores que voçê compra com mais frequencia',
                       constraints: constraints,
                     ),
                   ],

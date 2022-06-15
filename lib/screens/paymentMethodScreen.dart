@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/addPaymentMethodModalSheet.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
-import 'package:radix_mobile_project/model/cartao.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
-import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 import '../components/trailingTile.dart';
 
@@ -60,11 +58,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               builder: (context, constraints) {
                 return Column(
                   children: [
-                    SizedBox(height: constraints.maxHeight * .05),
+                    SizedBox(height: constraints.maxHeight * .15),
                     TextPlusImage(
                       firstText: 'Adicione uma forma de Pagamento',
-                      imgUrl: 'assets/images/undraw_vault.png',
-                      secondText: 'Adicione uma forma de pagamento para poder realizar compras em nosso app',
+                      imgUrl: 'assets/svg/undraw_vault.svg',
+                      height: constraints.maxHeight * .22,
+                      secondText:
+                          'Adicione uma forma de pagamento para poder realizar compras em nosso app',
                       constraints: constraints,
                     ),
                   ],

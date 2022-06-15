@@ -224,9 +224,11 @@ class _SearchScreenState extends State<SearchScreen> {
               _salesmanList.isEmpty
                   ? Column(
                       children: [
+                        SizedBox(height: constraints.maxHeight * .08),
                         TextPlusImage(
                           firstText: 'Faça sua Pesquisa',
-                          imgUrl: 'assets/images/undraw_Searching_re_3ra9.png',
+                          imgUrl: 'assets/svg/undraw_search.svg',
+                          height: constraints.maxHeight * .35,
                           secondText:
                               'Procure produtos para compra e vendedores para contato',
                           constraints: constraints,
