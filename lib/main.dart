@@ -29,6 +29,7 @@ import 'screens/teste.dart';
 /// Programador: Felipe Kurt Pohling
 /// Instagram: kurtt.kk
 /// Projeto Radix
+/// teste
 
 void main() => runApp(MyApp());
 
