@@ -21,6 +21,7 @@ import 'package:radix_mobile_project/screens/salesmanScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
 import 'package:radix_mobile_project/screens/welcomeBackScreen.dart';
+import 'package:radix_mobile_project/utils/customMaterialColor.dart';
 import 'utils/appRoutes.dart';
 import 'screens/homeTab.dart';
 import 'screens/homeScreen.dart';
@@ -54,6 +55,9 @@ class _MyAppState extends State<MyApp> {
         title: 'Radix',
         theme: ThemeData(
           visualDensity: VisualDensity.comfortable,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: CustomMaterialColor(132, 202, 157).mdColor).copyWith(
+            secondary: Color.fromRGBO(108, 168, 129, 1),
+          ),
         ),
         routes: {
           AppRoutes.OPENINGSCREEN: (ctx) => OpeningScreen(),
