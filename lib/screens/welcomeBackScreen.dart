@@ -92,7 +92,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                           style: TextStyle(
                             fontSize: constraints.maxHeight * .035,
                             fontWeight: FontWeight.w600,
-                            color: const Color.fromRGBO(132, 202, 157, 1),
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -239,7 +239,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                         '   Clique aqui',
                         style: TextStyle(
                           fontSize: constraints.maxHeight * .02,
-                          color: const Color.fromRGBO(132, 202, 157, 1),
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -253,7 +253,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                     'Esqueci minha senha',
                     style: TextStyle(
                       fontSize: constraints.maxHeight * .02,
-                      color: const Color.fromRGBO(132, 202, 157, 1),
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

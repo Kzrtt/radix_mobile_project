@@ -116,8 +116,8 @@ class _SalesmanScreen extends State<SalesmanScreen> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: const Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: const Color.fromRGBO(108, 168, 129, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -163,7 +163,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.of(context).pop(),
-          color: Color.fromRGBO(132, 202, 157, 1),
+          color: Theme.of(context).colorScheme.primary,
         ),
         backgroundColor: Colors.transparent,
       ),
@@ -254,7 +254,8 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                             .addToFavorites(vendedor);
                                       }
                                     },
-                                    color: Color.fromRGBO(132, 202, 157, 1),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                 ],
                               ),
@@ -267,7 +268,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                 ),
               ),
               Divider(
-                  color: Color.fromRGBO(132, 202, 157, 1),
+                  color: Theme.of(context).colorScheme.primary,
                   thickness: constraints.maxWidth * .001),
               Flexible(
                 child: ListView.builder(
@@ -311,7 +312,9 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     children: [
                                       Icon(
                                         Icons.eco_sharp,
-                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         size: constraints.maxHeight * .04,
                                       ),
                                       SizedBox(
@@ -329,7 +332,9 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     children: [
                                       Icon(
                                         Icons.attach_money,
-                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         size: constraints.maxHeight * .04,
                                       ),
                                       SizedBox(
@@ -347,7 +352,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                               ),
                             ),
                             Divider(
-                                color: Color.fromRGBO(132, 202, 157, 1),
+                                color: Theme.of(context).colorScheme.primary,
                                 thickness: constraints.maxWidth * .001),
                             Container(
                               margin: EdgeInsets.only(

@@ -33,8 +33,8 @@ class _HomeState extends State<HomeTab> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: Color.fromRGBO(108, 168, 129, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -87,7 +87,7 @@ class _HomeState extends State<HomeTab> {
 
     final appBarProfile = AppBar(
       centerTitle: true,
-      backgroundColor: Color.fromRGBO(132, 202, 157, 1),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       elevation: 0,
       leading: Padding(
         padding:

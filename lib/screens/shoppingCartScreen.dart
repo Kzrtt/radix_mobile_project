@@ -25,8 +25,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: Color.fromRGBO(108, 168, 129, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -150,7 +150,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                   style: TextStyle(
                                     fontSize: constraints.maxHeight * .035,
                                     fontWeight: FontWeight.w600,
-                                    color: Color.fromRGBO(108, 168, 129, 1),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ),
@@ -158,7 +159,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                           ],
                         ),
                         Divider(
-                          color: Color.fromRGBO(132, 202, 157, 1),
+                          color: Theme.of(context).colorScheme.primary,
                           thickness: constraints.maxWidth * .003,
                           indent: constraints.maxWidth * .1,
                           endIndent: constraints.maxWidth * .1,
@@ -173,7 +174,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .035,
                                 fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(108, 168, 129, 1),
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                             SizedBox(width: constraints.maxWidth * .05),
@@ -182,7 +183,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                               style: TextStyle(
                                 fontSize: constraints.maxHeight * .035,
                                 fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(108, 168, 129, 1),
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                           ],
@@ -235,8 +236,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                             children: [
                                               Icon(
                                                 Icons.abc,
-                                                color: const Color.fromRGBO(
-                                                    132, 202, 157, 1),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 size:
                                                     constraints.maxHeight * .04,
                                               ),
@@ -258,8 +260,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                             children: [
                                               Icon(
                                                 Icons.eco_sharp,
-                                                color: const Color.fromRGBO(
-                                                    132, 202, 157, 1),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 size:
                                                     constraints.maxHeight * .03,
                                               ),
@@ -281,8 +284,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                             children: [
                                               Icon(
                                                 Icons.attach_money,
-                                                color: const Color.fromRGBO(
-                                                    132, 202, 157, 1),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 size:
                                                     constraints.maxHeight * .03,
                                               ),
@@ -304,7 +308,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                       ),
                                     ),
                                     Divider(
-                                        color: Color.fromRGBO(132, 202, 157, 1),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         thickness: constraints.maxWidth * .001),
                                     Container(
                                       margin: EdgeInsets.only(
@@ -345,7 +351,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         ),
                         SizedBox(height: constraints.maxHeight * .05),
                         Divider(
-                          color: Color.fromRGBO(132, 202, 157, 1),
+                          color: Theme.of(context).colorScheme.primary,
                           thickness: constraints.maxWidth * .005,
                           indent: constraints.maxWidth * .1,
                           endIndent: constraints.maxWidth * .1,

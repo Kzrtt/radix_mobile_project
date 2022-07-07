@@ -72,7 +72,7 @@ class FinalizarCompra extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.of(context).pop(),
-          color: Color.fromRGBO(132, 202, 157, 1),
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
       body: LayoutBuilder(

@@ -24,8 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: Color.fromRGBO(108, 168, 129, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double appBarHeight = appBar.preferredSize.height;
 
     final appBarProfile = AppBar(
-      backgroundColor: Color.fromRGBO(132, 202, 157, 1),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       elevation: 0,
       leading: Padding(
         padding:

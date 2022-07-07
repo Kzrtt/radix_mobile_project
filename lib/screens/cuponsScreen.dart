@@ -15,7 +15,7 @@ class _CuponScreenState extends State<CuponScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          color: const Color.fromRGBO(108, 168, 129, 1),
+          color: Theme.of(context).colorScheme.secondary,
           onPressed: () {
             Navigator.pop(context);
           },

@@ -119,8 +119,8 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Color.fromRGBO(132, 202, 157, 1),
-        selectedItemColor: Color.fromRGBO(108, 168, 129, 1),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -278,8 +278,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                           child: Icon(
                                             Icons.abc,
                                             size: constraints.maxHeight * .06,
-                                            color: const Color.fromRGBO(
-                                                108, 168, 129, 1),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                           ),
                                         ),
                                         title: Text(

@@ -17,7 +17,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          color: const Color.fromRGBO(108, 168, 129, 1),
+          color: Theme.of(context).colorScheme.secondary,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -46,7 +46,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(229, 229, 229, 0.90),
+                              width: constraints.maxWidth * .03),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -71,7 +73,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       filled: true,
                       fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
+                        borderSide: BorderSide(
+                            color: const Color.fromRGBO(229, 229, 229, 0.90),
+                            width: constraints.maxWidth * .03),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
