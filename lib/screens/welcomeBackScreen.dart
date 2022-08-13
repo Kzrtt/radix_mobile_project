@@ -1,5 +1,7 @@
 import 'dart:math';
+import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,17 +27,76 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
 
-  Cliente _x(String n, String c, String e, String s) {
-    Cliente cliente = Cliente(
-      idCliente: Random().nextDouble().toInt(),
-      nomeCliente: n,
-      cpfCliente: c,
-      emailCliente: e,
-      senhaCliente: s,
-      statusContaCliente: true,
-    );
+  void getLoginInfo(String email, String senha, constraints) async {
+    try {
+      var response = await Dio()
+          .get('http://localhost:8000/api/loginCliente/$email/$senha');
 
-    return cliente;
+      String loginResult = response.data['loginResult'];
+      print(response.data);
+
+      if (loginResult == '1') {
+        Navigator.pushReplacementNamed(context, AppRoutes.HOMETAB);
+        Cliente user = Cliente(
+          idCliente: response.data['user']['idCliente'],
+          nomeCliente: response.data['user']['nomeCliente'],
+          cpfCliente: response.data['user']['cpfCliente'],
+          emailCliente: response.data['user']['emailCliente'],
+          senhaCliente: response.data['user']['senhaCliente'],
+        );
+        Provider.of<ClientProvider>(context, listen: false).changeUser(user);
+      } else {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(loginResult,
+                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void createClient(String senha, String validaSenha, String nome, String cpf,
+      String email, constraints) async {
+    try {
+      if (senhaFormController.text == senhaFormValidationController.text) {
+        var response = await Dio().post(
+          'http://localhost:8000/api/inserirCliente',
+          data: {
+            'nomeCliente': nome,
+            'cpfCliente': cpf,
+            'emailCliente': email,
+            'senhaCliente': senha,
+            'statusCliente': '1',
+          },
+        );
+        if (response.data['status'] == '400') {
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text(response.data['message'],
+                  style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            ),
+          );
+        } else {
+          print(response.data['message']);
+          Navigator.of(context).pop();
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('As senhas não são iguais',
+                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Widget _textField(double height, double width, BoxConstraints constraints,
@@ -135,21 +196,14 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                       SizedBox(height: constraints.maxHeight * .10),
                       Button(
                         text: 'Registrar-se',
-                        onTap: () {
-                          if (senhaFormController.text ==
-                              senhaFormValidationController.text) {
-                            Provider.of<ClientProvider>(context, listen: false)
-                                .addCliente(
-                              _x(
-                                  nomeFormController.text,
-                                  cpfFormController.text,
-                                  emailFormController.text,
-                                  senhaFormController.text),
-                            );
-                          }
-
-                          Navigator.of(context).pop();
-                        },
+                        onTap: () => createClient(
+                          senhaFormController.text,
+                          senhaFormValidationController.text,
+                          nomeFormController.text,
+                          cpfFormController.text,
+                          emailFormController.text,
+                          constraints,
+                        ),
                         height: constraints.maxHeight * .1,
                         width: constraints.maxWidth * .75,
                         color: true,
@@ -207,17 +261,8 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Entrar',
-                  onTap: () {
-                    final provider =
-                        Provider.of<ClientProvider>(context, listen: false);
-                    List l = provider.loginValidate(
-                        emailController.text, senhaController.text);
-                    if (l[0]) {
-                      Cliente cliente = l[1];
-                      cliente.setIsUser = true;
-                      Navigator.of(context).pushNamed(AppRoutes.HOMETAB);
-                    }
-                  },
+                  onTap: () => getLoginInfo(
+                      emailController.text, senhaController.text, constraints),
                   height: constraints.maxHeight * .07,
                   width: constraints.maxWidth * .7,
                   color: true,

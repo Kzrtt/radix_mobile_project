@@ -86,7 +86,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Endereco> a = context.watch<AdressProvider>().getAdress;
+    // List<Endereco> a = context.watch<AdressProvider>().getAdress;
     List<Item> _items = context.watch<CartProvider>().items;
     return LayoutBuilder(
       builder: ((context, constraints) {

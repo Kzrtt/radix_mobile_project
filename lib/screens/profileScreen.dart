@@ -24,8 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Color.fromRGBO(132, 202, 157, 1),
+        selectedItemColor: Color.fromRGBO(108, 168, 129, 1),
         iconSize: 28,
         unselectedItemColor: Colors.white,
         showSelectedLabels: false,
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double appBarHeight = appBar.preferredSize.height;
 
     final appBarProfile = AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Color.fromRGBO(132, 202, 157, 1),
       elevation: 0,
       leading: Padding(
         padding:
@@ -179,16 +179,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              // Container(
-              //   height: constraints.maxHeight * .15,
-              //   decoration: BoxDecoration(
-              //     color: Color.fromRGBO(132, 202, 157, 1),
-              //   ),
-              //   child: ,
-              // ),
               SizedBox(height: constraints.maxHeight * .05),
               Text(
-                context.watch<ClientProvider>().user.nomeCliente,
+                context.watch<ClientProvider>().getUser.nomeCliente,
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -245,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ProfileButton(
                 title: 'Feedbacks',
-                subTitle: 'Envie um feedback para Radix',
+                subTitle: 'Envie um feedback para equipe Radix',
                 constraints: constraints,
                 leading: Icons.eco_sharp,
                 traicing: Icons.arrow_forward_ios_outlined,

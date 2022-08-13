@@ -1,12 +1,16 @@
 import 'dart:math';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
-import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
+import 'package:radix_mobile_project/components/trailingTile.dart';
 import 'package:radix_mobile_project/model/endereco.dart';
+import 'package:radix_mobile_project/components/addAdressModalSheet.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
-import 'package:radix_mobile_project/providers/cartProvider.dart';
+import 'package:radix_mobile_project/utils/appRoutes.dart';
+
 import '../components/tTile.dart';
+import '../providers/clientProvider.dart';
 
 class AdressScreen extends StatefulWidget {
   @override
@@ -30,14 +34,36 @@ class _AdressScreenState extends State<AdressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _adress = context.watch<AdressProvider>().getAdress;
+    Future<List<Endereco>> getData() async {
+      List<Endereco> enderecos = [];
+      var response = await Dio().get(
+          'http://localhost:8000/api/getAllEnderecos/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}');
+      response.data['enderecos'].forEach(
+        (k, e) {
+          Endereco endereco = Endereco(
+            idEndereco: e['idEndereco'],
+            apelidoEndereco: e['apelidoEndereco'],
+            endereco: e['endereco'],
+            complemento: e['complemento'],
+            numero: e['numero'],
+            statusEndereco: e['statusEndereco'],
+          );
+          if (endereco.statusEndereco == 1) {
+            enderecos.add(endereco);
+          }
+        },
+      );
+      Provider.of<AdressProvider>(context, listen: false)
+          .setEnderecos(enderecos);
+      return enderecos;
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          color: Theme.of(context).colorScheme.secondary,
+          color: const Color.fromRGBO(108, 168, 129, 1),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -51,57 +77,64 @@ class _AdressScreenState extends State<AdressScreen> {
           ),
         ),
       ),
-      body: _adress.isEmpty
-          ? LayoutBuilder(
-              builder: (context, constraints) {
-                return Column(
-                  children: [
-                    SizedBox(height: constraints.maxHeight * .15),
-                    TextPlusImage(
-                      firstText: 'Nenhum endereço cadastrado',
-                      imgUrl: 'assets/svg/undraw_my_location.svg',
-                      height: constraints.maxHeight * .3,
-                      secondText:
-                          'Cadastre um endereço para poder fazer compras no app',
-                      constraints: constraints,
-                    ),
-                  ],
-                );
-              },
-            )
-          : LayoutBuilder(
-              builder: (context, constraints) {
-                return Column(
-                  children: [
-                    SizedBox(height: constraints.maxHeight * .04),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _adress.length,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              SizedBox(height: constraints.maxHeight * .04),
+              Expanded(
+                child: FutureBuilder(
+                  future: getData(),
+                  builder: (context, snapshot) {
+                    List<Endereco> enderecos =
+                        Provider.of<AdressProvider>(context).getEnderecos();
+                    if (snapshot.hasData && enderecos.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: enderecos.length,
                         itemBuilder: (context, index) {
-                          final a = _adress[index];
-                          return Column(
-                            children: [
-                              TTile(
-                                constraints: constraints,
-                                id: a.idEndereco,
-                                title: a.apelidoEndereco,
-                                subTitle: a.endereco,
-                                leadingIcon: Icons.home,
-                                trailingIcon: Icons.delete,
-                                color: true,
-                              ),
-                            ],
+                          final e = enderecos[index];
+                          return TTile(
+                            constraints: constraints,
+                            id: e.idEndereco,
+                            title: e.apelidoEndereco,
+                            subTitle: e.endereco,
+                            leadingIcon: Icons.home,
+                            trailingIcon: Icons.delete,
+                            color: true,
                           );
                         },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    } else if (enderecos.isEmpty) {
+                      return LayoutBuilder(builder: (context, constraints) {
+                        return Column(
+                          children: [
+                            SizedBox(height: constraints.maxHeight * .15),
+                            TextPlusImage(
+                              firstText: 'Nenhum endereço cadastrado',
+                              imgUrl: 'assets/svg/undraw_my_location.svg',
+                              height: constraints.maxHeight * .3,
+                              secondText:
+                                  'Cadastre um endereço para poder fazer compras no app',
+                              constraints: constraints,
+                            ),
+                          ],
+                        );
+                      });
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openAddAdressModalSheet(context),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: const Color.fromRGBO(108, 168, 129, 1),
         child: const Icon(Icons.add),
       ),
     );

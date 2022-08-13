@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:radix_mobile_project/model/endereco.dart';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:radix_mobile_project/model/endereco.dart';
+
+import 'clientProvider.dart';
+
 class AdressProvider with ChangeNotifier {
-  List<Endereco> _adress = [];
+  List<Endereco> _enderecos = [];
 
-  List<Endereco> get getAdress => [..._adress];
-
-  void addAdress(Endereco endereco) {
-    _adress.add(endereco);
+  void setEnderecos(List<Endereco> newEnderecos) {
+    _enderecos = newEnderecos;
     notifyListeners();
   }
 
-  void deleteAdress(String id) {
-    _adress.removeWhere((adress) => adress.idEndereco == id);
-    notifyListeners();
-  }
+  List<Endereco> getEnderecos() => _enderecos;
 }

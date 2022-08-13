@@ -1,13 +1,17 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
 
+import '../model/endereco.dart';
+import '../providers/clientProvider.dart';
+
 class TTile extends StatelessWidget {
   final constraints;
-  final String id;
+  final int id;
   final String title;
   final String subTitle;
   final leadingIcon;
@@ -26,6 +30,12 @@ class TTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void deleteAdress() async {
+      var response =
+          await Dio().put('http://localhost:8000/api/deleteEndereco/$id');
+      print(response.data.toString());
+    }
+
     return Padding(
       padding: EdgeInsets.all(constraints.maxHeight * .02),
       child: SizedBox(
@@ -65,11 +75,12 @@ class TTile extends StatelessWidget {
             ),
           ),
           trailing: Padding(
-            padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .0003, constraints.maxWidth * .04, 0),
+            padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .0003,
+                constraints.maxWidth * .04, 0),
             child: IconButton(
               icon: Icon(trailingIcon),
               color: color ? Colors.red : Colors.black,
-              onPressed: () => Provider.of<AdressProvider>(context, listen: false).deleteAdress(id),
+              onPressed: () => deleteAdress(),
             ),
           ),
         ),

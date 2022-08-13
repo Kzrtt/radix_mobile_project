@@ -1,5 +1,3 @@
-import 'package:radix_mobile_project/model/endereco.dart';
-
 class Cliente {
   final int idCliente;
   final String nomeCliente;
