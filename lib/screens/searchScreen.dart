@@ -17,98 +17,15 @@ class _SearchScreenState extends State<SearchScreen> {
   bool searchStatus = true;
   final searchController = TextEditingController();
   int _currentIndex = 1;
-
   List<Vendedor> _salesmanList = [];
 
-  List<Vendedor> _onSearched(List<Vendedor> list, String product) {
-    List<Vendedor> v = [];
-
-    setState(() {
-      _salesmanList.clear();
-    });
-
-    for (var i = 0; i < list.length; i++) {
-      for (var j = 0; j < list[i].produtosVendedor.length; j++) {
-        if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() ==
-            product.toUpperCase()) {
-          if (list[i].statusContaVendedor == false) {
-            break;
-          } else {
-            v.add(list[i]);
-          }
-
-          // v.add(list[i]);
-        }
-      }
-    }
-
-    return v;
-  }
-
-  Row _seloProdutos(double seloValue) {
-    Row row = Row(
-      children: [
-        Text(
-          seloValue.toString(),
-          style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
-        ),
-        Icon(Icons.eco_sharp, color: Colors.cyan),
-      ],
-    );
-
-    if (0 < seloValue && seloValue <= 1) {
-      row = Row(
-        children: [
-          Text(
-            seloValue.toString(),
-            style: TextStyle(color: Colors.red),
-          ),
-          Icon(Icons.eco_sharp, color: Colors.red),
-        ],
-      );
-    } else if (1 < seloValue && seloValue <= 2) {
-      row = Row(
-        children: [
-          Text(
-            seloValue.toString(),
-            style: TextStyle(color: Colors.orange),
-          ),
-          Icon(Icons.eco_sharp, color: Colors.orange),
-        ],
-      );
-    } else if (2 < seloValue && seloValue <= 3) {
-      row = Row(
-        children: [
-          Text(
-            seloValue.toString(),
-            style: TextStyle(color: Colors.yellow),
-          ),
-          Icon(Icons.eco_sharp, color: Colors.yellow),
-        ],
-      );
-    } else if (3 < seloValue && seloValue <= 4) {
-      row = Row(
-        children: [
-          Text(
-            seloValue.toString(),
-            style: TextStyle(color: Colors.green),
-          ),
-          Icon(Icons.eco_sharp, color: Colors.green),
-        ],
-      );
-    } else if (4 < seloValue && seloValue <= 5) {
-      row = Row(
-        children: [
-          Text(
-            seloValue.toString(),
-            style: TextStyle(color: Colors.cyan),
-          ),
-          Icon(Icons.eco_sharp, color: Colors.cyan),
-        ],
-      );
-    }
-
-    return row;
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<SalesmanProvider>(
+      context,
+      listen: false,
+    ).loadVendedores();
   }
 
   Widget get bottomNavigationBar {
@@ -180,6 +97,36 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Vendedor> _vendedores =
+        Provider.of<SalesmanProvider>(context).getVededores();
+
+    List<Vendedor> _onSearched(List<Vendedor> list, String product) {
+      List<Vendedor> v = [];
+
+      setState(() {
+        _salesmanList.clear();
+      });
+
+      for (var i = 0; i < list.length; i++) {
+        for (var j = 0; j < list[i].produtosVendedor.length; j++) {
+          if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() ==
+              product.toUpperCase()) {
+            if (list[i].statusContaVendedor == false) {
+              break;
+            } else {
+              v.add(list[i]);
+            }
+
+            v.add(list[i]);
+          }
+        }
+      }
+
+      return v;
+    }
+
+    void onSearch() {}
+
     return LayoutBuilder(
       builder: ((context, constraints) {
         return SingleChildScrollView(
@@ -192,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: constraints.maxWidth * .95,
                   child: TextField(
                     onChanged: ((value) =>
-                        _salesmanList = _onSearched(DUMMY_SALESMAN, value)),
+                        _salesmanList = _onSearched(_vendedores, value)),
                     controller: searchController,
                     decoration: InputDecoration(
                       filled: true,
@@ -205,13 +152,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           Radius.circular(10),
                         ),
                       ),
-                      suffixIcon: GestureDetector(
-                        onTap: () => _salesmanList =
-                            _onSearched(DUMMY_SALESMAN, searchController.text),
-                        child: const Icon(
-                          Icons.search,
-                          color: Color.fromRGBO(108, 168, 129, 1),
-                        ),
+                      suffixIcon: const Icon(
+                        Icons.search,
+                        color: Color.fromRGBO(108, 168, 129, 1),
                       ),
                       hintText: 'Pesquisar vendedores ou produtos',
                       hintStyle: const TextStyle(
