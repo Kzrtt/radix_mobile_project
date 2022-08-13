@@ -95,6 +95,7 @@ List<Cliente> DUMMY_CLIENTS = [
   )
 ];
 
+/*
 List<Vendedor> DUMMY_SALESMAN = [
   Vendedor(
     idVendedor: 1,
@@ -519,3 +520,5 @@ List<Vendedor> DUMMY_SALESMAN = [
     ],
   ),
 ];
+
+*/

@@ -10,7 +10,7 @@ class Vendedor with ChangeNotifier {
   final String senhaVendedor;
   final String urlImagemVendedor;
   final String enderecoVendedor;
-  final bool statusContaVendedor;
+  final int statusContaVendedor;
   final double selo;
   final List<Produtos> produtosVendedor;
 

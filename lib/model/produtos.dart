@@ -3,8 +3,9 @@ class Produtos {
   final String nomeProduto;
   final String urlFoto;
   final String detalheProduto;
-  final double preco;
-  final bool statusProduto;
+  final int preco;
+  final int statusProduto;
+  final int idVendedor;
 
   const Produtos({
     required this.idProduto,
@@ -13,5 +14,6 @@ class Produtos {
     required this.detalheProduto,
     required this.preco,
     required this.statusProduto,
+    required this.idVendedor,
   });
 }

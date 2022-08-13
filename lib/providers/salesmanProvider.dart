@@ -1,7 +1,73 @@
+// ignore_for_file: avoid_print
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:radix_mobile_project/model/produtos.dart';
+import 'package:radix_mobile_project/model/vendedor.dart';
 
 class SalesmanProvider with ChangeNotifier {
+  List<Vendedor> _vendedores = [];
+  List<Vendedor> getVededores() => [..._vendedores];
+
+  Future<void> loadVendedores() async {
+    var response =
+        await Dio().get('http://localhost:8000/api/getAllVendedores');
+
+    var response2 =
+        await Dio().get('http://localhost:8000/api/getEveryProduct');
+
+    response.data['vendedores'].forEach(
+      (e) {
+        List<Produtos> _produtos = [];
+        response2.data['products'].forEach(
+          (p) {
+            if (p['idVendedor'] == e['idVendedor']) {
+              Produtos produto = Produtos(
+                idProduto: p['idProduto'],
+                nomeProduto: p['nomeProduto'],
+                urlFoto: p['imagemProduto'],
+                detalheProduto: p['detalheProduto'],
+                preco: p['preco'],
+                statusProduto: p['statusProduto'],
+                idVendedor: p['idVendedor'],
+              );
+              if (produto.statusProduto == 1) {
+                if (_produtos
+                    .any((element) => element.idProduto == produto.idProduto)) {
+                  print('_');
+                } else {
+                  _produtos.add(produto);
+                }
+              }
+            }
+          },
+        );
+
+        Vendedor vendedor = Vendedor(
+          idVendedor: e['idVendedor'],
+          nomeVendedor: e['nomeVendedor'],
+          cpfCnpjVendedor: e['cpfCnpj'],
+          emailVendedor: e['emailVendedor'],
+          senhaVendedor: e['senhaVendedor'],
+          urlImagemVendedor: e['fotoPerfil'],
+          enderecoVendedor: e['enderecoVendedor'],
+          statusContaVendedor: e['statusConta'],
+          selo: 5,
+          produtosVendedor: _produtos,
+        );
+        if (vendedor.statusContaVendedor == 1) {
+          if (_vendedores
+              .any((element) => element.idVendedor == vendedor.idVendedor)) {
+            print('_');
+          } else {
+            _vendedores.add(vendedor);
+          }
+        }
+      },
+    );
+  }
+
   Row seloProdutor(double selo) {
     Row row = Row(
       children: [

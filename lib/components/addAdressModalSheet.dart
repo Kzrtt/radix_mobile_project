@@ -1,13 +1,8 @@
-import 'dart:math';
-
-import 'package:dio/dio.dart';
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
-import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
-import 'package:radix_mobile_project/providers/clientProvider.dart';
 
 class AddAdressModalSheet extends StatefulWidget {
   @override
@@ -19,39 +14,6 @@ class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
   final enderecoController = TextEditingController();
   final numeroController = TextEditingController();
   final complementoController = TextEditingController();
-
-  void creatAdress(
-      constraints, String apelido, endereco, complemento, numero) async {
-    try {
-      var response = await Dio().post(
-        'http://localhost:8000/api/inserirEndereco',
-        data: {
-          'apelidoEndereco': apelido,
-          'endereco': endereco,
-          'complemento': complemento,
-          'numero': numero,
-          'statusEndereco': '1',
-          'idCliente': Provider.of<ClientProvider>(context, listen: false)
-              .getUser
-              .idCliente,
-        },
-      );
-      if (response.data['status'] == '400') {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(response.data['message'],
-                style: TextStyle(fontSize: constraints.maxWidth * .04)),
-          ),
-        );
-      } else {
-        print(response.data['message']);
-        Navigator.of(context).pop();
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   Widget _textField(double height, double width, BoxConstraints constraints,
       String text, TextEditingController controller) {
@@ -141,13 +103,19 @@ class _AddAdressModalSheetState extends State<AddAdressModalSheet> {
                 SizedBox(height: constraints.maxHeight * .15),
                 Button(
                   text: 'Adicionar Endereço',
-                  onTap: () => creatAdress(
-                    constraints,
-                    apelidoEnderecoController.text,
-                    enderecoController.text,
-                    complementoController.text,
-                    numeroController.text,
-                  ),
+                  onTap: () {
+                    Provider.of<AdressProvider>(context, listen: false)
+                        .createAdress(
+                      constraints,
+                      context,
+                      apelidoEnderecoController.text,
+                      enderecoController.text,
+                      complementoController.text,
+                      numeroController.text,
+                    );
+
+                    Navigator.of(context).pop();
+                  },
                   height: constraints.maxHeight * .1,
                   width: constraints.maxWidth * .75,
                   color: true,

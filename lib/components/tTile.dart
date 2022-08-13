@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,12 +28,6 @@ class TTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void deleteAdress() async {
-      var response =
-          await Dio().put('http://localhost:8000/api/deleteEndereco/$id');
-      print(response.data.toString());
-    }
-
     return Padding(
       padding: EdgeInsets.all(constraints.maxHeight * .02),
       child: SizedBox(
@@ -80,7 +72,10 @@ class TTile extends StatelessWidget {
             child: IconButton(
               icon: Icon(trailingIcon),
               color: color ? Colors.red : Colors.black,
-              onPressed: () => deleteAdress(),
+              onPressed: () => Provider.of<AdressProvider>(
+                context,
+                listen: false,
+              ).deleteAdress(id),
             ),
           ),
         ),

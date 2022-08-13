@@ -6,7 +6,7 @@ class Item {
   final Produtos produto;
   final Vendedor vendedor;
   final int quantity;
-  final double total;
+  final int total;
 
   const Item({
     required this.idItem,
