@@ -68,6 +68,52 @@ class SalesmanProvider with ChangeNotifier {
     );
   }
 
+  Future<Vendedor> getVendedor(int id) async {
+    var response = await Dio().get('http://localhost:8000/api/getVendedor/$id');
+
+    List<Produtos> _p = [];
+    var response2 =
+        await Dio().get('http://localhost:8000/api/getAllProdutos/$id');
+
+    if (response2.data['status'] == '200') {
+      response2.data['produtos'].forEach(
+        (p) {
+          Produtos produto = Produtos(
+            idProduto: p['idProduto'],
+            nomeProduto: p['nomeProduto'],
+            urlFoto: p['imagemProduto'],
+            detalheProduto: p['detalheProduto'],
+            preco: p['preco'],
+            statusProduto: p['statusProduto'],
+            idVendedor: p['idVendedor'],
+          );
+          if (produto.statusProduto == 1) {
+            if (_p.any((element) => element.idProduto == produto.idProduto)) {
+              print('_');
+            } else {
+              _p.add(produto);
+            }
+          }
+        },
+      );
+    }
+
+    Vendedor vendedor = Vendedor(
+      idVendedor: response.data['vendedor'][0]['idVendedor'],
+      nomeVendedor: response.data['vendedor'][0]['nomeVendedor'],
+      cpfCnpjVendedor: response.data['vendedor'][0]['cpfCnpj'],
+      emailVendedor: response.data['vendedor'][0]['emailVendedor'],
+      senhaVendedor: response.data['vendedor'][0]['senhaVendedor'],
+      urlImagemVendedor: response.data['vendedor'][0]['fotoPerfil'],
+      enderecoVendedor: response.data['vendedor'][0]['enderecoVendedor'],
+      statusContaVendedor: response.data['vendedor'][0]['statusConta'],
+      selo: 5,
+      produtosVendedor: _p,
+    );
+
+    return vendedor;
+  }
+
   Row seloProdutor(double selo) {
     Row row = Row(
       children: [

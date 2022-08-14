@@ -11,7 +11,7 @@ class PaymentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteCartao(String id) {
+  void deleteCartao(int id) {
     _cartoes.removeWhere((cartao) => cartao.idCartao == id);
     notifyListeners();
   }

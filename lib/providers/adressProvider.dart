@@ -13,26 +13,30 @@ class AdressProvider with ChangeNotifier {
     _enderecos.clear();
     var response =
         await Dio().get('http://localhost:8000/api/getAllEnderecos/$id');
-    response.data['enderecos'].forEach(
-      (k, e) {
-        Endereco endereco = Endereco(
-          idEndereco: e['idEndereco'],
-          apelidoEndereco: e['apelidoEndereco'],
-          endereco: e['endereco'],
-          complemento: e['complemento'],
-          numero: e['numero'],
-          statusEndereco: e['statusEndereco'],
-        );
-        if (endereco.statusEndereco == 1) {
-          if (_enderecos
-              .any((element) => element.idEndereco == endereco.idEndereco)) {
-            print('_');
-          } else {
-            _enderecos.add(endereco);
+    if (response.data['status'] == '200') {
+      response.data['enderecos'].forEach(
+        (k, e) {
+          Endereco endereco = Endereco(
+            idEndereco: e['idEndereco'],
+            apelidoEndereco: e['apelidoEndereco'],
+            endereco: e['endereco'],
+            complemento: e['complemento'],
+            numero: e['numero'],
+            statusEndereco: e['statusEndereco'],
+          );
+          if (endereco.statusEndereco == 1) {
+            if (_enderecos
+                .any((element) => element.idEndereco == endereco.idEndereco)) {
+              print('_');
+            } else {
+              _enderecos.add(endereco);
+            }
           }
-        }
-      },
-    );
+        },
+      );
+    } else {
+      print(response.data['message'].toString());
+    }
     notifyListeners();
   }
 

@@ -1,3 +1,5 @@
+import 'package:radix_mobile_project/model/vendedor.dart';
+
 class Chat {
   final int idChat;
   final int idCliente;

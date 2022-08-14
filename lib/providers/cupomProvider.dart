@@ -50,5 +50,6 @@ class CupomProvider with ChangeNotifier {
     } else {
       print(response.data['message'].toString());
     }
+    notifyListeners();
   }
 }

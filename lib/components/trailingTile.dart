@@ -7,7 +7,7 @@ import 'package:radix_mobile_project/providers/paymentProvider.dart';
 
 class TrailingTile extends StatelessWidget {
   final constraints;
-  final String id;
+  final int id;
   final String title;
   final String subTitle;
   final leadingIcon;
@@ -15,7 +15,7 @@ class TrailingTile extends StatelessWidget {
   final bool color;
 
   TrailingTile({
-    this.constraints = 100,
+    required this.constraints,
     required this.id,
     required this.title,
     this.subTitle = '',

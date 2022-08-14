@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/defaultTile.dart';
+import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/components/trailingTile.dart';
+import 'package:radix_mobile_project/model/vendedor.dart';
+import 'package:radix_mobile_project/providers/chatProvider.dart';
+import 'package:radix_mobile_project/providers/clientProvider.dart';
+import 'package:radix_mobile_project/providers/salesmanProvider.dart';
 
-import '../utils/appRoutes.dart';
+import '../model/chat.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -10,8 +16,29 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<SalesmanProvider>(context, listen: false).loadVendedores();
+    Provider.of<ChatProvider>(context, listen: false)
+        .loadChats(
+      Provider.of<ClientProvider>(context, listen: false).getUser.idCliente,
+    )
+        .then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Chat> _chats = Provider.of<ChatProvider>(context).getChats();
+    List<Vendedor> _vendedores =
+        Provider.of<SalesmanProvider>(context).getVededores();
+
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -70,33 +97,51 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 SizedBox(height: constraints.maxHeight * .03),
-                TrailingTile(
-                  constraints: constraints,
-                  id: '0',
-                  subTitle: 'Ricardinho',
-                  title: 'Amoras do Ricardinho',
-                  leadingIcon: Icons.abc,
-                  trailingIcon: Icons.more_vert,
-                  color: false,
-                ),
-                TrailingTile(
-                  id: '0',
-                  constraints: constraints,
-                  subTitle: 'Maria',
-                  title: 'Batatas da Maria',
-                  leadingIcon: Icons.abc,
-                  trailingIcon: Icons.more_vert,
-                  color: false,
-                ),
-                TrailingTile(
-                  id: '0',
-                  constraints: constraints,
-                  subTitle: 'Luiz Carlos',
-                  title: 'Alfaces do Luiz Carlos',
-                  leadingIcon: Icons.abc,
-                  trailingIcon: Icons.more_vert,
-                  color: false,
-                ),
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _chats.isEmpty
+                        ? Column(
+                            children: [
+                              SizedBox(height: constraints.maxHeight * .05),
+                              TextPlusImage(
+                                firstText: 'Você não possui nenhuma conversa',
+                                imgUrl: 'assets/svg/undraw_not_found.svg',
+                                height: constraints.maxWidth * .5,
+                                secondText:
+                                    'Converse com os vendedores caso tenha alguma duvida',
+                                constraints: constraints,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              SizedBox(height: constraints.maxHeight * .04),
+                              SizedBox(
+                                height: 1000,
+                                width: double.infinity,
+                                child: ListView.builder(
+                                  itemCount: _chats.length,
+                                  itemBuilder: (context, index) {
+                                    Chat c = _chats[index];
+                                    Vendedor v = _vendedores.singleWhere(
+                                      (element) =>
+                                          element.idVendedor == c.idVendedor,
+                                    );
+                                    return TrailingTile(
+                                      id: c.idChat,
+                                      title: v.nomeVendedor,
+                                      subTitle:
+                                          'Colocar a ultima mensagem aqui',
+                                      leadingIcon: Icons.abc,
+                                      trailingIcon: Icons.more_vert,
+                                      color: false,
+                                      constraints: constraints,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          )
               ],
             ),
           );

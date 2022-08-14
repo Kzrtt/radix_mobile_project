@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/cartProvider.dart';
+import 'package:radix_mobile_project/providers/chatProvider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => SalesmanProvider()),
         ChangeNotifierProvider(create: (_) => CupomProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
