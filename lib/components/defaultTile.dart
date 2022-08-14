@@ -47,6 +47,7 @@ class DefaultTile extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          isThreeLine: true,
           subtitle: Text(
             subTitle,
             style: TextStyle(

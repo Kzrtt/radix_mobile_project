@@ -53,7 +53,7 @@ class TrailingTile extends StatelessWidget {
           title: Text(
             title,
             style: TextStyle(
-              fontSize: constraints.maxHeight * .030,
+              fontSize: constraints.maxHeight * .025,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -65,11 +65,14 @@ class TrailingTile extends StatelessWidget {
             ),
           ),
           trailing: Padding(
-            padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .0003, constraints.maxWidth * .04, 0),
+            padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .0003,
+                constraints.maxWidth * .04, 0),
             child: IconButton(
               icon: Icon(trailingIcon),
               color: color ? Colors.red : Colors.black,
-              onPressed: () => Provider.of<PaymentProvider>(context, listen: false).deleteCartao(id),
+              onPressed: () =>
+                  Provider.of<PaymentProvider>(context, listen: false)
+                      .deleteCartao(id),
             ),
           ),
         ),

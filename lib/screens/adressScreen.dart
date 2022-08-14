@@ -40,7 +40,12 @@ class _AdressScreenState extends State<AdressScreen> {
     Provider.of<AdressProvider>(
       context,
       listen: false,
-    ).loadEnderecos().then((value) {
+    )
+        .loadEnderecos(Provider.of<ClientProvider>(
+      context,
+      listen: false,
+    ).getUser.idCliente)
+        .then((value) {
       setState(() {
         _isLoading = false;
       });

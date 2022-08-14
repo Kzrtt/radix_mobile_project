@@ -9,9 +9,10 @@ class AdressProvider with ChangeNotifier {
   List<Endereco> _enderecos = [];
   List<Endereco> getEnderecos() => _enderecos;
 
-  Future<void> loadEnderecos() async {
+  Future<void> loadEnderecos(int id) async {
+    _enderecos.clear();
     var response =
-        await Dio().get('http://localhost:8000/api/getAllEnderecos/1');
+        await Dio().get('http://localhost:8000/api/getAllEnderecos/$id');
     response.data['enderecos'].forEach(
       (k, e) {
         Endereco endereco = Endereco(
@@ -32,6 +33,7 @@ class AdressProvider with ChangeNotifier {
         }
       },
     );
+    notifyListeners();
   }
 
   Future<void> deleteAdress(int id) async {

@@ -27,7 +27,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
 
-  void getLoginInfo(String email, String senha, constraints) async {
+  Future<void> getLoginInfo(String email, String senha, constraints) async {
     try {
       var response = await Dio()
           .get('http://localhost:8000/api/loginCliente/$email/$senha');
@@ -262,7 +262,10 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                 Button(
                   text: 'Entrar',
                   onTap: () => getLoginInfo(
-                      emailController.text, senhaController.text, constraints),
+                    emailController.text,
+                    senhaController.text,
+                    constraints,
+                  ),
                   height: constraints.maxHeight * .07,
                   width: constraints.maxWidth * .7,
                   color: true,

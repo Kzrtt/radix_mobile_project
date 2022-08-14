@@ -3,10 +3,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/screens/profileScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
+import '../providers/cupomProvider.dart';
 import 'homeScreen.dart';
 import '../screens/searchScreen.dart';
 

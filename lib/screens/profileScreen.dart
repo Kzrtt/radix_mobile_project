@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
+import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 import '../components/profileButton.dart';
 import '../model/cliente.dart';
+import '../providers/adressProvider.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -149,6 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
           child: InkWell(
             onTap: () {
+              Provider.of<ClientProvider>(context, listen: false).userLogoff();
               Navigator.of(context)
                   .pushReplacementNamed(AppRoutes.OPENINGSCREEN);
             },

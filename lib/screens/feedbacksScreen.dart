@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:radix_mobile_project/components/button.dart';
+import 'package:radix_mobile_project/components/imageContainer.dart';
 
 import '../utils/appRoutes.dart';
 
@@ -9,6 +11,22 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
+  final nomeClienteController = TextEditingController();
+  final mensagemClienteController = TextEditingController();
+
+  Future<void> sendFeedback(String nome, String mensagem) async {
+    var response = await Dio().post(
+      'http://localhost:8000/api/inserirFeedback',
+      data: {
+        'nome': nome,
+        'feedback': mensagem,
+      },
+    );
+    nomeClienteController.text = '';
+    mensagemClienteController.text = '';
+    print(response.data['message']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +60,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     height: constraints.maxHeight * .09,
                     width: constraints.maxWidth * .95,
                     child: TextField(
+                      controller: nomeClienteController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
@@ -66,6 +85,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   height: constraints.maxHeight * .46,
                   width: constraints.maxWidth * .95,
                   child: TextField(
+                    controller: mensagemClienteController,
                     maxLines: null,
                     textAlignVertical: TextAlignVertical.top,
                     expands: true,
@@ -90,7 +110,71 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 SizedBox(height: constraints.maxHeight * .08),
                 Button(
                   text: 'Enviar Feedback',
-                  onTap: () {},
+                  onTap: () => sendFeedback(
+                    nomeClienteController.text,
+                    mensagemClienteController.text,
+                  ).then((value) {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) {
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * .90,
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              return ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(40),
+                                  topLeft: Radius.circular(40),
+                                ),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromRGBO(132, 202, 157, 1),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                          height: constraints.maxHeight * .05),
+                                      Center(
+                                        child: Text(
+                                          'Obrigado por enviar seu Feedback!',
+                                          style: TextStyle(
+                                            fontSize:
+                                                constraints.maxHeight * .035,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: constraints.maxHeight * .12),
+                                      ImageContainer(
+                                        'assets/svg/undraw_partying.svg',
+                                        constraints.maxHeight * .4,
+                                      ),
+                                      SizedBox(
+                                          height: constraints.maxHeight * .12),
+                                      Button(
+                                        text: 'Home',
+                                        onTap: () => Navigator.of(context)
+                                            .pushNamed(AppRoutes.HOMETAB),
+                                        height: constraints.maxHeight * .08,
+                                        width: constraints.maxWidth * .6,
+                                        color: false,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  }),
                   height: constraints.maxHeight * .09,
                   width: constraints.maxWidth * .7,
                   color: true,
@@ -98,7 +182,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Limpar Campos',
-                  onTap: () {},
+                  onTap: () {
+                    nomeClienteController.text = '';
+                    mensagemClienteController.text = '';
+                  },
                   height: constraints.maxHeight * .09,
                   width: constraints.maxWidth * .7,
                   color: false,

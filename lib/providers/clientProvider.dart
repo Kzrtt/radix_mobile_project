@@ -27,6 +27,17 @@ class ClientProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void userLogoff() {
+    user = Cliente(
+      idCliente: 0,
+      nomeCliente: 'nomeCliente',
+      cpfCliente: 'cpfCliente',
+      emailCliente: 'emailCliente',
+      senhaCliente: 'senhaCliente',
+    );
+    notifyListeners();
+  }
+
   bool isFavorite(Vendedor vendedor) {
     return _vendedoresFavoritos
         .any((element) => element.idVendedor == vendedor.idVendedor);
