@@ -32,7 +32,7 @@ class DefaultTile extends StatelessWidget {
           ),
           tileColor: const Color.fromRGBO(237, 233, 232, .7),
           leading: CircleAvatar(
-            backgroundColor: Colors.black12,
+            backgroundColor: Color.fromARGB(20, 0, 0, 0),
             radius: 50,
             child: Icon(
               leadingIcon,

@@ -24,13 +24,14 @@ class SalesmanTile extends StatelessWidget {
         child: SizedBox(
           height: constraints.maxHeight * .14,
           child: ListTile(
-            contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001, constraints.maxHeight * .018, 0, 0),
+            contentPadding: EdgeInsets.fromLTRB(constraints.maxWidth * .001,
+                constraints.maxHeight * .018, 0, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
             tileColor: const Color.fromRGBO(237, 233, 232, .7),
             leading: CircleAvatar(
-              backgroundColor: Colors.black12,
+              backgroundColor: Color.fromARGB(20, 0, 0, 0),
               radius: 50,
               child: Icon(
                 Icons.abc,
@@ -53,7 +54,8 @@ class SalesmanTile extends StatelessWidget {
               ),
             ),
             trailing: Padding(
-              padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .020, 0, constraints.maxWidth * .01),
+              padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .020, 0,
+                  constraints.maxWidth * .01),
               child: SizedBox(
                 width: constraints.maxWidth * .14,
                 child: Column(
@@ -62,7 +64,8 @@ class SalesmanTile extends StatelessWidget {
                       children: [
                         Text(
                           threeLine,
-                          style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+                          style: const TextStyle(
+                              color: Color.fromRGBO(108, 168, 129, 1)),
                         ),
                         const Icon(
                           Icons.eco_sharp,
