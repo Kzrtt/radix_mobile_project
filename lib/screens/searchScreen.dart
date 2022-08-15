@@ -98,7 +98,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     List<Vendedor> _vendedores =
-        Provider.of<SalesmanProvider>(context).getVededores();
+        Provider.of<SalesmanProvider>(context).getVendedores();
 
     List<Vendedor> _onSearched(List<Vendedor> list, String product) {
       List<Vendedor> v = [];
@@ -111,13 +111,11 @@ class _SearchScreenState extends State<SearchScreen> {
         for (var j = 0; j < list[i].produtosVendedor.length; j++) {
           if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() ==
               product.toUpperCase()) {
-            if (list[i].statusContaVendedor == false) {
+            if (list[i].statusContaVendedor == 0) {
               break;
             } else {
               v.add(list[i]);
             }
-
-            v.add(list[i]);
           }
         }
       }

@@ -214,7 +214,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  SizedBox(height: constraints.maxHeight * .02),
+                                  SizedBox(height: constraints.maxHeight * .01),
                                   context
                                       .watch<SalesmanProvider>()
                                       .seloProdutor(vendedor.selo),

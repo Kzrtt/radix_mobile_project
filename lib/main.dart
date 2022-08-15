@@ -16,6 +16,7 @@ import 'package:radix_mobile_project/screens/favoritesScreen.dart';
 import 'package:radix_mobile_project/screens/feedbacksScreen.dart';
 import 'package:radix_mobile_project/screens/finalizarCompra.dart';
 import 'package:radix_mobile_project/screens/historicScreen.dart';
+import 'package:radix_mobile_project/screens/insideChatScreen.dart';
 import 'package:radix_mobile_project/screens/openingScreen.dart';
 import 'package:radix_mobile_project/screens/paymentMethodScreen.dart';
 import 'package:radix_mobile_project/screens/profileScreen.dart';
@@ -83,6 +84,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutes.SALESMANPROFILE: (ctx) => SalesmanScreen(),
           AppRoutes.PROFILE: (ctx) => ProfileScreen(),
           AppRoutes.FINALIZARCOMPRA: (ctx) => FinalizarCompra(),
+          AppRoutes.INSIDECHAT: (ctx) => InsideChatScreen(),
         },
       ),
     );

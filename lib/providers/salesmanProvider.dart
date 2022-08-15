@@ -8,9 +8,10 @@ import 'package:radix_mobile_project/model/vendedor.dart';
 
 class SalesmanProvider with ChangeNotifier {
   List<Vendedor> _vendedores = [];
-  List<Vendedor> getVededores() => [..._vendedores];
+  List<Vendedor> getVendedores() => [..._vendedores];
 
   Future<void> loadVendedores() async {
+    _vendedores.clear();
     var response =
         await Dio().get('http://localhost:8000/api/getAllVendedores');
 
@@ -66,6 +67,7 @@ class SalesmanProvider with ChangeNotifier {
         }
       },
     );
+    notifyListeners();
   }
 
   Future<Vendedor> getVendedor(int id) async {

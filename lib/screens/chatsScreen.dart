@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:radix_mobile_project/components/chatTile.dart';
 import 'package:radix_mobile_project/components/defaultTile.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/components/trailingTile.dart';
@@ -7,6 +8,7 @@ import 'package:radix_mobile_project/model/vendedor.dart';
 import 'package:radix_mobile_project/providers/chatProvider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
+import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 import '../model/chat.dart';
 
@@ -21,11 +23,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<SalesmanProvider>(context, listen: false).loadVendedores();
-    Provider.of<ChatProvider>(context, listen: false)
-        .loadChats(
+    Provider.of<ChatProvider>(context, listen: false).loadChats(
       Provider.of<ClientProvider>(context, listen: false).getUser.idCliente,
-    )
+    );
+    Provider.of<SalesmanProvider>(context, listen: false)
+        .loadVendedores()
         .then((value) {
       setState(() {
         _isLoading = false;
@@ -37,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     List<Chat> _chats = Provider.of<ChatProvider>(context).getChats();
     List<Vendedor> _vendedores =
-        Provider.of<SalesmanProvider>(context).getVededores();
+        Provider.of<SalesmanProvider>(context).getVendedores();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -115,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           )
                         : Column(
                             children: [
-                              SizedBox(height: constraints.maxHeight * .04),
+                              SizedBox(height: constraints.maxHeight * .01),
                               SizedBox(
                                 height: 1000,
                                 width: double.infinity,
@@ -123,19 +125,29 @@ class _ChatScreenState extends State<ChatScreen> {
                                   itemCount: _chats.length,
                                   itemBuilder: (context, index) {
                                     Chat c = _chats[index];
-                                    Vendedor v = _vendedores.singleWhere(
-                                      (element) =>
-                                          element.idVendedor == c.idVendedor,
-                                    );
-                                    return TrailingTile(
-                                      id: c.idChat,
-                                      title: v.nomeVendedor,
-                                      subTitle:
-                                          'Colocar a ultima mensagem aqui',
-                                      leadingIcon: Icons.abc,
-                                      trailingIcon: Icons.more_vert,
-                                      color: false,
-                                      constraints: constraints,
+                                    Vendedor v = _vendedores.firstWhere(
+                                        (element) =>
+                                            element.idVendedor == c.idVendedor);
+                                    return InkWell(
+                                      onTap: () {
+                                        Provider.of<ChatProvider>(context,
+                                                listen: false)
+                                            .setIdConversa(c.idChat);
+                                        Navigator.of(context).pushNamed(
+                                          AppRoutes.INSIDECHAT,
+                                          arguments: v,
+                                        );
+                                      },
+                                      child: ChatTile(
+                                        id: c.idChat,
+                                        title: v.nomeVendedor,
+                                        subTitle:
+                                            'Colocar ultima mensagem enviada',
+                                        leadingIcon: Icons.abc,
+                                        trailingIcon: Icons.more_vert,
+                                        color: false,
+                                        constraints: constraints,
+                                      ),
                                     );
                                   },
                                 ),
