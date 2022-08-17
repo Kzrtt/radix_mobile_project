@@ -24,21 +24,40 @@ class ChatProvider with ChangeNotifier {
     _chats.clear();
     var response = await Dio().get('http://localhost:8000/api/getChats/$id');
 
-    response.data['chats'].forEach(
-      (k, e) {
-        Chat chat = Chat(
-          idChat: e['idConversa'],
-          idCliente: e['idCliente'],
-          idVendedor: e['idVendedor'],
-        );
+    if (response.data['status'] == '201') {
+      response.data['chat'].forEach(
+        (e) {
+          Chat chat = Chat(
+            idChat: e['idConversa'],
+            idCliente: e['idCliente'],
+            idVendedor: e['idVendedor'],
+          );
 
-        if (_chats.any((element) => element.idChat == chat.idChat)) {
-          print('_');
-        } else {
-          _chats.add(chat);
-        }
-      },
-    );
+          if (_chats.any((element) => element.idChat == chat.idChat)) {
+            print('_');
+          } else {
+            _chats.add(chat);
+          }
+        },
+      );
+    } else {
+      response.data['chats'].forEach(
+        (k, e) {
+          Chat chat = Chat(
+            idChat: e['idConversa'],
+            idCliente: e['idCliente'],
+            idVendedor: e['idVendedor'],
+          );
+
+          if (_chats.any((element) => element.idChat == chat.idChat)) {
+            print('_');
+          } else {
+            _chats.add(chat);
+          }
+        },
+      );
+    }
+
     notifyListeners();
   }
 

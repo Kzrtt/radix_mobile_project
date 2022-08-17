@@ -70,7 +70,7 @@ class SalesmanProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Vendedor> getVendedor(int id) async {
+  Future<Vendedor> getVendedor(double id) async {
     var response = await Dio().get('http://localhost:8000/api/getVendedor/$id');
 
     List<Produtos> _p = [];

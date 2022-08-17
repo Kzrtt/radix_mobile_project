@@ -11,7 +11,7 @@ class Vendedor with ChangeNotifier {
   final String urlImagemVendedor;
   final String enderecoVendedor;
   final int statusContaVendedor;
-  final double selo;
+  final dynamic selo;
   final List<Produtos> produtosVendedor;
 
   Vendedor({
