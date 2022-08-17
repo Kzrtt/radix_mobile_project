@@ -6,7 +6,6 @@ import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/model/vendedor.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
-import '../data/dummyData.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

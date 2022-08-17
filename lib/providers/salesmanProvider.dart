@@ -54,7 +54,7 @@ class SalesmanProvider with ChangeNotifier {
           urlImagemVendedor: e['fotoPerfil'],
           enderecoVendedor: e['enderecoVendedor'],
           statusContaVendedor: e['statusConta'],
-          selo: 5,
+          selo: e['selo'],
           produtosVendedor: _produtos,
         );
         if (vendedor.statusContaVendedor == 1) {
@@ -109,7 +109,7 @@ class SalesmanProvider with ChangeNotifier {
       urlImagemVendedor: response.data['vendedor'][0]['fotoPerfil'],
       enderecoVendedor: response.data['vendedor'][0]['enderecoVendedor'],
       statusContaVendedor: response.data['vendedor'][0]['statusConta'],
-      selo: 5,
+      selo: response.data['vendedor'][0]['selo'],
       produtosVendedor: _p,
     );
 
