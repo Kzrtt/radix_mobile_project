@@ -108,8 +108,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].produtosVendedor.length; j++) {
-          if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() ==
-              product.toUpperCase()) {
+          if (list[i]
+              .produtosVendedor[j]
+              .nomeProduto
+              .toUpperCase()
+              .contains(product.toUpperCase())) {
             if (list[i].statusContaVendedor == 0) {
               break;
             } else {
@@ -121,8 +124,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
       return v;
     }
-
-    void onSearch() {}
 
     return LayoutBuilder(
       builder: ((context, constraints) {
