@@ -8,6 +8,7 @@ import 'package:radix_mobile_project/providers/chatProvider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
+import 'package:radix_mobile_project/providers/pedidoProvider.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
 import 'package:radix_mobile_project/screens/adressScreen.dart';
 import 'package:radix_mobile_project/screens/chatsScreen.dart';
@@ -54,15 +55,14 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => SalesmanProvider()),
         ChangeNotifierProvider(create: (_) => CupomProvider()),
         ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => PedidoProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Radix',
         theme: ThemeData(
           visualDensity: VisualDensity.comfortable,
-          colorScheme: ColorScheme.fromSwatch(
-                  primarySwatch: CustomMaterialColor(132, 202, 157).mdColor)
-              .copyWith(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: CustomMaterialColor(132, 202, 157).mdColor).copyWith(
             secondary: Color.fromRGBO(108, 168, 129, 1),
           ),
         ),

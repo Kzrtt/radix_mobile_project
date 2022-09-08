@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Color.fromRGBO(250, 241, 240, 1),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
+          child: const Center(child: Text('Foto Produto')),
         ),
         SizedBox(height: constraints.maxHeight * .01),
         Padding(
@@ -38,9 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(left: constraints.maxWidth * .07),
           child: Text(
             '\$ 19.99',
-            style: TextStyle(
-                fontSize: constraints.maxHeight * .02,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: constraints.maxHeight * .02, fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -56,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(left: constraints.maxWidth * .04),
           child: Text(
             title,
-            style: TextStyle(
-                fontSize: constraints.maxHeight * .035,
-                fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: constraints.maxHeight * .035, fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(height: constraints.maxHeight * .02),
@@ -69,9 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _item(constraints),
               _item(constraints),
               _item(constraints),
-              _item(
-                constraints,
-              )
+              _item(constraints),
             ],
           ),
         ),
@@ -162,6 +157,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(108, 168, 129, .3),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/images/bannerRadix.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

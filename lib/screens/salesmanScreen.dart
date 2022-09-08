@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/model/item.dart';
@@ -21,8 +22,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
   int _currentIndex = 1;
   int _productQuantity = 1;
 
-  void _openProductModalSheet(
-      BuildContext context, Produtos produto, Vendedor vendedor) {
+  void _openProductModalSheet(BuildContext context, Produtos produto, Vendedor vendedor) {
     final provider = Provider.of<CartProvider>(context, listen: false);
     showModalBottomSheet(
       context: context,
@@ -48,9 +48,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       SizedBox(height: constraints.maxHeight * .06),
                       Text(
                         produto.nomeProduto,
-                        style: TextStyle(
-                            fontSize: constraints.maxHeight * .05,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: constraints.maxHeight * .05, color: Colors.white),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
                       SizedBox(
@@ -62,9 +60,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          IconButton(
-                              onPressed: () => provider.dec(),
-                              icon: Icon(Icons.remove, color: Colors.white)),
+                          IconButton(onPressed: () => provider.dec(), icon: Icon(Icons.remove, color: Colors.white)),
                           Text(
                             context.watch<CartProvider>().quantity.toString(),
                             style: TextStyle(
@@ -72,9 +68,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                               color: Colors.white,
                             ),
                           ),
-                          IconButton(
-                              onPressed: () => provider.inc(),
-                              icon: Icon(Icons.add, color: Colors.white)),
+                          IconButton(onPressed: () => provider.inc(), icon: Icon(Icons.add, color: Colors.white)),
                         ],
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
@@ -195,8 +189,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                             height: constraints.maxHeight,
                             width: constraints.maxWidth * .5,
                             child: Padding(
-                              padding:
-                                  EdgeInsets.all(constraints.maxHeight * .015),
+                              padding: EdgeInsets.all(constraints.maxHeight * .015),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -215,9 +208,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     ),
                                   ),
                                   SizedBox(height: constraints.maxHeight * .01),
-                                  context
-                                      .watch<SalesmanProvider>()
-                                      .seloProdutor(vendedor.selo),
+                                  context.watch<SalesmanProvider>().seloProdutor(vendedor.selo),
                                 ],
                               ),
                             ),
@@ -226,37 +217,34 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                             height: constraints.maxHeight,
                             width: constraints.maxWidth * .5,
                             child: Padding(
-                              padding:
-                                  EdgeInsets.all(constraints.maxHeight * .015),
+                              padding: EdgeInsets.all(constraints.maxHeight * .015),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  IconButton(
-                                    icon: Icon(
-                                        Provider.of<ClientProvider>(context)
-                                                .isFavorite(vendedor)
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline),
-                                    iconSize: constraints.maxHeight * .05,
-                                    onPressed: () {
-                                      if (Provider.of<ClientProvider>(context,
-                                                  listen: false)
-                                              .isFavorite(vendedor) ==
-                                          true) {
-                                        Provider.of<ClientProvider>(context,
-                                                listen: false)
-                                            .removeFromFavorites(
-                                                vendedor.idVendedor.toString());
-                                      } else {
-                                        Provider.of<ClientProvider>(context,
-                                                listen: false)
-                                            .addToFavorites(vendedor);
-                                      }
-                                    },
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.chat_bubble_outline),
+                                        iconSize: constraints.maxHeight * .045,
+                                        color: Theme.of(context).colorScheme.primary,
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Provider.of<ClientProvider>(context).isFavorite(vendedor) ? Icons.favorite : Icons.favorite_outline),
+                                        iconSize: constraints.maxHeight * .05,
+                                        onPressed: () {
+                                          if (Provider.of<ClientProvider>(context, listen: false).isFavorite(vendedor) == true) {
+                                            Provider.of<ClientProvider>(context, listen: false).removeFromFavorites(vendedor.idVendedor.toString());
+                                          } else {
+                                            Provider.of<ClientProvider>(context, listen: false).addToFavorites(vendedor);
+                                          }
+                                        },
+                                        color: Theme.of(context).colorScheme.primary,
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -267,9 +255,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                   ],
                 ),
               ),
-              Divider(
-                  color: Theme.of(context).colorScheme.primary,
-                  thickness: constraints.maxWidth * .001),
+              Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
               Flexible(
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
@@ -305,16 +291,13 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                             Padding(
                               padding: EdgeInsets.all(20),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Row(
                                     children: [
                                       Icon(
                                         Icons.eco_sharp,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
+                                        color: Theme.of(context).colorScheme.primary,
                                         size: constraints.maxHeight * .04,
                                       ),
                                       SizedBox(
@@ -332,9 +315,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     children: [
                                       Icon(
                                         Icons.attach_money,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
+                                        color: Theme.of(context).colorScheme.primary,
                                         size: constraints.maxHeight * .04,
                                       ),
                                       SizedBox(
@@ -351,12 +332,9 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                 ],
                               ),
                             ),
-                            Divider(
-                                color: Theme.of(context).colorScheme.primary,
-                                thickness: constraints.maxWidth * .001),
+                            Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
                             Container(
-                              margin: EdgeInsets.only(
-                                  top: constraints.maxHeight * .01),
+                              margin: EdgeInsets.only(top: constraints.maxHeight * .01),
                               height: constraints.maxHeight * .12,
                               width: constraints.maxWidth * .8,
                               child: Text(p.detalheProduto),

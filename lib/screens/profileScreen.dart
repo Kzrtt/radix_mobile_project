@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
-import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 import '../components/profileButton.dart';
-import '../model/cliente.dart';
-import '../providers/adressProvider.dart';
+import '../data/fruitList.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -17,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _currentIndex = 3;
+  int randomFruit = 0;
+  List<String> fruits = FRUITS;
 
   Widget get bottomNavigationBar {
     return ClipRRect(
@@ -117,6 +118,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    randomFruit = Random().nextInt(12);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
       backgroundColor: Colors.white,
@@ -128,61 +135,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-
-    double appBarHeight = appBar.preferredSize.height;
-
-    final appBarProfile = AppBar(
-      backgroundColor: Color.fromRGBO(132, 202, 157, 1),
-      elevation: 0,
-      leading: Padding(
-        padding:
-            EdgeInsets.fromLTRB(appBarHeight * .2, appBarHeight * .3, 0, 0),
-        child: Text(
-          'Editar',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding:
-              EdgeInsets.fromLTRB(0, appBarHeight * .3, appBarHeight * .3, 0),
-          child: InkWell(
-            onTap: () {
-              Provider.of<ClientProvider>(context, listen: false).userLogoff();
-              Navigator.of(context)
-                  .pushReplacementNamed(AppRoutes.OPENINGSCREEN);
-            },
-            child: Text(
-              'Sair',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        )
-      ],
-      title: Center(
-        child: Text(
-          'Perfil',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-        ),
-      ),
-    );
-
     return LayoutBuilder(
       builder: ((context, constraints) {
         return SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: constraints.maxHeight * .05),
+              Stack(
+                children: [
+                  Container(
+                    color: Theme.of(context).colorScheme.primary,
+                    height: constraints.maxHeight * .15,
+                    width: constraints.maxWidth,
+                  ),
+                  Center(
+                    child: CircleAvatar(
+                      maxRadius: 100,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: AssetImage('assets/images/fotoKurt.jpg'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 230, top: 140),
+                    child: InkWell(
+                      onTap: () {},
+                      child: CircleAvatar(
+                        maxRadius: 30,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        child: Icon(Icons.edit, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: constraints.maxHeight * .02),
               Text(
                 context.watch<ClientProvider>().getUser.nomeCliente,
                 style: TextStyle(

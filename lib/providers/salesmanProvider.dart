@@ -12,11 +12,9 @@ class SalesmanProvider with ChangeNotifier {
 
   Future<void> loadVendedores() async {
     _vendedores.clear();
-    var response =
-        await Dio().get('http://localhost:8000/api/getAllVendedores');
+    var response = await Dio().get('http://localhost:8000/api/getAllVendedores');
 
-    var response2 =
-        await Dio().get('http://localhost:8000/api/getEveryProduct');
+    var response2 = await Dio().get('http://localhost:8000/api/getEveryProduct');
 
     response.data['vendedores'].forEach(
       (e) {
@@ -34,8 +32,7 @@ class SalesmanProvider with ChangeNotifier {
                 idVendedor: p['idVendedor'],
               );
               if (produto.statusProduto == 1) {
-                if (_produtos
-                    .any((element) => element.idProduto == produto.idProduto)) {
+                if (_produtos.any((element) => element.idProduto == produto.idProduto)) {
                   print('_');
                 } else {
                   _produtos.add(produto);
@@ -58,8 +55,7 @@ class SalesmanProvider with ChangeNotifier {
           produtosVendedor: _produtos,
         );
         if (vendedor.statusContaVendedor == 1) {
-          if (_vendedores
-              .any((element) => element.idVendedor == vendedor.idVendedor)) {
+          if (_vendedores.any((element) => element.idVendedor == vendedor.idVendedor)) {
             print('_');
           } else {
             _vendedores.add(vendedor);
@@ -70,12 +66,11 @@ class SalesmanProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Vendedor> getVendedor(double id) async {
+  Future<Vendedor> getVendedor(int id) async {
     var response = await Dio().get('http://localhost:8000/api/getVendedor/$id');
 
     List<Produtos> _p = [];
-    var response2 =
-        await Dio().get('http://localhost:8000/api/getAllProdutos/$id');
+    var response2 = await Dio().get('http://localhost:8000/api/getAllProdutos/$id');
 
     if (response2.data['status'] == '200') {
       response2.data['produtos'].forEach(

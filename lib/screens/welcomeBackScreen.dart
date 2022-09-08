@@ -29,8 +29,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
 
   Future<void> getLoginInfo(String email, String senha, constraints) async {
     try {
-      var response = await Dio()
-          .get('http://localhost:8000/api/loginCliente/$email/$senha');
+      var response = await Dio().get('http://localhost:8000/api/loginCliente/$email/$senha');
 
       String loginResult = response.data['loginResult'];
       print(response.data);
@@ -49,8 +48,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: Text(loginResult,
-                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            title: Text(loginResult, style: TextStyle(fontSize: constraints.maxWidth * .04)),
           ),
         );
       }
@@ -59,8 +57,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     }
   }
 
-  void createClient(String senha, String validaSenha, String nome, String cpf,
-      String email, constraints) async {
+  void createClient(String senha, String validaSenha, String nome, String cpf, String email, constraints) async {
     try {
       if (senhaFormController.text == senhaFormValidationController.text) {
         var response = await Dio().post(
@@ -77,8 +74,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text(response.data['message'],
-                  style: TextStyle(fontSize: constraints.maxWidth * .04)),
+              title: Text(response.data['message'], style: TextStyle(fontSize: constraints.maxWidth * .04)),
             ),
           );
         } else {
@@ -89,8 +85,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: Text('As senhas não são iguais',
-                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            title: Text('As senhas não são iguais', style: TextStyle(fontSize: constraints.maxWidth * .04)),
           ),
         );
       }
@@ -99,19 +94,19 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     }
   }
 
-  Widget _textField(double height, double width, BoxConstraints constraints,
-      String text, TextEditingController controller) {
+  Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller, bool obscure) {
     return SizedBox(
       height: height,
       width: width,
       child: TextField(
+        obscureText: obscure,
+        obscuringCharacter: '*',
         controller: controller,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.white, width: constraints.maxWidth * .03),
+            borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
@@ -125,7 +120,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     );
   }
 
-  void _openAddAdressModalSheet(BuildContext context) {
+  void _openAdClientModalSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -158,40 +153,15 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                         ),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu nome',
-                          nomeFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu nome', nomeFormController, false),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu email',
-                          emailFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu email', emailFormController, false),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu cpf',
-                          cpfFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu cpf', cpfFormController, false),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'senha',
-                          senhaFormController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'senha', senhaFormController, false),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'confirme sua senha',
-                          senhaFormValidationController),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'confirme sua senha', senhaFormValidationController, false),
                       SizedBox(height: constraints.maxHeight * .02),
                       SizedBox(height: constraints.maxHeight * .10),
                       Button(
@@ -245,19 +215,9 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   height: constraints.maxHeight * .25,
                 ),
                 SizedBox(height: constraints.maxHeight * .04),
-                _textField(
-                    constraints.maxHeight * .08,
-                    constraints.maxWidth * .90,
-                    constraints,
-                    'Email',
-                    emailController),
+                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Email', emailController, false),
                 SizedBox(height: constraints.maxHeight * .01),
-                _textField(
-                    constraints.maxHeight * .08,
-                    constraints.maxWidth * .90,
-                    constraints,
-                    'Senha',
-                    senhaController),
+                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController, true),
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Entrar',
@@ -276,13 +236,10 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   children: [
                     Text(
                       'Ainda não tem uma conta ?',
-                      style: TextStyle(
-                          fontSize: constraints.maxHeight * .02,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: constraints.maxHeight * .02, color: Colors.black, fontWeight: FontWeight.w700),
                     ),
                     InkWell(
-                      onTap: () => _openAddAdressModalSheet(context),
+                      onTap: () => _openAdClientModalSheet(context),
                       child: Text(
                         '   Clique aqui',
                         style: TextStyle(

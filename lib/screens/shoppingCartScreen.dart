@@ -103,8 +103,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                             firstText: 'Nenhum produto adicionado',
                             imgUrl: 'assets/svg/undraw_empty_cart.svg',
                             height: constraints.maxHeight * .3,
-                            secondText:
-                                'Adicione produtos a sua sacole depois retorne a essa sessão.',
+                            secondText: 'Adicione produtos a sua sacole depois retorne a essa sessão.',
                             constraints: constraints,
                           ),
                           SizedBox(height: constraints.maxHeight * .05),
@@ -113,58 +112,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                     )
                   : Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              margin:
-                                  EdgeInsets.all(constraints.maxHeight * .02),
-                              width: constraints.maxWidth * .5,
-                              child: Column(
-                                children: [
-                                  SizedBox(height: constraints.maxHeight * .01),
-                                  Text(
-                                    'Endereço de Entrega',
-                                    style: TextStyle(
-                                      fontSize: constraints.maxHeight * .035,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Create provider to change isPrimary state to true',
-                                    style: TextStyle(
-                                      fontSize: constraints.maxHeight * .02,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    right: constraints.maxWidth * .05),
-                                child: Text(
-                                  'Alterar',
-                                  style: TextStyle(
-                                    fontSize: constraints.maxHeight * .035,
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          color: Theme.of(context).colorScheme.primary,
-                          thickness: constraints.maxWidth * .003,
-                          indent: constraints.maxWidth * .1,
-                          endIndent: constraints.maxWidth * .1,
-                          height: constraints.maxHeight * .1,
-                        ),
                         SizedBox(height: constraints.maxHeight * .03),
                         Row(
                           children: [
@@ -190,10 +137,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         ),
                         SizedBox(height: constraints.maxHeight * .02),
                         Container(
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(220, 245, 236, 1),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                          decoration: const BoxDecoration(color: Color.fromRGBO(220, 245, 236, 1), borderRadius: BorderRadius.all(Radius.circular(20))),
                           padding: EdgeInsets.zero,
                           height: constraints.maxHeight * .75,
                           width: constraints.maxWidth * .95,
@@ -229,29 +173,22 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                     Padding(
                                       padding: EdgeInsets.all(20),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Row(
                                             children: [
                                               Icon(
                                                 Icons.abc,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                size:
-                                                    constraints.maxHeight * .04,
+                                                color: Theme.of(context).colorScheme.primary,
+                                                size: constraints.maxHeight * .04,
                                               ),
                                               SizedBox(
-                                                width:
-                                                    constraints.maxHeight * .01,
+                                                width: constraints.maxHeight * .01,
                                               ),
                                               Text(
                                                 i.vendedor.nomeVendedor,
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      constraints.maxHeight *
-                                                          .03,
+                                                  fontSize: constraints.maxHeight * .03,
                                                 ),
                                               ),
                                             ],
@@ -260,22 +197,16 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                             children: [
                                               Icon(
                                                 Icons.eco_sharp,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                size:
-                                                    constraints.maxHeight * .03,
+                                                color: Theme.of(context).colorScheme.primary,
+                                                size: constraints.maxHeight * .03,
                                               ),
                                               SizedBox(
-                                                width:
-                                                    constraints.maxHeight * .01,
+                                                width: constraints.maxHeight * .01,
                                               ),
                                               Text(
                                                 i.produto.nomeProduto,
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      constraints.maxHeight *
-                                                          .03,
+                                                  fontSize: constraints.maxHeight * .03,
                                                 ),
                                               ),
                                             ],
@@ -284,22 +215,16 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                             children: [
                                               Icon(
                                                 Icons.attach_money,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                size:
-                                                    constraints.maxHeight * .03,
+                                                color: Theme.of(context).colorScheme.primary,
+                                                size: constraints.maxHeight * .03,
                                               ),
                                               SizedBox(
-                                                width:
-                                                    constraints.maxHeight * .01,
+                                                width: constraints.maxHeight * .01,
                                               ),
                                               Text(
                                                 i.produto.preco.toString(),
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      constraints.maxHeight *
-                                                          .03,
+                                                  fontSize: constraints.maxHeight * .03,
                                                 ),
                                               ),
                                             ],
@@ -307,42 +232,28 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                         ],
                                       ),
                                     ),
-                                    Divider(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        thickness: constraints.maxWidth * .001),
+                                    Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
                                     Container(
-                                      margin: EdgeInsets.only(
-                                          top: constraints.maxHeight * .01),
+                                      margin: EdgeInsets.only(top: constraints.maxHeight * .01),
                                       height: constraints.maxHeight * .12,
                                       width: constraints.maxWidth * .8,
                                       child: Text(i.produto.detalheProduto),
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.remove,
-                                                color: Colors.black)),
+                                        IconButton(onPressed: () {}, icon: const Icon(Icons.remove, color: Colors.black)),
                                         Text(
                                           i.quantity.toString(),
                                           style: TextStyle(
-                                            fontSize:
-                                                constraints.maxHeight * .05,
+                                            fontSize: constraints.maxHeight * .05,
                                             color: Colors.black,
                                           ),
                                         ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.add,
-                                                color: Colors.black)),
+                                        IconButton(onPressed: () {}, icon: const Icon(Icons.add, color: Colors.black)),
                                       ],
                                     ),
-                                    SizedBox(
-                                        height: constraints.maxHeight * .05),
+                                    SizedBox(height: constraints.maxHeight * .05),
                                   ],
                                 ),
                               );
@@ -368,8 +279,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                               const Text(
                                 'Subtotal',
                               ),
-                              Text(
-                                  'R\$ ${Provider.of<CartProvider>(context).getTotal()}'),
+                              Text('R\$ ${Provider.of<CartProvider>(context).getTotal()}'),
                             ],
                           ),
                         ),
@@ -406,8 +316,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text(
-                                  'R\$ ${Provider.of<CartProvider>(context).getTotal() + 10.00}'),
+                              Text('R\$ ${Provider.of<CartProvider>(context).getTotal() + 10.00}'),
                             ],
                           ),
                         ),
@@ -425,8 +334,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                         SizedBox(height: constraints.maxHeight * .04),
                         Button(
                           text: 'Limpar Carrinho',
-                          onTap: () =>
-                              Provider.of<CartProvider>(context).clearCart(),
+                          onTap: () => Provider.of<CartProvider>(context, listen: false).clearCart(),
                           height: constraints.maxHeight * .08,
                           width: constraints.maxWidth * .6,
                           color: false,

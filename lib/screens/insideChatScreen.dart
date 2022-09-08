@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,13 +25,13 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ChatProvider>(context, listen: false)
-        .loadAllMessages(
-            Provider.of<ChatProvider>(context, listen: false).getIdConversa())
-        .then((value) {
+    Provider.of<ChatProvider>(context, listen: false).loadAllMessages(Provider.of<ChatProvider>(context, listen: false).getIdConversa()).then((value) {
       setState(() {
         _isLoading = false;
       });
+    });
+    Timer.periodic(const Duration(seconds: 10), (timer) {
+      Provider.of<ChatProvider>(context, listen: false).loadAllMessages(Provider.of<ChatProvider>(context, listen: false).getIdConversa());
     });
   }
 
@@ -105,108 +107,99 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
           ),
         ),
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : LayoutBuilder(
-              builder: (context, constraints) {
-                return Column(
-                  children: [
-                    Container(
-                      color: const Color.fromARGB(20, 0, 0, 0),
-                      height: constraints.maxHeight * .87,
-                      width: double.infinity,
-                      child: GroupedListView<Message, DateTime>(
-                        elements: _messages,
-                        groupBy: (message) => DateTime(
-                          message.date.year,
-                          message.date.month,
-                          message.date.day,
-                        ),
-                        groupHeaderBuilder: (Message message) => SizedBox(
-                          height: constraints.maxHeight * .1,
-                          child: Center(
-                            child: Card(
-                              color: Theme.of(context).colorScheme.secondary,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  DateFormat.yMMMd().format(message.date),
-                                  style: const TextStyle(color: Colors.white),
+      body: LayoutBuilder(builder: (context, constraints) {
+        return Column(
+          children: [
+            _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      Container(
+                        color: const Color.fromARGB(20, 0, 0, 0),
+                        height: constraints.maxHeight * .87,
+                        width: double.infinity,
+                        child: GroupedListView<Message, DateTime>(
+                          elements: _messages,
+                          groupBy: (message) => DateTime(
+                            message.date.year,
+                            message.date.month,
+                            message.date.day,
+                          ),
+                          groupHeaderBuilder: (Message message) => SizedBox(
+                            height: constraints.maxHeight * .1,
+                            child: Center(
+                              child: Card(
+                                color: Theme.of(context).colorScheme.secondary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    DateFormat.yMMMd().format(message.date),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
+                          itemBuilder: (context, Message message) => Align(
+                            alignment: message.isSentFromMe ? Alignment.centerRight : Alignment.centerLeft,
+                            child: message.isSentFromMe ? _clienteMessageBox(message, constraints) : _vendedorMessageBox(message, constraints),
+                          ),
                         ),
-                        itemBuilder: (context, Message message) => Align(
-                          alignment: message.isSentFromMe
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: message.isSentFromMe
-                              ? _clienteMessageBox(message, constraints)
-                              : _vendedorMessageBox(message, constraints),
+                      ),
+                    ],
+                  ),
+            SizedBox(
+              height: constraints.maxHeight * .13,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  SizedBox(width: constraints.maxWidth * .02),
+                  SizedBox(
+                    height: constraints.maxHeight * .09,
+                    width: constraints.maxWidth * .85,
+                    child: TextField(
+                      controller: mensagemController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: const Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        hintText: 'Mensagem',
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: constraints.maxHeight * .13,
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          SizedBox(width: constraints.maxWidth * .02),
-                          SizedBox(
-                            height: constraints.maxHeight * .09,
-                            width: constraints.maxWidth * .85,
-                            child: TextField(
-                              controller: mensagemController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor:
-                                    const Color.fromRGBO(229, 229, 229, 0.90),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: const Color.fromRGBO(
-                                          229, 229, 229, 0.90),
-                                      width: constraints.maxWidth * .03),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                hintText: 'Mensagem',
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: constraints.maxWidth * .02),
-                          CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            child: IconButton(
-                              onPressed: () {
-                                Provider.of<ChatProvider>(context,
-                                        listen: false)
-                                    .sendMessage(
-                                  mensagemController.text,
-                                  Provider.of<ChatProvider>(
-                                    context,
-                                    listen: false,
-                                  ).getIdConversa(),
-                                  context,
-                                  constraints,
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_upward_sharp),
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
+                  ),
+                  SizedBox(width: constraints.maxWidth * .02),
+                  CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    child: IconButton(
+                      onPressed: () {
+                        Provider.of<ChatProvider>(context, listen: false).sendMessage(
+                          mensagemController.text,
+                          Provider.of<ChatProvider>(
+                            context,
+                            listen: false,
+                          ).getIdConversa(),
+                          context,
+                          constraints,
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_upward_sharp),
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }
