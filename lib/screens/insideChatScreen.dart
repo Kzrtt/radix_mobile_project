@@ -25,13 +25,17 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ChatProvider>(context, listen: false).loadAllMessages(Provider.of<ChatProvider>(context, listen: false).getIdConversa()).then((value) {
+    Provider.of<ChatProvider>(context, listen: false)
+        .loadAllMessages(
+            Provider.of<ChatProvider>(context, listen: false).getIdConversa())
+        .then((value) {
       setState(() {
         _isLoading = false;
       });
     });
-    Timer.periodic(const Duration(seconds: 10), (timer) {
-      Provider.of<ChatProvider>(context, listen: false).loadAllMessages(Provider.of<ChatProvider>(context, listen: false).getIdConversa());
+    Timer.periodic(const Duration(seconds: 50), (timer) {
+      Provider.of<ChatProvider>(context, listen: false).loadAllMessages(
+          Provider.of<ChatProvider>(context, listen: false).getIdConversa());
     });
   }
 
@@ -141,8 +145,12 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
                             ),
                           ),
                           itemBuilder: (context, Message message) => Align(
-                            alignment: message.isSentFromMe ? Alignment.centerRight : Alignment.centerLeft,
-                            child: message.isSentFromMe ? _clienteMessageBox(message, constraints) : _vendedorMessageBox(message, constraints),
+                            alignment: message.isSentFromMe
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: message.isSentFromMe
+                                ? _clienteMessageBox(message, constraints)
+                                : _vendedorMessageBox(message, constraints),
                           ),
                         ),
                       ),
@@ -163,7 +171,9 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: const Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
+                          borderSide: BorderSide(
+                              color: const Color.fromRGBO(229, 229, 229, 0.90),
+                              width: constraints.maxWidth * .03),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -180,7 +190,8 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: IconButton(
                       onPressed: () {
-                        Provider.of<ChatProvider>(context, listen: false).sendMessage(
+                        Provider.of<ChatProvider>(context, listen: false)
+                            .sendMessage(
                           mensagemController.text,
                           Provider.of<ChatProvider>(
                             context,

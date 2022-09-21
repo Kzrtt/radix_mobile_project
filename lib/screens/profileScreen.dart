@@ -155,7 +155,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 230, top: 140),
+                    padding: EdgeInsets.only(
+                      left: constraints.maxWidth * .6,
+                      top: constraints.maxHeight * .2,
+                    ),
                     child: InkWell(
                       onTap: () {},
                       child: CircleAvatar(
