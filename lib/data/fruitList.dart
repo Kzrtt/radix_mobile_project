@@ -1,16 +1,12 @@
 // ignore: file_names
-
 List<String> FRUITS = [
-  'assets/fruits/banaana.PNG',
-  'assets/fruits/cereja.PNG',
-  'assets/fruits/kiwi.PNG',
-  'assets/fruits/laranja.PNG',
-  'assets/fruits/limao.PNG',
-  'assets/fruits/maca.PNG',
-  'assets/fruits/melancia.PNG',
-  'assets/fruits/morando.PNG',
-  'assets/fruits/pera.PNG',
-  'assets/fruits/uva.PNG',
-  'assets/fruits/x.PNG',
-  'assets/fruits/y.PNG',
+  'assets/fruits/abacaxizinho.png',
+  'assets/fruits/carambolinha.png',
+  'assets/fruits/coquinho.png',
+  'assets/fruits/kiwizinho.png',
+  'assets/fruits/Laranjinha.png',
+  'assets/fruits/limaozinho.png',
+  'assets/fruits/manguinha.png',
+  'assets/fruits/melancinha.png',
+  'assets/fruits/tomatinho.png',
 ];

@@ -2,12 +2,15 @@
 
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
+import '../components/button.dart';
 import '../components/profileButton.dart';
 import '../data/fruitList.dart';
+import '../model/cliente.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -18,6 +21,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int _currentIndex = 3;
   int randomFruit = 0;
   List<String> fruits = FRUITS;
+  final senhaFormController = TextEditingController();
+  final senhaFormValidationController = TextEditingController();
+  final nomeFormController = TextEditingController();
+  final emailFormController = TextEditingController();
+  final cpfFormController = TextEditingController();
+
+  Widget _textField(double height, double width, BoxConstraints constraints,
+      String text, TextEditingController controller, String initialValue) {
+    return SizedBox(
+      height: height,
+      width: width,
+      child: TextField(
+        controller: controller..text = initialValue,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Colors.white, width: constraints.maxWidth * .03),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          hintText: text,
+          hintStyle: TextStyle(
+            fontSize: constraints.maxHeight * .03,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget get bottomNavigationBar {
     return ClipRRect(
@@ -75,6 +109,158 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void updateCliente(String senha, String validaSenha, String nome, String cpf,
+      String email, constraints) async {
+    try {
+      if (senhaFormController.text == senhaFormValidationController.text) {
+        var response = await Dio().put(
+          'http://localhost:8000/api/updateCliente/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}',
+          data: {
+            'nomeCliente': nome,
+            'cpfCliente': cpf,
+            'emailCliente': email,
+            'senhaCliente': senha,
+            'statusCliente': '1',
+          },
+        );
+        if (response.data['status'] == '400') {
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text(response.data['message'],
+                  style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            ),
+          );
+        } else {
+          print(response.data['message']);
+          Cliente cliente = Cliente(
+            idCliente: Provider.of<ClientProvider>(context, listen: false)
+                .getUser
+                .idCliente,
+            nomeCliente: nomeFormController.text,
+            cpfCliente: cpfFormController.text,
+            emailCliente: emailFormController.text,
+            senhaCliente: senhaFormController.text,
+          );
+          Provider.of<ClientProvider>(context, listen: false)
+              .changeUser(cliente);
+          Navigator.of(context).pop();
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('As senhas não são iguais',
+                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _openAddClientModalSheet(BuildContext context) {
+    Cliente cliente =
+        Provider.of<ClientProvider>(context, listen: false).getUser;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * .75,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(40),
+                  topLeft: Radius.circular(40),
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(238, 238, 238, 1),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: constraints.maxHeight * .05),
+                      Center(
+                        child: Text(
+                          'Alterar Perfil',
+                          style: TextStyle(
+                            fontSize: constraints.maxHeight * .035,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: constraints.maxHeight * .08),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu nome',
+                          nomeFormController,
+                          cliente.nomeCliente),
+                      SizedBox(height: constraints.maxHeight * .02),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu email',
+                          emailFormController,
+                          cliente.emailCliente),
+                      SizedBox(height: constraints.maxHeight * .02),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'seu cpf',
+                          cpfFormController,
+                          cliente.cpfCliente),
+                      SizedBox(height: constraints.maxHeight * .02),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'nova senha',
+                          senhaFormController,
+                          ''),
+                      SizedBox(height: constraints.maxHeight * .02),
+                      _textField(
+                          constraints.maxHeight * .1,
+                          constraints.maxWidth * .90,
+                          constraints,
+                          'confirmar senha',
+                          senhaFormValidationController,
+                          ''),
+                      SizedBox(height: constraints.maxHeight * .10),
+                      Button(
+                        text: 'Alterar Dados',
+                        onTap: () => updateCliente(
+                          senhaFormController.text,
+                          senhaFormValidationController.text,
+                          nomeFormController.text,
+                          cpfFormController.text,
+                          emailFormController.text,
+                          constraints,
+                        ),
+                        height: constraints.maxHeight * .1,
+                        width: constraints.maxWidth * .75,
+                        color: true,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   void _goToPaymentScreen(BuildContext context) {
     Navigator.of(context).pushNamed(
       AppRoutes.PAGAMENTOS,
@@ -120,7 +306,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    randomFruit = Random().nextInt(12);
+    randomFruit = Random().nextInt(9);
   }
 
   @override
@@ -151,7 +337,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: CircleAvatar(
                       maxRadius: 100,
                       backgroundColor: Colors.grey,
-                      backgroundImage: AssetImage('assets/images/fotoKurt.jpg'),
+                      backgroundImage: AssetImage(FRUITS[randomFruit]),
                     ),
                   ),
                   Padding(
@@ -160,7 +346,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: constraints.maxHeight * .2,
                     ),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => _openAddClientModalSheet(context),
                       child: CircleAvatar(
                         maxRadius: 30,
                         backgroundColor: Theme.of(context).colorScheme.primary,
