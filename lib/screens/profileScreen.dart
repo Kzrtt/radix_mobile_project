@@ -27,8 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
 
-  Widget _textField(double height, double width, BoxConstraints constraints,
-      String text, TextEditingController controller, String initialValue) {
+  Widget _textField(double height, double width, BoxConstraints constraints, String text, TextEditingController controller, String initialValue) {
     return SizedBox(
       height: height,
       width: width,
@@ -38,8 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           filled: true,
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.white, width: constraints.maxWidth * .03),
+            borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
@@ -109,8 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void updateCliente(String senha, String validaSenha, String nome, String cpf,
-      String email, constraints) async {
+  void updateCliente(String senha, String validaSenha, String nome, String cpf, String email, constraints) async {
     try {
       if (senhaFormController.text == senhaFormValidationController.text) {
         var response = await Dio().put(
@@ -127,31 +124,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text(response.data['message'],
-                  style: TextStyle(fontSize: constraints.maxWidth * .04)),
+              title: Text(response.data['message'], style: TextStyle(fontSize: constraints.maxWidth * .04)),
             ),
           );
         } else {
           print(response.data['message']);
           Cliente cliente = Cliente(
-            idCliente: Provider.of<ClientProvider>(context, listen: false)
-                .getUser
-                .idCliente,
+            idCliente: Provider.of<ClientProvider>(context, listen: false).getUser.idCliente,
             nomeCliente: nomeFormController.text,
             cpfCliente: cpfFormController.text,
             emailCliente: emailFormController.text,
             senhaCliente: senhaFormController.text,
           );
-          Provider.of<ClientProvider>(context, listen: false)
-              .changeUser(cliente);
+          Provider.of<ClientProvider>(context, listen: false).changeUser(cliente);
           Navigator.of(context).pop();
         }
       } else {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: Text('As senhas não são iguais',
-                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            title: Text('As senhas não são iguais', style: TextStyle(fontSize: constraints.maxWidth * .04)),
           ),
         );
       }
@@ -161,8 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _openAddClientModalSheet(BuildContext context) {
-    Cliente cliente =
-        Provider.of<ClientProvider>(context, listen: false).getUser;
+    Cliente cliente = Provider.of<ClientProvider>(context, listen: false).getUser;
 
     showModalBottomSheet(
       context: context,
@@ -196,45 +187,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       SizedBox(height: constraints.maxHeight * .08),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu nome',
-                          nomeFormController,
-                          cliente.nomeCliente),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu nome', nomeFormController, cliente.nomeCliente),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu email',
-                          emailFormController,
-                          cliente.emailCliente),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu email', emailFormController, cliente.emailCliente),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'seu cpf',
-                          cpfFormController,
-                          cliente.cpfCliente),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'seu cpf', cpfFormController, cliente.cpfCliente),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'nova senha',
-                          senhaFormController,
-                          ''),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'nova senha', senhaFormController, ''),
                       SizedBox(height: constraints.maxHeight * .02),
-                      _textField(
-                          constraints.maxHeight * .1,
-                          constraints.maxWidth * .90,
-                          constraints,
-                          'confirmar senha',
-                          senhaFormValidationController,
-                          ''),
+                      _textField(constraints.maxHeight * .1, constraints.maxWidth * .90, constraints, 'confirmar senha', senhaFormValidationController, ''),
                       SizedBox(height: constraints.maxHeight * .10),
                       Button(
                         text: 'Alterar Dados',
@@ -340,20 +301,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundImage: AssetImage(FRUITS[randomFruit]),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: constraints.maxWidth * .6,
-                      top: constraints.maxHeight * .2,
-                    ),
-                    child: InkWell(
-                      onTap: () => _openAddClientModalSheet(context),
-                      child: CircleAvatar(
-                        maxRadius: 30,
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        child: Icon(Icons.edit, color: Colors.white),
-                      ),
-                    ),
-                  ),
                 ],
               ),
               SizedBox(height: constraints.maxHeight * .02),
@@ -415,7 +362,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ProfileButton(
                 title: 'Feedbacks',
-                subTitle: 'Envie um feedback para equipe Radix',
+                subTitle: 'Envie um feedback para Radix',
                 constraints: constraints,
                 leading: Icons.eco_sharp,
                 traicing: Icons.arrow_forward_ios_outlined,

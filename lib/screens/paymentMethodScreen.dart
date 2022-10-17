@@ -63,8 +63,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       firstText: 'Adicione uma forma de Pagamento',
                       imgUrl: 'assets/svg/undraw_vault.svg',
                       height: constraints.maxHeight * .22,
-                      secondText:
-                          'Adicione uma forma de pagamento para poder realizar compras em nosso app',
+                      secondText: 'Adicione uma forma de pagamento para poder realizar compras em nosso app',
                       constraints: constraints,
                     ),
                   ],
@@ -99,7 +98,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openAddPaymentMethodModalSheet(context),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );

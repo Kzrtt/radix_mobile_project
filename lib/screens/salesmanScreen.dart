@@ -2,7 +2,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/model/item.dart';
@@ -39,8 +38,11 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                   topLeft: Radius.circular(40),
                 ),
                 child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(132, 202, 157, 1),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,13 +52,23 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                         produto.nomeProduto,
                         style: TextStyle(fontSize: constraints.maxHeight * .05, color: Colors.white),
                       ),
-                      SizedBox(height: constraints.maxHeight * .08),
+                      SizedBox(height: constraints.maxHeight * .03),
                       SizedBox(
                         height: constraints.maxHeight * .35,
                         width: constraints.maxWidth * .5,
                         child: Image.asset('assets/images/amoras.png'),
                       ),
-                      SizedBox(height: constraints.maxHeight * .08),
+                      SizedBox(height: constraints.maxHeight * .05),
+                      SizedBox(
+                        child: Text(
+                          produto.detalheProduto,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: constraints.maxHeight * .04,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: constraints.maxHeight * .05),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -157,7 +169,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => Navigator.of(context).pop(),
-          color: Theme.of(context).colorScheme.primary,
+          color: Colors.white,
         ),
         backgroundColor: Colors.transparent,
       ),
@@ -174,7 +186,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       height: constraints.maxHeight * .15,
                       width: constraints.maxWidth,
                       child: Image.asset(
-                        'assets/images/fazendeiro.png',
+                        'assets/images/bannerRadix.png',
                         height: constraints.maxHeight * .1,
                         width: constraints.maxWidth,
                         fit: BoxFit.cover,
@@ -256,6 +268,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                 ),
               ),
               Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
+              SizedBox(height: constraints.maxHeight * .01),
               Flexible(
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
@@ -270,76 +283,74 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                         ),
                         elevation: 4,
                         margin: const EdgeInsets.all(15),
-                        child: Column(
-                          children: [
-                            Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/amoras.png',
-                                    height: constraints.maxHeight * .3,
-                                    width: constraints.maxWidth * 1,
-                                    fit: BoxFit.cover,
-                                  ),
+                        child: Container(
+                          height: constraints.maxHeight * .62,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(height: constraints.maxHeight * .02),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  color: Colors.grey,
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.eco_sharp,
-                                        color: Theme.of(context).colorScheme.primary,
-                                        size: constraints.maxHeight * .04,
-                                      ),
-                                      SizedBox(
-                                        width: constraints.maxHeight * .01,
-                                      ),
-                                      Text(
-                                        p.nomeProduto,
-                                        style: TextStyle(
-                                          fontSize: constraints.maxHeight * .03,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.attach_money,
-                                        color: Theme.of(context).colorScheme.primary,
-                                        size: constraints.maxHeight * .04,
-                                      ),
-                                      SizedBox(
-                                        width: constraints.maxHeight * .01,
-                                      ),
-                                      Text(
-                                        p.preco.toString(),
-                                        style: TextStyle(
-                                          fontSize: constraints.maxHeight * .03,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                height: constraints.maxHeight * .4,
+                                width: constraints.maxWidth * .85,
+                                child: Center(child: Text(p.urlFoto)),
                               ),
-                            ),
-                            Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
-                            Container(
-                              margin: EdgeInsets.only(top: constraints.maxHeight * .01),
-                              height: constraints.maxHeight * .12,
-                              width: constraints.maxWidth * .8,
-                              child: Text(p.detalheProduto),
-                            )
-                          ],
+                              SizedBox(height: constraints.maxHeight * .03),
+                              SizedBox(
+                                height: constraints.maxHeight * .15,
+                                width: constraints.maxWidth * .85,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Produtor: ${vendedor.nomeVendedor}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey,
+                                        fontSize: constraints.maxHeight * .022,
+                                      ),
+                                    ),
+                                    SizedBox(height: constraints.maxHeight * .01),
+                                    Text(
+                                      p.nomeProduto,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: constraints.maxHeight * .022,
+                                      ),
+                                    ),
+                                    SizedBox(height: constraints.maxHeight * .01),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'R\$${p.preco.toString()}',
+                                          style: TextStyle(
+                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: constraints.maxHeight * .022,
+                                          ),
+                                        ),
+                                        CircleAvatar(
+                                          backgroundColor: Theme.of(context).colorScheme.primary,
+                                          child: IconButton(
+                                            onPressed: () => _openProductModalSheet(context, p, vendedor),
+                                            icon: Icon(Icons.shopping_cart, color: Colors.white),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

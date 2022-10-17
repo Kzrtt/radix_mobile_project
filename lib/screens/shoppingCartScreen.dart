@@ -152,109 +152,83 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                 ),
                                 elevation: 4,
                                 margin: const EdgeInsets.all(15),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                          child: Image.asset(
-                                            'assets/images/amoras.png',
-                                            height: constraints.maxHeight * .3,
-                                            width: constraints.maxWidth * 1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ],
+                                child: Container(
+                                  height: constraints.maxHeight * .64,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Theme.of(context).colorScheme.primary,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.abc,
-                                                color: Theme.of(context).colorScheme.primary,
-                                                size: constraints.maxHeight * .04,
-                                              ),
-                                              SizedBox(
-                                                width: constraints.maxHeight * .01,
-                                              ),
-                                              Text(
-                                                i.vendedor.nomeVendedor,
-                                                style: TextStyle(
-                                                  fontSize: constraints.maxHeight * .03,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.eco_sharp,
-                                                color: Theme.of(context).colorScheme.primary,
-                                                size: constraints.maxHeight * .03,
-                                              ),
-                                              SizedBox(
-                                                width: constraints.maxHeight * .01,
-                                              ),
-                                              Text(
-                                                i.produto.nomeProduto,
-                                                style: TextStyle(
-                                                  fontSize: constraints.maxHeight * .03,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.attach_money,
-                                                color: Theme.of(context).colorScheme.primary,
-                                                size: constraints.maxHeight * .03,
-                                              ),
-                                              SizedBox(
-                                                width: constraints.maxHeight * .01,
-                                              ),
-                                              Text(
-                                                i.produto.preco.toString(),
-                                                style: TextStyle(
-                                                  fontSize: constraints.maxHeight * .03,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: constraints.maxHeight * .02),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                          color: Colors.grey,
+                                        ),
+                                        height: constraints.maxHeight * .4,
+                                        width: constraints.maxWidth * .80,
+                                        child: Center(child: Text(i.produto.urlFoto)),
                                       ),
-                                    ),
-                                    Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
-                                    Container(
-                                      margin: EdgeInsets.only(top: constraints.maxHeight * .01),
-                                      height: constraints.maxHeight * .12,
-                                      width: constraints.maxWidth * .8,
-                                      child: Text(i.produto.detalheProduto),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        IconButton(onPressed: () {}, icon: const Icon(Icons.remove, color: Colors.black)),
-                                        Text(
-                                          i.quantity.toString(),
-                                          style: TextStyle(
-                                            fontSize: constraints.maxHeight * .05,
-                                            color: Colors.black,
-                                          ),
+                                      SizedBox(height: constraints.maxHeight * .03),
+                                      SizedBox(
+                                        height: constraints.maxHeight * .16,
+                                        width: constraints.maxWidth * .80,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Produtor: ${i.vendedor.nomeVendedor}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.grey,
+                                                fontSize: constraints.maxHeight * .022,
+                                              ),
+                                            ),
+                                            SizedBox(height: constraints.maxHeight * .01),
+                                            Text(
+                                              i.produto.nomeProduto,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: constraints.maxHeight * .022,
+                                              ),
+                                            ),
+                                            SizedBox(height: constraints.maxHeight * .01),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.remove,
+                                                    color: Colors.black,
+                                                    size: constraints.maxHeight * .03,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  i.quantity.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: constraints.maxHeight * .03,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.add,
+                                                    color: Colors.black,
+                                                    size: constraints.maxHeight * .03,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        IconButton(onPressed: () {}, icon: const Icon(Icons.add, color: Colors.black)),
-                                      ],
-                                    ),
-                                    SizedBox(height: constraints.maxHeight * .05),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

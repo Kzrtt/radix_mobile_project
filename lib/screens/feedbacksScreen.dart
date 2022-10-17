@@ -65,9 +65,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(229, 229, 229, 0.90),
-                              width: constraints.maxWidth * .03),
+                          borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -93,9 +91,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       filled: true,
                       fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromRGBO(229, 229, 229, 0.90),
-                            width: constraints.maxWidth * .03),
+                        borderSide: BorderSide(color: const Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
@@ -133,34 +129,28 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                     color: Color.fromRGBO(132, 202, 157, 1),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      SizedBox(
-                                          height: constraints.maxHeight * .05),
+                                      SizedBox(height: constraints.maxHeight * .05),
                                       Center(
                                         child: Text(
                                           'Obrigado por enviar seu Feedback!',
                                           style: TextStyle(
-                                            fontSize:
-                                                constraints.maxHeight * .035,
+                                            fontSize: constraints.maxHeight * .035,
                                             fontWeight: FontWeight.w600,
                                             color: Colors.white,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                          height: constraints.maxHeight * .12),
+                                      SizedBox(height: constraints.maxHeight * .12),
                                       ImageContainer(
                                         'assets/svg/undraw_partying.svg',
                                         constraints.maxHeight * .4,
                                       ),
-                                      SizedBox(
-                                          height: constraints.maxHeight * .12),
+                                      SizedBox(height: constraints.maxHeight * .12),
                                       Button(
                                         text: 'Home',
-                                        onTap: () => Navigator.of(context)
-                                            .pushNamed(AppRoutes.HOMETAB),
+                                        onTap: () => Navigator.of(context).pushNamed(AppRoutes.HOMETAB),
                                         height: constraints.maxHeight * .08,
                                         width: constraints.maxWidth * .6,
                                         color: false,
@@ -180,16 +170,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   color: true,
                 ),
                 SizedBox(height: constraints.maxHeight * .03),
-                Button(
-                  text: 'Limpar Campos',
-                  onTap: () {
-                    nomeClienteController.text = '';
-                    mensagemClienteController.text = '';
-                  },
-                  height: constraints.maxHeight * .09,
-                  width: constraints.maxWidth * .7,
-                  color: false,
-                ),
               ],
             ),
           );

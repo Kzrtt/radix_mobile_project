@@ -39,8 +39,7 @@ class ClientProvider with ChangeNotifier {
   }
 
   bool isFavorite(Vendedor vendedor) {
-    return _vendedoresFavoritos
-        .any((element) => element.idVendedor == vendedor.idVendedor);
+    return _vendedoresFavoritos.any((element) => element.idVendedor == vendedor.idVendedor);
   }
 
   void addToFavorites(Vendedor vendedor) {
@@ -49,8 +48,7 @@ class ClientProvider with ChangeNotifier {
   }
 
   void removeFromFavorites(String id) {
-    _vendedoresFavoritos
-        .removeWhere((element) => element.idVendedor.toString() == id);
+    _vendedoresFavoritos.removeWhere((element) => element.idVendedor.toString() == id);
     notifyListeners();
   }
 
@@ -58,8 +56,7 @@ class ClientProvider with ChangeNotifier {
     List<dynamic> list = [];
     Cliente? cliente;
 
-    if (_clientes
-        .any((c) => c.emailCliente == email && c.senhaCliente == senha)) {
+    if (_clientes.any((c) => c.emailCliente == email && c.senhaCliente == senha)) {
       _clientes.forEach((element) {
         if (element.emailCliente == email && element.senhaCliente == senha) {
           cliente = element;
