@@ -12,8 +12,7 @@ class CupomProvider with ChangeNotifier {
   Future<void> loadClientCupons(int id) async {
     _cuponsCliente.clear();
     List<Cupom> _allCupons = [];
-    var response =
-        await Dio().get('http://localhost:8000/api/getClienteCupoms/$id');
+    var response = await Dio().get('http://localhost:8000/api/getClienteCupoms/$id');
     if (response.data['status'] == '200') {
       response.data['allCupons'].forEach(
         (e) {
@@ -32,7 +31,7 @@ class CupomProvider with ChangeNotifier {
         },
       );
       response.data['cupons'].forEach(
-        (k, x) {
+        (x) {
           _allCupons.forEach(
             (element) {
               if (element.idCupom == x['idCupom'] && x['usado'] == 0) {

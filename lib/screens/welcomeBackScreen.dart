@@ -26,6 +26,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
   final nomeFormController = TextEditingController();
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
+  bool showPassword = false;
 
   Future<void> getLoginInfo(String email, String senha, constraints) async {
     try {
@@ -109,6 +110,43 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
             borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
+            ),
+          ),
+          hintText: text,
+          hintStyle: TextStyle(
+            fontSize: constraints.maxHeight * .02,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _textField2(double height, double width, BoxConstraints constraints, String text, TextEditingController controller, bool obscure) {
+    return SizedBox(
+      height: height,
+      width: width,
+      child: TextField(
+        obscureText: showPassword ? !obscure : obscure,
+        obscuringCharacter: '*',
+        controller: controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: constraints.maxWidth * .03),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          suffixIcon: InkWell(
+            onTap: () {
+              setState(() {
+                showPassword = !showPassword;
+              });
+            },
+            child: Icon(
+              showPassword ? Icons.visibility_off : Icons.visibility,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           hintText: text,
@@ -217,7 +255,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                 SizedBox(height: constraints.maxHeight * .04),
                 _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Email', emailController, false),
                 SizedBox(height: constraints.maxHeight * .01),
-                _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController, true),
+                _textField2(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController, true),
                 SizedBox(height: constraints.maxHeight * .03),
                 Button(
                   text: 'Entrar',

@@ -11,8 +11,7 @@ class AdressProvider with ChangeNotifier {
 
   Future<void> loadEnderecos(int id) async {
     _enderecos.clear();
-    var response =
-        await Dio().get('http://localhost:8000/api/getAllEnderecos/$id');
+    var response = await Dio().get('http://localhost:8000/api/getAllEnderecos/$id');
     if (response.data['status'] == '200') {
       response.data['enderecos'].forEach(
         (k, e) {
@@ -25,8 +24,7 @@ class AdressProvider with ChangeNotifier {
             statusEndereco: e['statusEndereco'],
           );
           if (endereco.statusEndereco == 1) {
-            if (_enderecos
-                .any((element) => element.idEndereco == endereco.idEndereco)) {
+            if (_enderecos.any((element) => element.idEndereco == endereco.idEndereco)) {
               print('_');
             } else {
               _enderecos.add(endereco);
@@ -41,16 +39,14 @@ class AdressProvider with ChangeNotifier {
   }
 
   Future<void> deleteAdress(int id) async {
-    var response =
-        await Dio().put('http://localhost:8000/api/deleteEndereco/$id');
+    var response = await Dio().put('http://localhost:8000/api/deleteEndereco/$id');
     print(response.data.toString());
 
     _enderecos.removeWhere((element) => element.idEndereco == id);
     notifyListeners();
   }
 
-  void createAdress(constraints, context, String apelido, String endereco,
-      String complemento, String numero) async {
+  void createAdress(constraints, context, String apelido, String endereco, String complemento, String numero) async {
     try {
       var response = await Dio().post(
         'http://localhost:8000/api/inserirEndereco',
@@ -60,17 +56,14 @@ class AdressProvider with ChangeNotifier {
           'complemento': complemento,
           'numero': numero,
           'statusEndereco': 1,
-          'idCliente': Provider.of<ClientProvider>(context, listen: false)
-              .getUser
-              .idCliente,
+          'idCliente': Provider.of<ClientProvider>(context, listen: false).getUser.idCliente,
         },
       );
       if (response.data['status'] == '400') {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
-            title: Text(response.data['message'],
-                style: TextStyle(fontSize: constraints.maxWidth * .04)),
+            title: Text(response.data['message'], style: TextStyle(fontSize: constraints.maxWidth * .04)),
           ),
         );
       } else {
