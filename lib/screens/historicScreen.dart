@@ -6,6 +6,7 @@ import 'package:radix_mobile_project/model/produtos.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/pedidoProvider.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/textPlusImage.dart';
 import '../model/pedido.dart';
 import '../model/vendedor.dart';
@@ -20,6 +21,7 @@ class _HistoricScreenState extends State<HistoricScreen> {
   bool _isLoading = true;
   Map<int, List<Iten>> _itemsPedidos = {};
   Widget icon = Icon(Icons.expand_more);
+  int valorTotal = 0;
 
   @override
   void initState() {
@@ -47,8 +49,9 @@ class _HistoricScreenState extends State<HistoricScreen> {
     });
   }
 
-  int soma(int a, int b) {
-    return a + b;
+  void chamar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getInt('teste'));
   }
 
   @override
@@ -135,22 +138,57 @@ class _HistoricScreenState extends State<HistoricScreen> {
                                         ),
                                         tilePadding: EdgeInsets.all(constraints.maxHeight * .022),
                                         children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(left: constraints.maxWidth * .05),
-                                            child: SizedBox(
-                                              height: constraints.maxHeight * .2,
-                                              width: constraints.maxWidth,
-                                              child: ListView.builder(
-                                                itemCount: itens.length,
-                                                itemBuilder: (context, index) {
-                                                  Iten i = itens[index];
-                                                  Produtos z = _produtos.singleWhere((element) => element.idProduto == i.idProduto);
-                                                  return Text('nome: ${z.nomeProduto}, preço: ${z.preco}');
-                                                },
-                                              ),
+                                          SizedBox(
+                                            height: constraints.maxHeight * .035 * itens.length,
+                                            width: constraints.maxWidth,
+                                            child: ListView.builder(
+                                              itemCount: itens.length,
+                                              itemBuilder: (context, index) {
+                                                Iten i = itens[index];
+                                                Produtos z = _produtos.singleWhere((element) => element.idProduto == i.idProduto);
+                                                return Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    const Text(
+                                                      'nome: ',
+                                                      style: TextStyle(fontWeight: FontWeight.w600),
+                                                    ),
+                                                    Text(
+                                                      '${z.nomeProduto}, ',
+                                                    ),
+                                                    const Text(
+                                                      ' preço: ',
+                                                      style: TextStyle(fontWeight: FontWeight.w600),
+                                                    ),
+                                                    Text(
+                                                      '${z.preco}, ',
+                                                    ),
+                                                    const Text(
+                                                      ' quantidade: ',
+                                                      style: TextStyle(fontWeight: FontWeight.w600),
+                                                    ),
+                                                    Text(
+                                                      '${i.qntdItem} ',
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             ),
                                           ),
-                                          SizedBox(height: constraints.maxHeight * .1),
+                                          SizedBox(height: constraints.maxHeight * .03),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              left: constraints.maxWidth * .75,
+                                              bottom: constraints.maxHeight * .02,
+                                            ),
+                                            child: CircleAvatar(
+                                              backgroundColor: Theme.of(context).colorScheme.primary,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),

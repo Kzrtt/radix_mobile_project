@@ -12,9 +12,9 @@ class SalesmanProvider with ChangeNotifier {
 
   Future<void> loadVendedores() async {
     _vendedores.clear();
-    var response = await Dio().get('http://localhost:8000/api/getAllVendedores');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllVendedores');
 
-    var response2 = await Dio().get('http://localhost:8000/api/getEveryProduct');
+    var response2 = await Dio().get('http://10.0.2.2:8000/api/getEveryProduct');
 
     response.data['vendedores'].forEach(
       (e) {
@@ -67,10 +67,10 @@ class SalesmanProvider with ChangeNotifier {
   }
 
   Future<Vendedor> getVendedor(int id) async {
-    var response = await Dio().get('http://localhost:8000/api/getVendedor/$id');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getVendedor/$id');
 
     List<Produtos> _p = [];
-    var response2 = await Dio().get('http://localhost:8000/api/getAllProdutos/$id');
+    var response2 = await Dio().get('http://10.0.2.2:8000/api/getAllProdutos/$id');
 
     if (response2.data['status'] == '200') {
       response2.data['produtos'].forEach(

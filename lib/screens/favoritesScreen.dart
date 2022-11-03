@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/textPlusImage.dart';
 import '../model/vendedor.dart';
 import '../utils/appRoutes.dart';
@@ -14,10 +15,26 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
-    final List<Vendedor> _vendedoresFavoritos =
-        context.watch<ClientProvider>().getVendedoresFavoritos;
+    final List<Vendedor> _vendedoresFavoritos = context.watch<ClientProvider>().getVendedoresFavoritos;
+
+    void teste() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt('teste', 50);
+      print('valor setado');
+    }
+
+    void chamar() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      print(prefs.getInt('teste'));
+    }
 
     return Scaffold(
+      floatingActionButton: Row(
+        children: [
+          IconButton(onPressed: teste, icon: Icon(Icons.abc)),
+          IconButton(onPressed: chamar, icon: Icon(Icons.ac_unit)),
+        ],
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
@@ -46,8 +63,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       firstText: 'Marque um vendedor como favorito',
                       imgUrl: 'assets/svg/undraw_appreciation.svg',
                       height: constraints.maxHeight * .3,
-                      secondText:
-                          'Adicione os vendedores que voçê compra com mais frequencia',
+                      secondText: 'Adicione os vendedores que voçê compra com mais frequencia',
                       constraints: constraints,
                     ),
                   ],
@@ -65,34 +81,28 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         itemBuilder: (context, index) {
                           final v = _vendedoresFavoritos[index];
                           return Padding(
-                            padding:
-                                EdgeInsets.all(constraints.maxHeight * .02),
+                            padding: EdgeInsets.all(constraints.maxHeight * .02),
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    AppRoutes.SALESMANPROFILE,
-                                    arguments: v);
+                                Navigator.of(context).pushNamed(AppRoutes.SALESMANPROFILE, arguments: v);
                               },
                               child: SizedBox(
                                 height: constraints.maxHeight * .14,
                                 child: ListTile(
                                   contentPadding: EdgeInsets.fromLTRB(
                                     0,
-                                    constraints.maxHeight * .0,
+                                    constraints.maxHeight * .03,
                                     0,
                                     0,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  tileColor:
-                                      const Color.fromRGBO(237, 233, 232, .7),
+                                  tileColor: const Color.fromRGBO(237, 233, 232, .7),
                                   leading: CircleAvatar(
                                     backgroundColor: Colors.black12,
                                     radius: 50,
-                                    child: context
-                                        .watch<SalesmanProvider>()
-                                        .iconSeloProdutor(v.selo, constraints),
+                                    child: context.watch<SalesmanProvider>().iconSeloProdutor(v.selo, constraints),
                                   ),
                                   title: Text(
                                     v.nomeVendedor,
@@ -102,14 +112,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     ),
                                   ),
                                   trailing: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: constraints.maxWidth * .04),
+                                    padding: EdgeInsets.only(right: constraints.maxWidth * .04),
                                     child: IconButton(
-                                      onPressed: () =>
-                                          Provider.of<ClientProvider>(context,
-                                                  listen: false)
-                                              .removeFromFavorites(
-                                                  v.idVendedor.toString()),
+                                      onPressed: () => Provider.of<ClientProvider>(context, listen: false).removeFromFavorites(v.idVendedor.toString()),
                                       icon: const Icon(Icons.delete),
                                       color: Colors.red,
                                     ),

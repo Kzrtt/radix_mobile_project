@@ -18,7 +18,7 @@ class PedidoProvider with ChangeNotifier {
 
   Future<List<Iten>> loadItems(int idPedido) async {
     _items.clear();
-    var response = await Dio().get('http://localhost:8000/api/getAllItems/$idPedido');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllItems/$idPedido');
 
     if (response.data['status'] == '200') {
       response.data['items'].forEach((k, i) {
@@ -44,7 +44,7 @@ class PedidoProvider with ChangeNotifier {
 
   Future<List<Pedido>> loadPedidos(int idCliente) async {
     _pedidos.clear();
-    var response = await Dio().get('http://localhost:8000/api/getAllPedidos/$idCliente');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllPedidos/$idCliente');
 
     if (response.data['status'] == '200') {
       response.data['pedidos'].forEach(
@@ -75,7 +75,7 @@ class PedidoProvider with ChangeNotifier {
 
   Future<List<Iten>> loadPedidosItems(int idPedido) async {
     List<Iten> _x = [];
-    var response = await Dio().get('http://localhost:8000/api/getAllItems/$idPedido');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllItems/$idPedido');
 
     if (response.data['status'] == '200') {
       response.data['items'].forEach(
@@ -101,7 +101,7 @@ class PedidoProvider with ChangeNotifier {
   }
 
   Future<void> loadAllProdutos() async {
-    var response = await Dio().get('http://localhost:8000/api/getEveryProduct');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getEveryProduct');
 
     response.data['products'].forEach((e) {
       Produtos produto = Produtos(
@@ -124,7 +124,7 @@ class PedidoProvider with ChangeNotifier {
   }
 
   Future<Produtos> loadProduto(int idProduto) async {
-    var response = await Dio().get('http://localhost:8000/api/getProduto/$idProduto');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getProduto/$idProduto');
 
     Produtos produto = Produtos(
       idProduto: response.data['produto']['idProduto'],

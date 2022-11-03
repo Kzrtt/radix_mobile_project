@@ -1,11 +1,29 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OpeningScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void isManterLoginTrue() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool? y = prefs.getBool(SharedPreferencesConstants.manterLogin);
+      if (y != null) {
+        if (y == true) {
+          Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB);
+        } else {
+          Navigator.of(context).pushReplacementNamed(AppRoutes.WELCOMEBACK);
+        }
+      } else {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.WELCOMEBACK);
+      }
+    }
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(238, 238, 238, 1),
       body: LayoutBuilder(
@@ -41,10 +59,7 @@ class OpeningScreen extends StatelessWidget {
                 SizedBox(height: constraints.maxHeight * .07),
                 Button(
                   text: 'Iniciar',
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, AppRoutes.WELCOMEBACK);
-                  },
+                  onTap: () => isManterLoginTrue(),
                   height: constraints.maxHeight * .08,
                   width: constraints.maxWidth * .7,
                   color: true,

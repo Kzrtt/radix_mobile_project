@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       if (senhaFormController.text == senhaFormValidationController.text) {
         var response = await Dio().put(
-          'http://localhost:8000/api/updateCliente/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}',
+          'http://10.0.2.2:8000/api/updateCliente/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}',
           data: {
             'nomeCliente': nome,
             'cpfCliente': cpf,

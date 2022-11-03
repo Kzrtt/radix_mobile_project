@@ -22,7 +22,7 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> loadChats(int id) async {
     _chats.clear();
-    var response = await Dio().get('http://localhost:8000/api/getChats/$id');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getChats/$id');
 
     if (response.data['status'] == '201') {
       response.data['chat'].forEach(
@@ -63,8 +63,7 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> loadAllMessages(int id) async {
     _messages.clear();
-    var response =
-        await Dio().get('http://localhost:8000/api/getAllMessages/$id');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllMessages/$id');
 
     if (response.data['status'] == '200') {
       response.data['msgCliente'].forEach(
@@ -123,10 +122,9 @@ class ChatProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sendMessage(
-      String message, int idConversa, context, constraints) async {
+  Future<void> sendMessage(String message, int idConversa, context, constraints) async {
     var response = await Dio().post(
-      'http://localhost:8000/api/sendMessage',
+      'http://10.0.2.2:8000/api/sendMessage',
       data: {
         'mensagem': message,
         'data': DateFormat('yyyy-MM-dd').format(DateTime.now()),
@@ -138,8 +136,7 @@ class ChatProvider with ChangeNotifier {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text(response.data['message'],
-              style: TextStyle(fontSize: constraints.maxWidth * .04)),
+          title: Text(response.data['message'], style: TextStyle(fontSize: constraints.maxWidth * .04)),
         ),
       );
     } else {

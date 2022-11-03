@@ -11,7 +11,7 @@ class AdressProvider with ChangeNotifier {
 
   Future<void> loadEnderecos(int id) async {
     _enderecos.clear();
-    var response = await Dio().get('http://localhost:8000/api/getAllEnderecos/$id');
+    var response = await Dio().get('http://10.0.2.2:8000/api/getAllEnderecos/$id');
     if (response.data['status'] == '200') {
       response.data['enderecos'].forEach(
         (k, e) {
@@ -39,7 +39,7 @@ class AdressProvider with ChangeNotifier {
   }
 
   Future<void> deleteAdress(int id) async {
-    var response = await Dio().put('http://localhost:8000/api/deleteEndereco/$id');
+    var response = await Dio().put('http://10.0.2.2:8000/api/deleteEndereco/$id');
     print(response.data.toString());
 
     _enderecos.removeWhere((element) => element.idEndereco == id);
@@ -49,7 +49,7 @@ class AdressProvider with ChangeNotifier {
   void createAdress(constraints, context, String apelido, String endereco, String complemento, String numero) async {
     try {
       var response = await Dio().post(
-        'http://localhost:8000/api/inserirEndereco',
+        'http://10.0.2.2:8000/api/inserirEndereco',
         data: {
           'apelidoEndereco': apelido,
           'endereco': endereco,

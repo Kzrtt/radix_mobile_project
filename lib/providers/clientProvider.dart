@@ -5,6 +5,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:radix_mobile_project/model/cliente.dart';
 import 'package:radix_mobile_project/model/vendedor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/dummyData.dart';
 
 class ClientProvider with ChangeNotifier {

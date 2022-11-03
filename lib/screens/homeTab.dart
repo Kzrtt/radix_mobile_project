@@ -9,9 +9,10 @@ import 'package:radix_mobile_project/screens/profileScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/button.dart';
 import '../providers/clientProvider.dart';
-import '../providers/cupomProvider.dart';
 import 'homeScreen.dart';
 import '../screens/searchScreen.dart';
 
@@ -34,6 +35,11 @@ class _HomeState extends State<HomeTab> {
     AppRoutes.SHOPPINGCART,
     AppRoutes.PROFILE,
   ];
+
+  void logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(SharedPreferencesConstants.manterLogin, false);
+  }
 
   Widget get bottomNavigationBar {
     return ClipRRect(
@@ -102,7 +108,7 @@ class _HomeState extends State<HomeTab> {
     try {
       if (senhaFormController.text == senhaFormValidationController.text) {
         var response = await Dio().put(
-          'http://localhost:8000/api/updateCliente/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}',
+          'http://10.0.2.2:8000/api/updateCliente/${Provider.of<ClientProvider>(context, listen: false).getUser.idCliente}',
           data: {
             'nomeCliente': nome,
             'cpfCliente': cpf,
@@ -219,11 +225,11 @@ class _HomeState extends State<HomeTab> {
 
     final appBar = AppBar(
       centerTitle: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       elevation: 4,
       title: Text(
         _screensTitle[_currentIndex],
-        style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+        style: TextStyle(color: Colors.white),
       ),
     );
 
@@ -255,9 +261,10 @@ class _HomeState extends State<HomeTab> {
             onTap: () {
               Provider.of<ClientProvider>(context, listen: false).userLogoff();
               Navigator.of(context).pushReplacementNamed(AppRoutes.OPENINGSCREEN);
+              logout();
             },
             child: Text(
-              'Sair',
+              'Loggout',
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,

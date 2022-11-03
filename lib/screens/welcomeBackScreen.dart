@@ -4,12 +4,15 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/data/dummyData.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/cliente.dart';
 
@@ -27,15 +30,18 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
   final emailFormController = TextEditingController();
   final cpfFormController = TextEditingController();
   bool showPassword = false;
+  bool _checkValue = false;
 
-  Future<void> getLoginInfo(String email, String senha, constraints) async {
+  Future<void> getLoginInfo(String email, String senha, constraints, bool manterLogin) async {
     try {
-      var response = await Dio().get('http://localhost:8000/api/loginCliente/$email/$senha');
+      var response = await Dio().get('http://10.0.2.2:8000/api/loginCliente/$email/$senha');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
       String loginResult = response.data['loginResult'];
       print(response.data);
 
       if (loginResult == '1') {
+        prefs.setBool(SharedPreferencesConstants.manterLogin, manterLogin);
         Navigator.pushReplacementNamed(context, AppRoutes.HOMETAB);
         Cliente user = Cliente(
           idCliente: response.data['user']['idCliente'],
@@ -62,7 +68,7 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
     try {
       if (senhaFormController.text == senhaFormValidationController.text) {
         var response = await Dio().post(
-          'http://localhost:8000/api/inserirCliente',
+          'http://10.0.2.2:8000/api/inserirCliente',
           data: {
             'nomeCliente': nome,
             'cpfCliente': cpf,
@@ -256,14 +262,36 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                 _textField(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Email', emailController, false),
                 SizedBox(height: constraints.maxHeight * .01),
                 _textField2(constraints.maxHeight * .08, constraints.maxWidth * .90, constraints, 'Senha', senhaController, true),
-                SizedBox(height: constraints.maxHeight * .03),
+                SizedBox(height: constraints.maxHeight * .01),
+                SizedBox(
+                  width: constraints.maxWidth * .54,
+                  child: CheckboxListTile(
+                    value: _checkValue,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _checkValue = !_checkValue;
+                      });
+                    },
+                    title: const Text(
+                      'Manter Conectado?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    activeColor: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                SizedBox(height: constraints.maxHeight * .01),
                 Button(
                   text: 'Entrar',
-                  onTap: () => getLoginInfo(
-                    emailController.text,
-                    senhaController.text,
-                    constraints,
-                  ),
+                  onTap: () {
+                    getLoginInfo(
+                      emailController.text,
+                      senhaController.text,
+                      constraints,
+                      _checkValue,
+                    );
+                  },
                   height: constraints.maxHeight * .07,
                   width: constraints.maxWidth * .7,
                   color: true,
