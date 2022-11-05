@@ -3,7 +3,7 @@ class LoggedUserInfo {
   Pagamentos? pagamentos;
   Favoritos? favoritos;
   String? continuarLoggado;
-  String? idLoggedUser;
+  int? idLoggedUser;
 
   LoggedUserInfo({this.userInfo, this.pagamentos, this.favoritos, this.continuarLoggado, this.idLoggedUser});
 

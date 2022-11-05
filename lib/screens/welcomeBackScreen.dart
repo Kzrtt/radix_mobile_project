@@ -46,12 +46,11 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
         LoggedUserInfo loggedUserInfo = LoggedUserInfo();
         Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB);
         UserInfo userInfo = UserInfo(
-          idCliente: response.data['user']['idCliente'],
+          idCliente: response.data['user']['idCliente'] as int,
           nomeCliente: response.data['user']['nomeCliente'],
           cpfCliente: response.data['user']['cpfCliente'],
           emailCliente: response.data['user']['emailCliente'],
           senhaCliente: response.data['user']['senhaCliente'],
-          statusCliente: response.data['user']['statusCliente'],
         );
         loggedUserInfo.userInfo = userInfo;
         if (manterLogin) {
