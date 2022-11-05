@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unrelated_type_equality_checks
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/model/cliente.dart';
+import 'package:radix_mobile_project/model/sharedPreferencesModels.dart';
 import 'package:radix_mobile_project/screens/profileScreen.dart';
 import 'package:radix_mobile_project/screens/searchScreen.dart';
 import 'package:radix_mobile_project/screens/shoppingCartScreen.dart';
@@ -38,7 +40,10 @@ class _HomeState extends State<HomeTab> {
 
   void logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(SharedPreferencesConstants.manterLogin, false);
+    String? tempString = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+    LoggedUserInfo loggedUserInfo = LoggedUserInfo.fromJson(jsonDecode(tempString!));
+    loggedUserInfo.continuarLoggado = '0';
+    prefs.setString(SharedPreferencesConstants.loggedUserInfos, jsonEncode(loggedUserInfo.toJson()));
   }
 
   Widget get bottomNavigationBar {

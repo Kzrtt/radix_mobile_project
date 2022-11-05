@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -9,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/data/dummyData.dart';
+import 'package:radix_mobile_project/model/sharedPreferencesModels.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
@@ -41,8 +43,23 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
       print(response.data);
 
       if (loginResult == '1') {
-        prefs.setBool(SharedPreferencesConstants.manterLogin, manterLogin);
-        Navigator.pushReplacementNamed(context, AppRoutes.HOMETAB);
+        LoggedUserInfo loggedUserInfo = LoggedUserInfo();
+        Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB);
+        UserInfo userInfo = UserInfo(
+          idCliente: response.data['user']['idCliente'],
+          nomeCliente: response.data['user']['nomeCliente'],
+          cpfCliente: response.data['user']['cpfCliente'],
+          emailCliente: response.data['user']['emailCliente'],
+          senhaCliente: response.data['user']['senhaCliente'],
+          statusCliente: response.data['user']['statusCliente'],
+        );
+        loggedUserInfo.userInfo = userInfo;
+        if (manterLogin) {
+          loggedUserInfo.continuarLoggado = '1';
+        } else {
+          loggedUserInfo.continuarLoggado = '0';
+        }
+        prefs.setString(SharedPreferencesConstants.loggedUserInfos, json.encode(loggedUserInfo.toJson()));
         Cliente user = Cliente(
           idCliente: response.data['user']['idCliente'],
           nomeCliente: response.data['user']['nomeCliente'],

@@ -1,8 +1,11 @@
-import 'dart:ffi';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
+import 'package:radix_mobile_project/model/cliente.dart';
+import 'package:radix_mobile_project/model/sharedPreferencesModels.dart';
+import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,9 +15,18 @@ class OpeningScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     void isManterLoginTrue() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool? y = prefs.getBool(SharedPreferencesConstants.manterLogin);
-      if (y != null) {
-        if (y == true) {
+      String? tempString = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+      if (tempString != null) {
+        LoggedUserInfo loggedUserInfo = LoggedUserInfo.fromJson(json.decode(tempString));
+        if (loggedUserInfo.continuarLoggado == '1') {
+          Cliente user = Cliente(
+            idCliente: loggedUserInfo.userInfo!.idCliente as int,
+            nomeCliente: loggedUserInfo.userInfo!.nomeCliente as String,
+            cpfCliente: loggedUserInfo.userInfo!.cpfCliente as String,
+            emailCliente: loggedUserInfo.userInfo!.emailCliente as String,
+            senhaCliente: loggedUserInfo.userInfo!.senhaCliente as String,
+          );
+          Provider.of<ClientProvider>(context, listen: false).changeUser(user);
           Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB);
         } else {
           Navigator.of(context).pushReplacementNamed(AppRoutes.WELCOMEBACK);

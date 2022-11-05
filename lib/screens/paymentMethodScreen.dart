@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/addPaymentMethodModalSheet.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/trailingTile.dart';
 
@@ -97,10 +99,16 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _openAddPaymentMethodModalSheet(context),
+        onPressed: () => teste(),
         child: const Icon(Icons.add, color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );
+  }
+
+  void teste() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? x = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+    print(x);
   }
 }
