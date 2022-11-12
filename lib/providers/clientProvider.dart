@@ -1,16 +1,17 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
-
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:radix_mobile_project/model/cliente.dart';
+import 'package:radix_mobile_project/model/sharedPreferencesModels.dart';
 import 'package:radix_mobile_project/model/vendedor.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/dummyData.dart';
 
 class ClientProvider with ChangeNotifier {
   List<Cliente> _clientes = DUMMY_CLIENTS;
   List<Vendedor> _vendedoresFavoritos = [];
+  List<Favoritos> _vendedoresFav = [];
   Cliente user = Cliente(
     idCliente: 0,
     nomeCliente: 'nomeCliente',
@@ -22,13 +23,25 @@ class ClientProvider with ChangeNotifier {
   List<Cliente> get getClientes => [..._clientes];
   List<Vendedor> get getVendedoresFavoritos => [..._vendedoresFavoritos];
   Cliente get getUser => user;
+  List<Favoritos> getVendedoresFav() => _vendedoresFav;
+
+  Future<void> loadVendedoresFav() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tempString = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+    if (tempString != null) {
+      LoggedUserInfo loggedUserInfo = LoggedUserInfo.fromJson(json.decode(tempString));
+      if (loggedUserInfo.favorito != null) {
+        _vendedoresFav = loggedUserInfo.favorito!;
+      }
+    }
+  }
 
   void changeUser(Cliente newUser) {
     user = newUser;
     notifyListeners();
   }
 
-  void userLogoff() {
+  void userLogoff() async {
     user = Cliente(
       idCliente: 0,
       nomeCliente: 'nomeCliente',
@@ -40,46 +53,43 @@ class ClientProvider with ChangeNotifier {
   }
 
   bool isFavorite(Vendedor vendedor) {
-    return _vendedoresFavoritos.any((element) => element.idVendedor == vendedor.idVendedor);
+    return _vendedoresFav.any((element) => element.idVendedor == vendedor.idVendedor);
   }
 
-  void addToFavorites(Vendedor vendedor) {
+  void addToFavorites(Vendedor vendedor) async {
     _vendedoresFavoritos.add(vendedor);
-    notifyListeners();
-  }
-
-  void removeFromFavorites(String id) {
-    _vendedoresFavoritos.removeWhere((element) => element.idVendedor.toString() == id);
-    notifyListeners();
-  }
-
-  List<dynamic> loginValidate(String email, String senha) {
-    List<dynamic> list = [];
-    Cliente? cliente;
-
-    if (_clientes.any((c) => c.emailCliente == email && c.senhaCliente == senha)) {
-      _clientes.forEach((element) {
-        if (element.emailCliente == email && element.senhaCliente == senha) {
-          cliente = element;
-        }
-      });
-      cliente?.isUser == true;
-      list.add(true);
-      list.add(cliente);
-    } else {
-      list.add(false);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tempString = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+    if (tempString != null) {
+      LoggedUserInfo loggedUserInfo = LoggedUserInfo.fromJson(json.decode(tempString));
+      Favoritos fav = Favoritos(
+        idVendedor: vendedor.idVendedor,
+        nomeVendedor: vendedor.nomeVendedor,
+        cpfCnpjVendedor: vendedor.cpfCnpjVendedor,
+        emailVendedor: vendedor.emailVendedor,
+        senhaVendedor: vendedor.senhaVendedor,
+        urlImagenVendedor: vendedor.urlImagemVendedor,
+        enderecoVendedor: vendedor.enderecoVendedor,
+        statusContaVendedor: vendedor.statusContaVendedor,
+        selo: vendedor.selo,
+      );
+      _vendedoresFav.add(fav);
+      loggedUserInfo.favorito = _vendedoresFav;
+      prefs.setString(SharedPreferencesConstants.loggedUserInfos, json.encode(loggedUserInfo.toJson()));
     }
-
-    return list;
-  }
-
-  void addCliente(Cliente cliente) {
-    _clientes.add(cliente);
     notifyListeners();
   }
 
-  void deleteCliente(String id) {
-    _clientes.removeWhere((c) => c.idCliente.toString() == id);
+  void removeFromFavorites(String id) async {
+    _vendedoresFavoritos.removeWhere((element) => element.idVendedor.toString() == id);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tempString = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
+    if (tempString != null) {
+      LoggedUserInfo loggedUserInfo = LoggedUserInfo.fromJson(json.decode(tempString));
+      _vendedoresFav.removeWhere((element) => element.idVendedor.toString() == id);
+      loggedUserInfo.favorito = _vendedoresFav;
+      prefs.setString(SharedPreferencesConstants.loggedUserInfos, json.encode(loggedUserInfo.toJson()));
+    }
     notifyListeners();
   }
 }

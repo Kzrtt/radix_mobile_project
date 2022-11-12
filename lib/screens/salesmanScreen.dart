@@ -178,7 +178,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
           return Column(
             children: [
               SizedBox(
-                height: constraints.maxHeight * .3,
+                height: constraints.maxHeight * .32,
                 width: constraints.maxWidth,
                 child: Column(
                   children: [
@@ -187,7 +187,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       width: constraints.maxWidth,
                       child: Image.asset(
                         'assets/images/bannerRadix.png',
-                        height: constraints.maxHeight * .1,
+                        height: constraints.maxHeight * .12,
                         width: constraints.maxWidth,
                         fit: BoxFit.cover,
                       ),
@@ -299,7 +299,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                   color: Colors.grey,
                                 ),
-                                height: constraints.maxHeight * .4,
+                                height: constraints.maxHeight * .40,
                                 width: constraints.maxWidth * .85,
                                 child: Center(child: Text(p.urlFoto)),
                               ),

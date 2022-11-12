@@ -296,9 +296,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Center(
                     child: CircleAvatar(
-                      maxRadius: 100,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: AssetImage(FRUITS[randomFruit]),
+                      maxRadius: 105,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      child: CircleAvatar(
+                        maxRadius: 100,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: AssetImage(FRUITS[randomFruit]),
+                      ),
                     ),
                   ),
                 ],

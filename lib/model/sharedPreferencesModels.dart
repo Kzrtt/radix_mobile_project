@@ -1,30 +1,40 @@
 class LoggedUserInfo {
   UserInfo? userInfo;
-  Pagamentos? pagamentos;
-  Favoritos? favoritos;
+  List<Pagamentos>? pagamentos;
+  List<Favoritos>? favorito;
   String? continuarLoggado;
-  int? idLoggedUser;
+  String? idLoggedUser;
 
-  LoggedUserInfo({this.userInfo, this.pagamentos, this.favoritos, this.continuarLoggado, this.idLoggedUser});
+  LoggedUserInfo({this.userInfo, this.pagamentos, this.favorito, this.continuarLoggado, this.idLoggedUser});
 
   LoggedUserInfo.fromJson(Map<String, dynamic> json) {
-    userInfo = json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
-    pagamentos = json['pagamentos'] != null ? Pagamentos.fromJson(json['pagamentos']) : null;
-    favoritos = json['favoritos'] != null ? Favoritos.fromJson(json['favoritos']) : null;
+    userInfo = json['userInfo'] != null ? new UserInfo.fromJson(json['userInfo']) : null;
+    if (json['pagamentos'] != null) {
+      pagamentos = <Pagamentos>[];
+      json['pagamentos'].forEach((v) {
+        pagamentos!.add(new Pagamentos.fromJson(v));
+      });
+    }
+    if (json['favorito'] != null) {
+      favorito = <Favoritos>[];
+      json['favorito'].forEach((v) {
+        favorito!.add(new Favoritos.fromJson(v));
+      });
+    }
     continuarLoggado = json['continuarLoggado'];
     idLoggedUser = json['idLoggedUser'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (userInfo != null) {
-      data['userInfo'] = userInfo!.toJson();
+    if (this.userInfo != null) {
+      data['userInfo'] = this.userInfo!.toJson();
     }
     if (this.pagamentos != null) {
-      data['pagamentos'] = this.pagamentos!.toJson();
+      data['pagamentos'] = this.pagamentos!.map((v) => v.toJson()).toList();
     }
-    if (this.favoritos != null) {
-      data['favoritos'] = this.favoritos!.toJson();
+    if (this.favorito != null) {
+      data['favorito'] = this.favorito!.map((v) => v.toJson()).toList();
     }
     data['continuarLoggado'] = this.continuarLoggado;
     data['idLoggedUser'] = this.idLoggedUser;
@@ -67,18 +77,18 @@ class Pagamentos {
   String? idPagamento;
   String? numeroCartao;
   String? dataValidade;
-  String? nomeTitular;
   String? apelidoCartao;
+  String? nomeTitular;
   String? cvv;
 
-  Pagamentos({this.idPagamento, this.numeroCartao, this.dataValidade, this.nomeTitular, this.apelidoCartao, this.cvv});
+  Pagamentos({this.idPagamento, this.numeroCartao, this.dataValidade, this.apelidoCartao, this.nomeTitular, this.cvv});
 
   Pagamentos.fromJson(Map<String, dynamic> json) {
     idPagamento = json['idPagamento'];
     numeroCartao = json['numeroCartao'];
     dataValidade = json['dataValidade'];
-    nomeTitular = json['nomeTitular'];
     apelidoCartao = json['apelidoCartao'];
+    nomeTitular = json['nomeTitular'];
     cvv = json['cvv'];
   }
 
@@ -87,25 +97,25 @@ class Pagamentos {
     data['idPagamento'] = this.idPagamento;
     data['numeroCartao'] = this.numeroCartao;
     data['dataValidade'] = this.dataValidade;
-    data['nomeTitular'] = this.nomeTitular;
     data['apelidoCartao'] = this.apelidoCartao;
+    data['nomeTitular'] = this.nomeTitular;
     data['cvv'] = this.cvv;
     return data;
   }
 }
 
 class Favoritos {
-  String? idVendedor;
+  int? idVendedor;
   String? nomeVendedor;
   String? cpfCnpjVendedor;
   String? emailVendedor;
   String? senhaVendedor;
-  String? urlImagemVendedor;
+  String? urlImagenVendedor;
   String? enderecoVendedor;
-  String? statusContaVendedor;
-  String? selo;
+  int? statusContaVendedor;
+  dynamic? selo;
 
-  Favoritos({this.idVendedor, this.nomeVendedor, this.cpfCnpjVendedor, this.emailVendedor, this.senhaVendedor, this.urlImagemVendedor, this.enderecoVendedor, this.statusContaVendedor, this.selo});
+  Favoritos({this.idVendedor, this.nomeVendedor, this.cpfCnpjVendedor, this.emailVendedor, this.senhaVendedor, this.urlImagenVendedor, this.enderecoVendedor, this.statusContaVendedor, this.selo});
 
   Favoritos.fromJson(Map<String, dynamic> json) {
     idVendedor = json['idVendedor'];
@@ -113,7 +123,7 @@ class Favoritos {
     cpfCnpjVendedor = json['cpfCnpjVendedor'];
     emailVendedor = json['emailVendedor'];
     senhaVendedor = json['senhaVendedor'];
-    urlImagemVendedor = json['urlImagemVendedor'];
+    urlImagenVendedor = json['urlImagenVendedor'];
     enderecoVendedor = json['enderecoVendedor'];
     statusContaVendedor = json['statusContaVendedor'];
     selo = json['selo'];
@@ -126,7 +136,7 @@ class Favoritos {
     data['cpfCnpjVendedor'] = this.cpfCnpjVendedor;
     data['emailVendedor'] = this.emailVendedor;
     data['senhaVendedor'] = this.senhaVendedor;
-    data['urlImagemVendedor'] = this.urlImagemVendedor;
+    data['urlImagenVendedor'] = this.urlImagenVendedor;
     data['enderecoVendedor'] = this.enderecoVendedor;
     data['statusContaVendedor'] = this.statusContaVendedor;
     data['selo'] = this.selo;
