@@ -238,12 +238,6 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.chat_bubble_outline),
-                                        iconSize: constraints.maxHeight * .045,
-                                        color: Theme.of(context).colorScheme.primary,
-                                      ),
-                                      IconButton(
                                         icon: Icon(Provider.of<ClientProvider>(context).isFavorite(vendedor) ? Icons.favorite : Icons.favorite_outline),
                                         iconSize: constraints.maxHeight * .05,
                                         onPressed: () {

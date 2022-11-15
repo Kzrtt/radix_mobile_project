@@ -18,6 +18,18 @@ class PaymentMethodScreen extends StatefulWidget {
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<PaymentProvider>(context, listen: false).loadCartoes().then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   void _openAddPaymentMethodModalSheet(BuildContext context) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -34,7 +46,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _cartoes = context.watch<PaymentProvider>().getCartoes;
+    final _cartoes = Provider.of<PaymentProvider>(context).getCartoesSharedPreferences();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -55,60 +67,56 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
           ),
         ),
       ),
-      body: _cartoes.isEmpty
-          ? LayoutBuilder(
-              builder: (context, constraints) {
-                return Column(
-                  children: [
-                    SizedBox(height: constraints.maxHeight * .15),
-                    TextPlusImage(
-                      firstText: 'Adicione uma forma de Pagamento',
-                      imgUrl: 'assets/svg/undraw_vault.svg',
-                      height: constraints.maxHeight * .22,
-                      secondText: 'Adicione uma forma de pagamento para poder realizar compras em nosso app',
-                      constraints: constraints,
-                    ),
-                  ],
-                );
-              },
-            )
-          : LayoutBuilder(
-              builder: (context, constraints) {
-                return Column(
-                  children: [
-                    SizedBox(height: constraints.maxHeight * .04),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _cartoes.length,
-                        itemBuilder: (context, index) {
-                          final c = _cartoes[index];
-                          return TrailingTile(
-                            constraints: constraints,
-                            id: c.idCartao,
-                            title: c.apelidoCartao,
-                            subTitle: c.numerosCartao,
-                            leadingIcon: Icons.account_balance_wallet_outlined,
-                            trailingIcon: Icons.delete,
-                            color: true,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _cartoes.isEmpty
+              ? LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Column(
+                      children: [
+                        SizedBox(height: constraints.maxHeight * .15),
+                        TextPlusImage(
+                          firstText: 'Adicione uma forma de Pagamento',
+                          imgUrl: 'assets/svg/undraw_vault.svg',
+                          height: constraints.maxHeight * .22,
+                          secondText: 'Adicione uma forma de pagamento para poder realizar compras em nosso app',
+                          constraints: constraints,
+                        ),
+                      ],
+                    );
+                  },
+                )
+              : LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Column(
+                      children: [
+                        SizedBox(height: constraints.maxHeight * .04),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: _cartoes.length,
+                            itemBuilder: (context, index) {
+                              final c = _cartoes[index];
+                              return TrailingTile(
+                                constraints: constraints,
+                                id: c.idPagamento as int,
+                                title: c.apelidoCartao as String,
+                                subTitle: c.numeroCartao as String,
+                                leadingIcon: Icons.account_balance_wallet_outlined,
+                                trailingIcon: Icons.delete,
+                                color: true,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => teste(),
+        onPressed: () => _openAddPaymentMethodModalSheet(context),
         child: const Icon(Icons.add, color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );
-  }
-
-  void teste() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? x = prefs.getString(SharedPreferencesConstants.loggedUserInfos);
-    print(x);
   }
 }

@@ -74,7 +74,7 @@ class UserInfo {
 }
 
 class Pagamentos {
-  String? idPagamento;
+  int? idPagamento;
   String? numeroCartao;
   String? dataValidade;
   String? apelidoCartao;
