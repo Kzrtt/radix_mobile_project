@@ -61,7 +61,9 @@ class _MyAppState extends State<MyApp> {
         title: 'Radix',
         theme: ThemeData(
           visualDensity: VisualDensity.comfortable,
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: CustomMaterialColor(132, 202, 157).mdColor).copyWith(
+          colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: CustomMaterialColor(132, 202, 157).mdColor)
+              .copyWith(
             secondary: Color.fromRGBO(108, 168, 129, 1),
           ),
         ),
