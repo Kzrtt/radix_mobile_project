@@ -16,6 +16,39 @@ class PedidoProvider with ChangeNotifier {
   List<Iten> getItems() => [..._items];
   List<Produtos> getProdutos() => [..._produtos];
 
+  Future<void> addPedido(context, DateTime data, int idCliente, int idVendedor) async {
+    try {
+      var response = await Dio().post(
+        'http://10.0.2.2:8000/api/inserirPedido',
+        data: {
+          'data': data,
+          'frete': 10.0,
+          'idCliente': idCliente,
+          'idVendedor': idVendedor,
+          'idCupomCliente': 1,
+          'idEntregador': 1,
+        },
+      );
+      if (response.data['status'] == '400') {
+      } else {
+        print(response.data['message']);
+        Pedido pedido = Pedido(
+          idPedido: response.data['pedido']['idPedido'],
+          data: response.data['pedido']['data'],
+          frete: response.data['pedido']['frete'],
+          idCliente: response.data['pedido']['idCliente'],
+          idVendedor: response.data['pedido']['idVendedor'],
+          idCupomCliente: response.data['pedido']['idCupomCliente'],
+          idEntregador: response.data['pedido']['idEntregador'],
+        );
+        _pedidos.add(pedido);
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<List<Iten>> loadItems(int idPedido) async {
     _items.clear();
     var response = await Dio().get('http://10.0.2.2:8000/api/getAllItems/$idPedido');

@@ -107,11 +107,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].produtosVendedor.length; j++) {
-          if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() == product.toUpperCase()) {
+          if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() == product.toUpperCase() || list[i].nomeVendedor.toUpperCase() == product.toUpperCase()) {
             if (list[i].statusContaVendedor == 0) {
               break;
             } else {
-              v.add(list[i]);
+              if (v.contains(list[i])) {
+                break;
+              } else {
+                v.add(list[i]);
+              }
             }
           }
         }

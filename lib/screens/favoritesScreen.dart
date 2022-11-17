@@ -21,6 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
+    Provider.of<SalesmanProvider>(context, listen: false).loadVendedores();
     Provider.of<ClientProvider>(context, listen: false).loadVendedoresFav().then((value) {
       setState(() {
         _isLoading = false;
@@ -31,6 +32,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     List<Favoritos> _vendedoresFavoritos = Provider.of<ClientProvider>(context).getVendedoresFav();
+    List<Vendedor> _x = Provider.of<SalesmanProvider>(context).getVendedores();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -84,7 +86,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 padding: EdgeInsets.all(constraints.maxHeight * .02),
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pushNamed(AppRoutes.SALESMANPROFILE, arguments: v);
+                                    Vendedor vendedor = _x.where((element) => element.idVendedor == v.idVendedor) as Vendedor;
+                                    Navigator.of(context).pushNamed(AppRoutes.SALESMANPROFILE, arguments: vendedor);
                                   },
                                   child: SizedBox(
                                     height: constraints.maxHeight * .14,

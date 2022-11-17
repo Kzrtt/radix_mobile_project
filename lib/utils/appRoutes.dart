@@ -17,4 +17,5 @@ class AppRoutes {
   static const SALESMANPROFILE = '/salesmanProfile';
   static const FINALIZARCOMPRA = '/finalizar-compra';
   static const INSIDECHAT = '/inside-chat';
+  static const ACOMPANHARPEDIDO = '/acompanhar-pedido';
 }

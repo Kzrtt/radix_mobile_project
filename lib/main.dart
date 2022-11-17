@@ -10,6 +10,7 @@ import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
 import 'package:radix_mobile_project/providers/pedidoProvider.dart';
 import 'package:radix_mobile_project/providers/salesmanProvider.dart';
+import 'package:radix_mobile_project/screens/acompanharPedido.dart';
 import 'package:radix_mobile_project/screens/adressScreen.dart';
 import 'package:radix_mobile_project/screens/chatsScreen.dart';
 import 'package:radix_mobile_project/screens/cuponsScreen.dart';
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutes.PROFILE: (ctx) => ProfileScreen(),
           AppRoutes.FINALIZARCOMPRA: (ctx) => FinalizarCompra(),
           AppRoutes.INSIDECHAT: (ctx) => InsideChatScreen(),
+          AppRoutes.ACOMPANHARPEDIDO: (ctx) => AcompanharPedido(),
         },
       ),
     );

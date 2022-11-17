@@ -49,11 +49,6 @@ class _HistoricScreenState extends State<HistoricScreen> {
     });
   }
 
-  void chamar() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getInt('teste'));
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Pedido> _pedidos = Provider.of<PedidoProvider>(context).getPedidos();

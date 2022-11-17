@@ -4,6 +4,8 @@ import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/model/item.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 
+import 'clientProvider.dart';
+
 class CartProvider with ChangeNotifier {
   List<Item> _items = [];
   List<Endereco> _enderecos = [];

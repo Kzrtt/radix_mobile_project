@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radix_mobile_project/components/button.dart';
 import 'package:radix_mobile_project/components/textPlusImage.dart';
 import 'package:radix_mobile_project/model/endereco.dart';
 import 'package:radix_mobile_project/model/item.dart';
+import 'package:radix_mobile_project/model/sharedPreferencesModels.dart';
 import 'package:radix_mobile_project/providers/adressProvider.dart';
 import 'package:radix_mobile_project/providers/cartProvider.dart';
+import 'package:radix_mobile_project/utils/sharedPreferencesConstants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/imageContainer.dart';
 import '../utils/appRoutes.dart';
 
