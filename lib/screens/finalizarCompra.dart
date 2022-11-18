@@ -13,6 +13,7 @@ import 'package:radix_mobile_project/providers/cartProvider.dart';
 import 'package:radix_mobile_project/providers/clientProvider.dart';
 import 'package:radix_mobile_project/providers/cupomProvider.dart';
 import 'package:radix_mobile_project/providers/paymentProvider.dart';
+import 'package:radix_mobile_project/providers/pedidoProvider.dart';
 import 'package:radix_mobile_project/utils/appRoutes.dart';
 
 import '../components/button.dart';
@@ -93,8 +94,8 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                       ),
                       SizedBox(height: constraints.maxHeight * .12),
                       Button(
-                        text: 'Acompanhar Pedido',
-                        onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.ACOMPANHARPEDIDO),
+                        text: 'Ir para Home',
+                        onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB),
                         height: constraints.maxHeight * .08,
                         width: constraints.maxWidth * .6,
                         color: false,
@@ -377,7 +378,7 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                         child: Button(
                           text: 'Finalizar Compra',
                           onTap: () {
-                            Provider.of<CartProvider>(context, listen: false).finalizarCompra(_listaDeItems);
+                            Provider.of<PedidoProvider>(context, listen: false).addPedido(context, DateTime.now(), Provider.of<ClientProvider>(context, listen: false).user.idCliente, _listaDeItems[0].vendedor.idVendedor);
                             _openSucessoModalSheet(context);
                           },
                           height: constraints.maxHeight * .08,
