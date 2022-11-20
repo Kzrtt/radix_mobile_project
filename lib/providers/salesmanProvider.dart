@@ -111,7 +111,7 @@ class SalesmanProvider with ChangeNotifier {
     return vendedor;
   }
 
-  Row seloProdutor(double selo) {
+  Row seloProdutor(dynamic selo, constraints, List<Produtos> _p) {
     Row row = Row(
       children: [
         Text(
@@ -122,100 +122,92 @@ class SalesmanProvider with ChangeNotifier {
       ],
     );
 
-    if (0 < selo && selo <= 1) {
+    if (_p.isEmpty) {
       row = Row(
         children: [
-          Text(
-            selo.toString(),
-            style: const TextStyle(color: Colors.red),
+          const Text(
+            'novo produtor ',
+            style: TextStyle(color: Colors.cyan),
           ),
-          const Icon(Icons.eco_sharp, color: Colors.red),
+          Image.asset('assets/images/semente.png', width: constraints.maxWidth * .05),
         ],
       );
-    } else if (1 < selo && selo <= 2) {
-      row = Row(
-        children: [
-          Text(
-            selo.toString(),
-            style: const TextStyle(color: Colors.orange),
-          ),
-          const Icon(Icons.eco_sharp, color: Colors.orange),
-        ],
-      );
-    } else if (2 < selo && selo <= 3) {
-      row = Row(
-        children: [
-          Text(
-            selo.toString(),
-            style: const TextStyle(color: Colors.yellow),
-          ),
-          const Icon(Icons.eco_sharp, color: Colors.yellow),
-        ],
-      );
-    } else if (3 < selo && selo <= 4) {
-      row = Row(
-        children: [
-          Text(
-            selo.toString(),
-            style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
-          ),
-          const Icon(Icons.eco_sharp, color: Color.fromRGBO(108, 168, 129, 1)),
-        ],
-      );
-    } else if (4 < selo && selo <= 5) {
-      row = Row(
-        children: [
-          Text(
-            selo.toString(),
-            style: const TextStyle(color: Colors.cyan),
-          ),
-          const Icon(Icons.eco_sharp, color: Colors.cyan),
-        ],
-      );
+    } else {
+      if (0 < selo && selo <= 1) {
+        row = Row(
+          children: [
+            Text(
+              selo.toString(),
+              style: const TextStyle(color: Colors.red),
+            ),
+            Image.asset('assets/images/arvore-morta.png', width: constraints.maxWidth * .1),
+          ],
+        );
+      } else if (1 < selo && selo <= 2) {
+        row = Row(
+          children: [
+            Text(
+              selo.toString(),
+              style: const TextStyle(color: Colors.yellow),
+            ),
+            Image.asset('assets/images/flor-morta.png', width: constraints.maxWidth * .1),
+          ],
+        );
+      } else if (2 < selo && selo <= 3) {
+        row = Row(
+          children: [
+            Text(
+              selo.toString(),
+              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+            ),
+            Image.asset('assets/images/folha.png', width: constraints.maxWidth * .1),
+          ],
+        );
+      } else if (3 < selo && selo <= 4) {
+        row = Row(
+          children: [
+            Text(
+              selo.toString(),
+              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+            ),
+            Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .08),
+          ],
+        );
+      } else if (4 < selo && selo <= 5) {
+        row = Row(
+          children: [
+            Text(
+              selo.toString(),
+              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+            ),
+            Image.asset('assets/images/tree.png', width: constraints.maxWidth * .08),
+          ],
+        );
+      }
     }
 
     return row;
   }
 
-  Icon iconSeloProdutor(double selo, BoxConstraints constraints) {
-    Icon icon = Icon(
-      Icons.eco_sharp,
-      color: Colors.cyan,
-      size: constraints.maxHeight * .05,
-    );
+  Image iconSeloProdutor(dynamic selo, BoxConstraints constraints, bool x) {
+    Image img = Image.asset('assets/images/tree.png', width: constraints.maxWidth * .08);
 
-    if (0 < selo && selo <= 1) {
-      icon = Icon(
-        Icons.eco_sharp,
-        color: Colors.red,
-        size: constraints.maxHeight * .05,
-      );
-    } else if (1 < selo && selo <= 2) {
-      icon = Icon(
-        Icons.eco_sharp,
-        color: Colors.orange,
-        size: constraints.maxHeight * .05,
-      );
-    } else if (2 < selo && selo <= 3) {
-      icon = Icon(
-        Icons.eco_sharp,
-        color: Colors.yellow,
-        size: constraints.maxHeight * .05,
-      );
-    } else if (3 < selo && selo <= 4) {
-      icon = Icon(
-        Icons.eco_sharp,
-        color: Color.fromRGBO(108, 168, 129, 1),
-        size: constraints.maxHeight * .05,
-      );
-    } else if (4 < selo && selo <= 5) {
-      icon = Icon(
-        Icons.eco_sharp,
-        color: Colors.cyan,
-        size: constraints.maxHeight * .05,
-      );
+    if (x) {
+      if (0 < selo && selo <= 1) {
+        img = Image.asset('assets/images/arvore-morta.png', width: constraints.maxWidth * .08);
+      } else if (1 < selo && selo <= 2) {
+        img = Image.asset('assets/images/flor-morta.png', width: constraints.maxWidth * .08);
+      } else if (2 < selo && selo <= 3) {
+        img = Image.asset('assets/images/folha.png', width: constraints.maxWidth * .08);
+      } else if (3 < selo && selo <= 4) {
+        img = Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .08);
+      } else if (4 < selo && selo <= 5) {
+        img = Image.asset('assets/images/tree.png', width: constraints.maxWidth * .08);
+      }
+    } else {
+      img = Image.asset('assets/images/semente.png', width: constraints.maxWidth * .08);
     }
 
-    return icon;
+    return img;
   }
 }

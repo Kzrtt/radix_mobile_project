@@ -220,7 +220,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                     ),
                                   ),
                                   SizedBox(height: constraints.maxHeight * .01),
-                                  context.watch<SalesmanProvider>().seloProdutor(vendedor.selo),
+                                  context.watch<SalesmanProvider>().seloProdutor(vendedor.selo, constraints, vendedor.produtosVendedor),
                                 ],
                               ),
                             ),
@@ -264,92 +264,96 @@ class _SalesmanScreen extends State<SalesmanScreen> {
               Divider(color: Theme.of(context).colorScheme.primary, thickness: constraints.maxWidth * .001),
               SizedBox(height: constraints.maxHeight * .01),
               Flexible(
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: vendedor.produtosVendedor.length,
-                  itemBuilder: (context, index) {
-                    final p = vendedor.produtosVendedor[index];
-                    return InkWell(
-                      onTap: () => _openProductModalSheet(context, p, vendedor),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        elevation: 4,
-                        margin: const EdgeInsets.all(15),
-                        child: Container(
-                          height: constraints.maxHeight * .62,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(height: constraints.maxHeight * .02),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.grey,
-                                ),
-                                height: constraints.maxHeight * .40,
-                                width: constraints.maxWidth * .85,
-                                child: Center(child: Text(p.urlFoto)),
+                child: vendedor.produtosVendedor.isEmpty
+                    ? Center(
+                        child: Text('Nenhum produto disponivel'),
+                      )
+                    : ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: vendedor.produtosVendedor.length,
+                        itemBuilder: (context, index) {
+                          final p = vendedor.produtosVendedor[index];
+                          return InkWell(
+                            onTap: () => _openProductModalSheet(context, p, vendedor),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              SizedBox(height: constraints.maxHeight * .03),
-                              SizedBox(
-                                height: constraints.maxHeight * .15,
-                                width: constraints.maxWidth * .85,
+                              elevation: 4,
+                              margin: const EdgeInsets.all(15),
+                              child: Container(
+                                height: constraints.maxHeight * .62,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                ),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Produtor: ${vendedor.nomeVendedor}',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
+                                    SizedBox(height: constraints.maxHeight * .02),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(20)),
                                         color: Colors.grey,
-                                        fontSize: constraints.maxHeight * .022,
                                       ),
+                                      height: constraints.maxHeight * .40,
+                                      width: constraints.maxWidth * .85,
+                                      child: Center(child: Text(p.urlFoto)),
                                     ),
-                                    SizedBox(height: constraints.maxHeight * .01),
-                                    Text(
-                                      p.nomeProduto,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: constraints.maxHeight * .022,
+                                    SizedBox(height: constraints.maxHeight * .03),
+                                    SizedBox(
+                                      height: constraints.maxHeight * .15,
+                                      width: constraints.maxWidth * .85,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Produtor: ${vendedor.nomeVendedor}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey,
+                                              fontSize: constraints.maxHeight * .022,
+                                            ),
+                                          ),
+                                          SizedBox(height: constraints.maxHeight * .01),
+                                          Text(
+                                            p.nomeProduto,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: constraints.maxHeight * .022,
+                                            ),
+                                          ),
+                                          SizedBox(height: constraints.maxHeight * .01),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'R\$${p.preco.toString()}',
+                                                style: TextStyle(
+                                                  color: Theme.of(context).colorScheme.primary,
+                                                  fontSize: constraints.maxHeight * .022,
+                                                ),
+                                              ),
+                                              CircleAvatar(
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                child: IconButton(
+                                                  onPressed: () => _openProductModalSheet(context, p, vendedor),
+                                                  icon: Icon(Icons.shopping_cart, color: Colors.white),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    SizedBox(height: constraints.maxHeight * .01),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'R\$${p.preco.toString()}',
-                                          style: TextStyle(
-                                            color: Theme.of(context).colorScheme.primary,
-                                            fontSize: constraints.maxHeight * .022,
-                                          ),
-                                        ),
-                                        CircleAvatar(
-                                          backgroundColor: Theme.of(context).colorScheme.primary,
-                                          child: IconButton(
-                                            onPressed: () => _openProductModalSheet(context, p, vendedor),
-                                            icon: Icon(Icons.shopping_cart, color: Colors.white),
-                                          ),
-                                        )
-                                      ],
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           );

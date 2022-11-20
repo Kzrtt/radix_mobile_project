@@ -45,7 +45,7 @@ class Vendedor with ChangeNotifier {
             selo.toString(),
             style: const TextStyle(color: Colors.red),
           ),
-          const Icon(Icons.eco_sharp, color: Colors.red),
+          Image.asset('assets/images/arvore-morta.png'),
         ],
       );
     } else if (1 < selo && selo <= 2) {

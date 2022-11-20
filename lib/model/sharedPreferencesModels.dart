@@ -114,8 +114,9 @@ class Favoritos {
   String? enderecoVendedor;
   int? statusContaVendedor;
   dynamic? selo;
+  bool? hasProducts;
 
-  Favoritos({this.idVendedor, this.nomeVendedor, this.cpfCnpjVendedor, this.emailVendedor, this.senhaVendedor, this.urlImagenVendedor, this.enderecoVendedor, this.statusContaVendedor, this.selo});
+  Favoritos({this.idVendedor, this.nomeVendedor, this.cpfCnpjVendedor, this.emailVendedor, this.senhaVendedor, this.urlImagenVendedor, this.enderecoVendedor, this.statusContaVendedor, this.selo, this.hasProducts});
 
   Favoritos.fromJson(Map<String, dynamic> json) {
     idVendedor = json['idVendedor'];
@@ -127,6 +128,7 @@ class Favoritos {
     enderecoVendedor = json['enderecoVendedor'];
     statusContaVendedor = json['statusContaVendedor'];
     selo = json['selo'];
+    hasProducts = json['hasProducts'];
   }
 
   Map<String, dynamic> toJson() {
@@ -140,6 +142,7 @@ class Favoritos {
     data['enderecoVendedor'] = this.enderecoVendedor;
     data['statusContaVendedor'] = this.statusContaVendedor;
     data['selo'] = this.selo;
+    data['hasProducts'] = this.hasProducts;
     return data;
   }
 }

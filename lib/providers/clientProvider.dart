@@ -72,6 +72,7 @@ class ClientProvider with ChangeNotifier {
         enderecoVendedor: vendedor.enderecoVendedor,
         statusContaVendedor: vendedor.statusContaVendedor,
         selo: vendedor.selo,
+        hasProducts: vendedor.produtosVendedor.isNotEmpty ? true : false,
       );
       _vendedoresFav.add(fav);
       loggedUserInfo.favorito = _vendedoresFav;

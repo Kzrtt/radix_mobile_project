@@ -106,17 +106,23 @@ class _SearchScreenState extends State<SearchScreen> {
       });
 
       for (var i = 0; i < list.length; i++) {
-        for (var j = 0; j < list[i].produtosVendedor.length; j++) {
-          if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() == product.toUpperCase() || list[i].nomeVendedor.toUpperCase() == product.toUpperCase()) {
-            if (list[i].statusContaVendedor == 0) {
-              break;
-            } else {
-              if (v.contains(list[i])) {
+        if (list[i].produtosVendedor.isNotEmpty) {
+          for (var j = 0; j < list[i].produtosVendedor.length; j++) {
+            if (list[i].produtosVendedor[j].nomeProduto.toUpperCase() == product.toUpperCase() || list[i].nomeVendedor.toUpperCase() == product.toUpperCase()) {
+              if (list[i].statusContaVendedor == 0) {
                 break;
               } else {
-                v.add(list[i]);
+                if (v.contains(list[i])) {
+                  break;
+                } else {
+                  v.add(list[i]);
+                }
               }
             }
+          }
+        } else {
+          if (list[i].nomeVendedor.toUpperCase() == product.toUpperCase()) {
+            v.add(list[i]);
           }
         }
       }
@@ -227,10 +233,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                         trailing: Padding(
                                           padding: EdgeInsets.fromLTRB(0, constraints.maxHeight * .020, 0, constraints.maxWidth * .01),
                                           child: SizedBox(
-                                            width: constraints.maxWidth * .14,
+                                            width: v.produtosVendedor.isEmpty ? constraints.maxWidth * .3 : constraints.maxWidth * .16,
                                             child: Column(
                                               children: [
-                                                context.watch<SalesmanProvider>().seloProdutor(v.selo),
+                                                context.watch<SalesmanProvider>().seloProdutor(v.selo, constraints, v.produtosVendedor),
                                               ],
                                             ),
                                           ),

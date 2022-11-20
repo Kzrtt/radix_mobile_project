@@ -103,9 +103,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                       ),
                                       tileColor: const Color.fromRGBO(237, 233, 232, .7),
                                       leading: CircleAvatar(
-                                        backgroundColor: Colors.black12,
+                                        backgroundColor: Color.fromARGB(31, 63, 62, 62),
                                         radius: 50,
-                                        child: context.watch<SalesmanProvider>().iconSeloProdutor(v.selo as double, constraints),
+                                        child: context.watch<SalesmanProvider>().iconSeloProdutor(v.selo as dynamic, constraints, v.hasProducts as bool),
                                       ),
                                       title: Text(
                                         v.nomeVendedor as String,
