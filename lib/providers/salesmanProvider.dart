@@ -111,7 +111,7 @@ class SalesmanProvider with ChangeNotifier {
     return vendedor;
   }
 
-  Row seloProdutor(dynamic selo, constraints, List<Produtos> _p) {
+  Row seloProdutor(dynamic selo, BoxConstraints constraints, List<Produtos> _p) {
     Row row = Row(
       children: [
         Text(
@@ -125,9 +125,9 @@ class SalesmanProvider with ChangeNotifier {
     if (_p.isEmpty) {
       row = Row(
         children: [
-          const Text(
+          Text(
             'novo produtor ',
-            style: TextStyle(color: Colors.cyan),
+            style: TextStyle(color: Colors.cyan, fontSize: constraints.maxHeight * .025),
           ),
           Image.asset('assets/images/semente.png', width: constraints.maxWidth * .05),
         ],
@@ -138,9 +138,9 @@ class SalesmanProvider with ChangeNotifier {
           children: [
             Text(
               selo.toString(),
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red, fontSize: constraints.maxHeight * .025),
             ),
-            Image.asset('assets/images/arvore-morta.png', width: constraints.maxWidth * .1),
+            Image.asset('assets/images/arvore-morta.png', width: constraints.maxWidth * .085),
           ],
         );
       } else if (1 < selo && selo <= 2) {
@@ -148,7 +148,7 @@ class SalesmanProvider with ChangeNotifier {
           children: [
             Text(
               selo.toString(),
-              style: const TextStyle(color: Colors.yellow),
+              style: TextStyle(color: Colors.yellow, fontSize: constraints.maxHeight * .025),
             ),
             Image.asset('assets/images/flor-morta.png', width: constraints.maxWidth * .1),
           ],
@@ -158,7 +158,7 @@ class SalesmanProvider with ChangeNotifier {
           children: [
             Text(
               selo.toString(),
-              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+              style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1), fontSize: constraints.maxHeight * .025),
             ),
             Image.asset('assets/images/folha.png', width: constraints.maxWidth * .1),
           ],
@@ -168,7 +168,7 @@ class SalesmanProvider with ChangeNotifier {
           children: [
             Text(
               selo.toString(),
-              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+              style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1), fontSize: constraints.maxHeight * .025),
             ),
             Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .08),
           ],
@@ -178,9 +178,9 @@ class SalesmanProvider with ChangeNotifier {
           children: [
             Text(
               selo.toString(),
-              style: const TextStyle(color: Color.fromRGBO(108, 168, 129, 1)),
+              style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1), fontSize: constraints.maxHeight * .025),
             ),
-            Image.asset('assets/images/tree.png', width: constraints.maxWidth * .08),
+            Image.asset('assets/images/tree.png', width: constraints.maxWidth * .065),
           ],
         );
       }
@@ -202,7 +202,7 @@ class SalesmanProvider with ChangeNotifier {
       } else if (3 < selo && selo <= 4) {
         img = Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .08);
       } else if (4 < selo && selo <= 5) {
-        img = Image.asset('assets/images/tree.png', width: constraints.maxWidth * .08);
+        img = Image.asset('assets/images/tree.png', width: constraints.maxWidth * .05);
       }
     } else {
       img = Image.asset('assets/images/semente.png', width: constraints.maxWidth * .08);

@@ -14,7 +14,7 @@ class AdressProvider with ChangeNotifier {
     var response = await Dio().get('http://10.0.2.2:8000/api/getAllEnderecos/$id');
     if (response.data['status'] == '200') {
       response.data['enderecos'].forEach(
-        (k, e) {
+        (e) {
           Endereco endereco = Endereco(
             idEndereco: e['idEndereco'],
             apelidoEndereco: e['apelidoEndereco'],

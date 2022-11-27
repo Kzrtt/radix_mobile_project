@@ -42,7 +42,7 @@ class ChatProvider with ChangeNotifier {
       );
     } else {
       response.data['chats'].forEach(
-        (k, e) {
+        (e) {
           Chat chat = Chat(
             idChat: e['idConversa'],
             idCliente: e['idCliente'],
@@ -67,7 +67,7 @@ class ChatProvider with ChangeNotifier {
 
     if (response.data['status'] == '200') {
       response.data['msgCliente'].forEach(
-        (k, e) {
+        (e) {
           DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
           Message mensagem = Message(
             idMessage: e['idMsgCliente'],
@@ -79,7 +79,7 @@ class ChatProvider with ChangeNotifier {
         },
       );
       response.data['msgVendedor'].forEach(
-        (k, e) {
+        (e) {
           DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
           Message mensagem = Message(
             idMessage: e['idMsgVendedor'],

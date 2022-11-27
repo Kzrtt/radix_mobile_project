@@ -178,7 +178,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
           return Column(
             children: [
               SizedBox(
-                height: constraints.maxHeight * .32,
+                height: constraints.maxHeight * .3,
                 width: constraints.maxWidth,
                 child: Column(
                   children: [
@@ -193,15 +193,15 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: constraints.maxHeight * .15,
+                      height: constraints.maxHeight * .14,
                       width: constraints.maxWidth,
                       child: Row(
                         children: [
                           SizedBox(
-                            height: constraints.maxHeight,
+                            height: constraints.maxHeight * .13,
                             width: constraints.maxWidth * .5,
                             child: Padding(
-                              padding: EdgeInsets.all(constraints.maxHeight * .015),
+                              padding: EdgeInsets.all(constraints.maxHeight * .01),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -301,7 +301,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                       width: constraints.maxWidth * .85,
                                       child: Center(child: Text(p.urlFoto)),
                                     ),
-                                    SizedBox(height: constraints.maxHeight * .03),
+                                    SizedBox(height: constraints.maxHeight * .02),
                                     SizedBox(
                                       height: constraints.maxHeight * .15,
                                       width: constraints.maxWidth * .85,
