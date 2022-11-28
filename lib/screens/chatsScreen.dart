@@ -26,9 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
     Provider.of<ChatProvider>(context, listen: false).loadChats(
       Provider.of<ClientProvider>(context, listen: false).getUser.idCliente,
     );
-    Provider.of<SalesmanProvider>(context, listen: false)
-        .loadVendedores()
-        .then((value) {
+    Provider.of<SalesmanProvider>(context, listen: false).loadVendedores().then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -38,8 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     List<Chat> _chats = Provider.of<ChatProvider>(context).getChats();
-    List<Vendedor> _vendedores =
-        Provider.of<SalesmanProvider>(context).getVendedores();
+    List<Vendedor> _vendedores = Provider.of<SalesmanProvider>(context).getVendedores();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -76,9 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         filled: true,
                         fillColor: const Color.fromRGBO(229, 229, 229, 0.90),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(229, 229, 229, 0.90),
-                              width: constraints.maxWidth * .03),
+                          borderSide: BorderSide(color: Color.fromRGBO(229, 229, 229, 0.90), width: constraints.maxWidth * .03),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -109,8 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 firstText: 'Você não possui nenhuma conversa',
                                 imgUrl: 'assets/svg/undraw_not_found.svg',
                                 height: constraints.maxWidth * .5,
-                                secondText:
-                                    'Converse com os vendedores caso tenha alguma duvida',
+                                secondText: 'Converse com os vendedores caso tenha alguma duvida',
                                 constraints: constraints,
                               ),
                             ],
@@ -125,14 +119,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                   itemCount: _chats.length,
                                   itemBuilder: (context, index) {
                                     Chat c = _chats[index];
-                                    Vendedor v = _vendedores.firstWhere(
-                                        (element) =>
-                                            element.idVendedor == c.idVendedor);
+                                    Vendedor v = _vendedores.firstWhere((element) => element.idVendedor == c.idVendedor);
                                     return InkWell(
                                       onTap: () {
-                                        Provider.of<ChatProvider>(context,
-                                                listen: false)
-                                            .setIdConversa(c.idChat);
+                                        Provider.of<ChatProvider>(context, listen: false).setIdConversa(c.idChat);
                                         Navigator.of(context).pushNamed(
                                           AppRoutes.INSIDECHAT,
                                           arguments: v,
@@ -141,8 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       child: ChatTile(
                                         id: c.idChat,
                                         title: v.nomeVendedor,
-                                        subTitle:
-                                            'Colocar ultima mensagem enviada',
+                                        subTitle: 'Disponível',
                                         leadingIcon: Icons.abc,
                                         trailingIcon: Icons.more_vert,
                                         color: false,

@@ -30,8 +30,7 @@ class _CuponScreenState extends State<CuponScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Cupom> _cupons =
-        Provider.of<CupomProvider>(context).getCuponsCliente();
+    List<Cupom> _cupons = Provider.of<CupomProvider>(context).getCuponsCliente();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -63,8 +62,7 @@ class _CuponScreenState extends State<CuponScreen> {
                         firstText: 'Você não possui nenhum cupom',
                         imgUrl: 'assets/svg/undraw_feeling_blue.svg',
                         height: constraints.maxWidth * .5,
-                        secondText:
-                            'Cupons de desconto aparecem no mínimo 1 vez por mês',
+                        secondText: 'Cupons de desconto aparecem no mínimo 1 vez por mês',
                         constraints: constraints,
                       ),
                     ],
@@ -82,25 +80,22 @@ class _CuponScreenState extends State<CuponScreen> {
                               final e = _cupons[index];
                               return Column(
                                 children: [
-                                  SizedBox(height: constraints.maxHeight * .02),
+                                  SizedBox(height: constraints.maxHeight * .01),
                                   DefaultTile(
-                                    leadingIcon:
-                                        Icons.local_attraction_outlined,
+                                    leadingIcon: Icons.local_attraction_outlined,
                                     constraints: constraints,
                                     subTitle: e.detalheCupom,
                                     title: e.tituloCupom,
                                   ),
-                                  SizedBox(
-                                      height: constraints.maxHeight * .001),
+                                  SizedBox(height: constraints.maxHeight * .01),
                                   Row(
                                     children: [
-                                      SizedBox(
-                                          width: constraints.maxWidth * .6),
+                                      SizedBox(width: constraints.maxWidth * .6),
                                       Text(
                                         'Vencimento: ${e.dtFim}',
                                         style: TextStyle(
                                           fontSize: constraints.maxHeight * .02,
-                                          fontWeight: FontWeight.w300,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ],

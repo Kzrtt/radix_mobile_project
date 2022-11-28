@@ -17,13 +17,13 @@ class DefaultTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(constraints.maxHeight * .02),
+      padding: EdgeInsets.only(left: constraints.maxHeight * .02, top: constraints.maxHeight * .05, right: constraints.maxHeight * .02),
       child: SizedBox(
         height: constraints.maxHeight * .14,
         child: ListTile(
           contentPadding: EdgeInsets.fromLTRB(
             constraints.maxWidth * .01,
-            constraints.maxHeight * .018,
+            constraints.maxHeight * .02,
             0,
             0,
           ),
@@ -40,11 +40,14 @@ class DefaultTile extends StatelessWidget {
               color: const Color.fromRGBO(108, 168, 129, 1),
             ),
           ),
-          title: Text(
-            title,
-            style: TextStyle(
-              fontSize: constraints.maxHeight * .04,
-              fontWeight: FontWeight.bold,
+          title: Padding(
+            padding: EdgeInsets.only(top: constraints.maxHeight * .0125),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: constraints.maxHeight * .04,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           isThreeLine: true,
