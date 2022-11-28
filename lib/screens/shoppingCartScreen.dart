@@ -175,7 +175,10 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                                         ),
                                         height: constraints.maxHeight * .4,
                                         width: constraints.maxWidth * .80,
-                                        child: Center(child: Text(i.produto.urlFoto)),
+                                        child: Image.asset(
+                                          'assets/productsPics/' + i.produto.urlFoto,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                       SizedBox(height: constraints.maxHeight * .03),
                                       SizedBox(

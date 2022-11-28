@@ -56,7 +56,7 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                       SizedBox(
                         height: constraints.maxHeight * .35,
                         width: constraints.maxWidth * .5,
-                        child: Image.asset('assets/images/amoras.png'),
+                        child: Image.asset('assets/productsPics/' + produto.urlFoto),
                       ),
                       SizedBox(height: constraints.maxHeight * .05),
                       SizedBox(
@@ -299,7 +299,10 @@ class _SalesmanScreen extends State<SalesmanScreen> {
                                       ),
                                       height: constraints.maxHeight * .40,
                                       width: constraints.maxWidth * .85,
-                                      child: Center(child: Text(p.urlFoto)),
+                                      child: Image.asset(
+                                        'assets/productsPics/' + p.urlFoto,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                     SizedBox(height: constraints.maxHeight * .02),
                                     SizedBox(

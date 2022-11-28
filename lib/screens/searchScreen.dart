@@ -208,12 +208,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                         ),
                                         tileColor: const Color.fromRGBO(237, 233, 232, .7),
                                         leading: CircleAvatar(
-                                          backgroundColor: Colors.black12,
+                                          backgroundColor: Color.fromRGBO(237, 233, 232, .7),
                                           radius: 50,
-                                          child: Icon(
-                                            Icons.abc,
-                                            size: constraints.maxHeight * .06,
-                                            color: Theme.of(context).colorScheme.secondary,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(50),
+                                            child: Image.asset(
+                                              'assets/productsPics/' + v.urlImagemVendedor,
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                         title: Text(

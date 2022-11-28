@@ -66,30 +66,61 @@ class ChatProvider with ChangeNotifier {
     var response = await Dio().get('http://10.0.2.2:8000/api/getAllMessages/$id');
 
     if (response.data['status'] == '200') {
-      response.data['msgCliente'].forEach(
-        (e) {
-          DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
-          Message mensagem = Message(
-            idMessage: e['idMsgCliente'],
-            message: e['mensagem'],
-            date: date,
-            isSentFromMe: true,
-          );
-          _messages.add(mensagem);
-        },
-      );
-      response.data['msgVendedor'].forEach(
-        (e) {
-          DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
-          Message mensagem = Message(
-            idMessage: e['idMsgVendedor'],
-            message: e['mensagem'],
-            date: date,
-            isSentFromMe: false,
-          );
-          _messages.add(mensagem);
-        },
-      );
+      try {
+        response.data['msgCliente'].forEach(
+          (k, e) {
+            DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
+            Message mensagem = Message(
+              idMessage: e['idMsgCliente'],
+              message: e['mensagem'],
+              date: date,
+              isSentFromMe: true,
+            );
+            _messages.add(mensagem);
+          },
+        );
+      } catch (e) {
+        response.data['msgCliente'].forEach(
+          (e) {
+            DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
+            Message mensagem = Message(
+              idMessage: e['idMsgCliente'],
+              message: e['mensagem'],
+              date: date,
+              isSentFromMe: true,
+            );
+            _messages.add(mensagem);
+          },
+        );
+      }
+
+      try {
+        response.data['msgVendedor'].forEach(
+          (e) {
+            DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
+            Message mensagem = Message(
+              idMessage: e['idMsgVendedor'],
+              message: e['mensagem'],
+              date: date,
+              isSentFromMe: false,
+            );
+            _messages.add(mensagem);
+          },
+        );
+      } catch (e) {
+        response.data['msgVendedor'].forEach(
+          (k, e) {
+            DateTime date = DateFormat('yyyy-MM-dd').parse(e['data']);
+            Message mensagem = Message(
+              idMessage: e['idMsgVendedor'],
+              message: e['mensagem'],
+              date: date,
+              isSentFromMe: false,
+            );
+            _messages.add(mensagem);
+          },
+        );
+      }
     } else if (response.data['status'] == '201') {
       response.data['msgVendedor'].forEach(
         (k, e) {

@@ -86,6 +86,7 @@ class _InsideChatScreenState extends State<InsideChatScreen> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(

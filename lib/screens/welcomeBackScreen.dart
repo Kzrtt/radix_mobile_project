@@ -334,17 +334,6 @@ class _WelcomeBackScreenState extends State<WelcomeBackScreen> {
                   ],
                 ),
                 SizedBox(height: constraints.maxHeight * .01),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Esqueci minha senha',
-                    style: TextStyle(
-                      fontSize: constraints.maxHeight * .02,
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
                 SizedBox(height: constraints.maxHeight * .1),
               ],
             ),

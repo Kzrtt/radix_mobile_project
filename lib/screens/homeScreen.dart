@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   @override
-  Widget _item(constraints) {
+  Widget _item(constraints, String texto1, String texto2, String imagem) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,20 +25,23 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Color.fromRGBO(250, 241, 240, 1),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          child: const Center(child: Text('Foto Produto')),
+          child: Image.asset(
+            'assets/productsPics/' + imagem,
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(height: constraints.maxHeight * .01),
         Padding(
           padding: EdgeInsets.only(left: constraints.maxWidth * .07),
           child: Text(
-            'Item 1',
+            texto1,
             style: TextStyle(fontSize: constraints.maxHeight * .025),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(left: constraints.maxWidth * .07),
           child: Text(
-            '\$ 19.99',
+            texto2,
             style: TextStyle(fontSize: constraints.maxHeight * .02, fontWeight: FontWeight.bold),
           ),
         ),
@@ -63,10 +66,40 @@ class _HomeScreenState extends State<HomeScreen> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _item(constraints),
-              _item(constraints),
-              _item(constraints),
-              _item(constraints),
+              _item(constraints, 'Banana Nanica', 'Produtor: Luiz Ricardo', 'bananananica.jpg'),
+              _item(constraints, 'Pitaya', 'Produtor: Rubão', 'pitaya.jpg'),
+              _item(constraints, 'Maça Argentina', 'Produtor: Luiz Carlos Gandra', 'macaargentina.jpg'),
+              _item(constraints, 'Alface', 'Produtor: Luiz Carlos Gandra', 'alface.jpg'),
+              SizedBox(width: constraints.maxWidth * .05),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _itemsRow2(constraints, String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: constraints.maxHeight * .03),
+        Padding(
+          padding: EdgeInsets.only(left: constraints.maxWidth * .04),
+          child: Text(
+            title,
+            style: TextStyle(fontSize: constraints.maxHeight * .035, fontWeight: FontWeight.w600),
+          ),
+        ),
+        SizedBox(height: constraints.maxHeight * .02),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _item(constraints, 'Luiz Ricardo', '', 'fotoricardinho.PNG'),
+              _item(constraints, 'Luiz Carlos Gandra', '', 'fotocarlos.PNG'),
+              _item(constraints, 'Rubão', '', 'fotorubao.PNG'),
+              _item(constraints, 'Yuri Yoshida', '', 'fotoyuri.PNG'),
+              SizedBox(width: constraints.maxWidth * .05),
             ],
           ),
         ),
@@ -168,7 +201,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             _itemsRow(constraints, 'Produtos Novos'),
-            _itemsRow(constraints, 'Famosos'),
+            SizedBox(height: constraints.maxHeight * .05),
+            _itemsRow2(constraints, 'Produtores do App'),
             SizedBox(height: constraints.maxHeight * .1),
           ],
         ),

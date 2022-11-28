@@ -13,10 +13,11 @@ class FeedbackScreen extends StatefulWidget {
 class _FeedbackScreenState extends State<FeedbackScreen> {
   final nomeClienteController = TextEditingController();
   final mensagemClienteController = TextEditingController();
+  int count = 0;
 
   Future<void> sendFeedback(String nome, String mensagem) async {
     var response = await Dio().post(
-      'http://localhost:8000/api/inserirFeedback',
+      'http://10.0.2.2:8000/api/inserirFeedback',
       data: {
         'nome': nome,
         'feedback': mensagem,
@@ -150,7 +151,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                       SizedBox(height: constraints.maxHeight * .12),
                                       Button(
                                         text: 'Home',
-                                        onTap: () => Navigator.of(context).pushNamed(AppRoutes.HOMETAB),
+                                        onTap: () => Navigator.of(context).popUntil((_) => count++ >= 2),
                                         height: constraints.maxHeight * .08,
                                         width: constraints.maxWidth * .6,
                                         color: false,

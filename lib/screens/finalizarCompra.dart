@@ -34,6 +34,7 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
   String? selectedCupom = '';
   bool _isLoading = true;
   String _pagamentoValue = 'Dinheiro';
+  int count = 0;
 
   @override
   void initState() {
@@ -95,7 +96,10 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                       SizedBox(height: constraints.maxHeight * .12),
                       Button(
                         text: 'Ir para Home',
-                        onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.HOMETAB),
+                        onTap: () {
+                          Provider.of<CartProvider>(context, listen: false).clearCart();
+                          Navigator.of(context).popUntil((_) => count++ >= 2);
+                        },
                         height: constraints.maxHeight * .08,
                         width: constraints.maxWidth * .6,
                         color: false,
@@ -306,7 +310,7 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                                 .toList(),
                             onChanged: (item) {
                               setState(() {
-                                selectedPagamento = item as String?;
+                                selectedCupom = item as String?;
                               });
                             },
                           ),
@@ -343,15 +347,15 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Frete',
                               style: TextStyle(
                                 color: Color.fromRGBO(132, 202, 157, 1),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Text('R\$ 10.00'),
+                            selectedCupom == 'Frete grátis' ? Text('R\$ 00.00') : Text('R\$ 10.00'),
                           ],
                         ),
                       ),
@@ -369,7 +373,7 @@ class _FinalizarCompraState extends State<FinalizarCompra> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Text('R\$ ${Provider.of<CartProvider>(context).getTotal() + 10.00}'),
+                            selectedCupom == 'Frete grátis' ? Text('R\$ ${Provider.of<CartProvider>(context).getTotal()}') : Text('R\$ ${Provider.of<CartProvider>(context).getTotal() + 10.00}'),
                           ],
                         ),
                       ),

@@ -170,7 +170,7 @@ class SalesmanProvider with ChangeNotifier {
               selo.toString(),
               style: TextStyle(color: Color.fromRGBO(108, 168, 129, 1), fontSize: constraints.maxHeight * .025),
             ),
-            Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .08),
+            Image.asset('assets/images/tulip.png', width: constraints.maxWidth * .065),
           ],
         );
       } else if (4 < selo && selo <= 5) {
